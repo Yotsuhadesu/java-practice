@@ -72,6 +72,6 @@ public class pretest_3060_elano_jethro {
                     break;
             }
         }
-
+        sc.close();    
     }
 }
