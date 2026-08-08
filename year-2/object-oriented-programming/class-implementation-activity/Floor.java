@@ -1,12 +1,23 @@
 import java.util.Scanner;
 
+/**
+ * The Floor class is used to create a floor object that will hold the floor's dimensions and compute the area.
+ * 
+ * @author Jethro Elano (jethro.elano@unc.edu.ph)
+ */
+
 public class Floor {
     // encapsulated fields
     private double floorLength;
     private double floorWidth;
     private double floorArea;
 
-    // constructors
+    /**
+     * constructors
+     * 
+     * @param floorLength
+     * @param floorWidth
+     */
     public Floor(double floorLength, double floorWidth) {
         this.floorLength = floorLength;
         this.floorWidth = floorWidth;
@@ -44,9 +55,7 @@ public class Floor {
         setFloorWidth(scanner.nextDouble());
         scanner.nextLine();
     }
-    public double computeFloorArea() {
-        this.floorArea = this.floorLength * this.floorWidth;
-        return this.floorArea;  
+    public void computeFloorArea() {
+        this.floorArea = this.floorLength * this.floorWidth; 
     }
-
 }
