@@ -7,12 +7,13 @@ public class Main {
         Floor floor = new Floor();
         ArrayList<Tile> tiles = new ArrayList<>();
 
-        floor.enterFloorDimensions();
-        double floorArea = floor.computeFloorArea();
+        floor.enterFloorDimensions(scanner);
+        floor.computeFloorArea();
+        double floorArea = floor.getFloorArea();
         char choice;
         int i = 0;  // counter variable
         do {
-            System.out.println("--- Enter Tile Option " + (i + 1) + " ---");
+            System.out.println("\n------ Enter Tile Option " + (i + 1) + " ------");
             System.out.print("Tile Brand/Name: ");
             String tileBrand = scanner.nextLine();
             System.out.print("Tile Length (in cm): ");
@@ -27,11 +28,11 @@ public class Main {
             int tilesNeeded = (int) (tiles.get(i).getTilesNeeded(floorArea) + 0.5);
             double totalCost = tiles.get(i).getTotalCost(tilesNeeded);
             
-            System.out.println("Result:");
+            System.out.println("\nResult:");
             System.out.println("- Tiles Needed: " + tilesNeeded + " tiles");
             System.out.printf("- Total Cost: P%.2f\n", totalCost);
 
-            System.out.print("Do you want to enter another tile option? (Y/N): ");
+            System.out.print("\nDo you want to enter another tile option? (Y/N): ");
             choice = scanner.next().toUpperCase().charAt(0);
             scanner.nextLine();
             i++;
@@ -54,12 +55,12 @@ public class Main {
         String lowBrand = tiles.get(lowIndex).getBrand();
         double lowCost = tiles.get(lowIndex).getTotalCost();
 
-        System.out.println("=".repeat(10) + " SUMMARY " + "=".repeat(10));
+        System.out.println("\n" + "=".repeat(12) + " SUMMARY " + "=".repeat(12));
         System.out.println("Highest Budget Needed:");
         System.out.printf("- Brand: %s (P%.2f total)\n", highBrand, highCost);
         System.out.println("Lowest Budget Needed:");
         System.out.printf("- Brand: %s (P%.2f total)\n", lowBrand, lowCost);
-        System.out.println("=".repeat(25));
+        System.out.println("=".repeat(34));
 
         scanner.close();
     }

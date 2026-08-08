@@ -4,17 +4,18 @@ public class Floor {
     // encapsulated fields
     private double floorLength;
     private double floorWidth;
+    private double floorArea;
 
     // constructors
     public Floor(double floorLength, double floorWidth) {
         this.floorLength = floorLength;
         this.floorWidth = floorWidth;
     }
-    public Floor() {
+    public Floor() {    // to use the class without parameters
         this(0.0, 0.0);
     }
 
-    // setters
+    // setters for each field for initialization or value assignment
      public void setFloorLength(double floorLength) {
         this.floorLength = floorLength;
     }
@@ -22,24 +23,30 @@ public class Floor {
         this.floorWidth = floorWidth;
     }
     
-    // getters
-     public double getFloorLength() {
+    // getters for returning the values of each field
+    public double getFloorLength() {
         return this.floorLength;
     }
     public double getFloorWidth() {
         return this.floorWidth;
     }
-
-    public double computeFloorArea() {
-        return (this.floorLength * this.floorWidth) * 100;
+    public double getFloorArea() {
+        return this.floorArea;
     }
-
-    public void enterFloorDimensions() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=== FLOOR TILING CALCULATOR ===");
+    
+    
+    // miscellaneous methods
+    public void enterFloorDimensions(Scanner scanner) { // prompting the user to enter the floor's dimensions
+        System.out.println("==== FLOOR TILING CALCULATOR ====");
         System.out.print("Enter Floor Length (in meters): ");
         setFloorLength(scanner.nextDouble());
         System.out.print("Enter Floor Width (in meters): ");
         setFloorWidth(scanner.nextDouble());
+        scanner.nextLine();
     }
+    public double computeFloorArea() {
+        this.floorArea = this.floorLength * this.floorWidth;
+        return this.floorArea;  
+    }
+
 }
