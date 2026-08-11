@@ -21,7 +21,7 @@ public class Discount {
         return this.attendeesCount;
     }
     public boolean getHasDiscount() {
-        return this.hasDiscount;
+        return this.hasDiscount = this.attendeesCount >= 10;
     }
     public double getDiscountAmount() {
         return this.discountAmount;
