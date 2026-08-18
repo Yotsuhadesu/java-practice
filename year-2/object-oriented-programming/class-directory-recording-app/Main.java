@@ -130,13 +130,22 @@ public class Main {
 
         for (int i = 0; i < students.size(); i++) {
             for (int j = 0; j < students.size() - 1 - i; j++) {
-                String stCurrent = students.get(j).getLastName();
-                String stNext = students.get(j + 1).getLastName();
-                if (stCurrent.compareToIgnoreCase(stNext) > 0) {
+                String lnCurrent = students.get(j).getLastName();
+                String lnNext = students.get(j + 1).getLastName();
+                String fnCurrent = students.get(j).getFirstName();
+                String fnNext = students.get(j + 1).getFirstName();
+                if (lnCurrent.compareToIgnoreCase(lnNext) > 0) {
                     // swap
                     Student temp = students.get(j);
                     students.set(j, students.get(j + 1));
                     students.set(j + 1, temp);
+                } else if (lnCurrent.compareToIgnoreCase(lnNext) == 0) {
+                    if (fnCurrent.compareToIgnoreCase(fnNext) > 0) {
+                        // swap
+                        Student temp = students.get(j);
+                        students.set(j, students.get(j + 1));
+                        students.set(j + 1, temp);
+                    }
                 }
             }
         }
