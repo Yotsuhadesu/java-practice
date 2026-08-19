@@ -13,14 +13,14 @@
 - Java Technology Products
     - Java SE (Standard Edition) - used for creating applications ran on desktop computers
     - Java EE (Enterprise Edition) - used for creating large enterprise, server-side, and client-side applications
-    - Java ME (Micro Edition) - used for creating applications on low-power/low-storage applications
-    - Java Card - used for applications on cards
+    - Java ME (Micro Edition) - used for creating applications on limited-power/limited-storage applications
+    - Java Card - used for applications on smart cards
 - Java Timeline
     - Green Team under the leadership of James Gosling created Oak as a solution for creating small devices such as television and cassette tape recorder
     - Oak was renamed as Java
     - In 1995, Netscape incorporated it to their browser
     - Oracle acquired Sun Microsystems in 2010
-- Duke - Java's mascot created by Green Team's graphic artist, Joe Polrang
+- Duke - Java's mascot created by Green Team's graphic artist, Joe Palrang
 - Platform Dependent Programs
     - Workflow: 
         1. Source code is written
