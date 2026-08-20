@@ -1,4 +1,4 @@
-# Day 1 - pages 3-40
+# Day 1 - pages 4-40
 
 ## Concepts
 - Programming - the act or job of creating programs
