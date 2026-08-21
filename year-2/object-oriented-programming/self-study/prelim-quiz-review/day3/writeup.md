@@ -4,7 +4,12 @@
 1. Concatenation Operator
 2. Pre and Post Decrement/Increment
 3. Java Operators
-4. Bitwise, Logical, Assignment, and the Ternary Operator
+4. Bitwise, Logical, Assignment, Ternary, and other Operators
+5. Operator Precedence
+6. Type-Casting
+7. Display output using System.out
+8. Predefined Libraries
+9. Classes and Objects
 ---
 ### Concatenation Operator
 - The `+` operator is the only overloaded operator in Java.
@@ -14,7 +19,7 @@
         // Lesser Lord Kusanali:250250
         String realArchonAge = 250 + 250 + ":" + "Lesser" + "Lord" + "Kusanali";
         // 500:Lesser Lord Kusanali
-- Java reads from left to right. If the first values are strings, the succeeding numbers gets treated as a string.
+- Java reads from left to right. If the first values are strings, the succeeding values gets treated as a string.
 ---
 ### Pre and Post Decrement/Increment
 1. Pre-Increment 
@@ -83,7 +88,7 @@ Result:
             Scanner scanner = new Scanner(System.in);
             System.out.println(scanner instanceof Scanner); // true
 ---
-### Bitwise, Logical, Assignment, and the Ternary Operator
+### Bitwise, Logical, Assignment, Ternary, and other Operators
 - Bitwise Operators
     - `|`, `&`, `^`, `~`
     - can be used for any integral values and boolean (except for `~`)
@@ -116,3 +121,104 @@ Result:
     - Syntax: 
         - `datatype variable = (boolean_expression) ? value1 : value2;`
         - the variable gets assigned with value1 if the boolean expression is true and it will be assigned with value2 if false
+- `new` operator
+    - creating objects/instance of a class
+    - Syntax: `Scanner scanner = new Scanner();`
+- `[]` operator
+    - creating arrays
+    - Syntax: `datatype [] variable = new datatype[length];` or `datatype [] variable;`
+
+            int[] arr = new int[5];
+            int[][] matrix = new int[5][5];
+---
+### Operator Precedence
+1. Unary Operators: `~`, `++`, `--`, `!`, type-cast
+2. Arithmetic Operators: `/`. `%`, `*`
+3. Arithmetic Operators: `+`. `-`
+4. Shift Operators: `>>`, `<<`, `>>>`
+5. Relational Operators: `>`, `<`, `>=`, `<=`
+6. Equality Operators; `==`, `!=`
+7. Bitwise Operators: `&`, `|`, `^`
+8. Logical Operators: `&&`, `||`
+9. Ternary Operator: `?:`
+---
+### Type Casting
+- Converting a datatype to a related datatype
+- Types:
+    1. Implicit Typecasting
+        - Widening
+        - Processed by the compiler
+
+                byte b = 1, y = 2;
+                int i = b + y;
+    2. Explicit Typecasting
+        - Narrowing
+        - Stated by the programmer
+
+                int i = 1, j = 2;
+                byte b = (byte) (i + j);
+Implicit  | Datatype | Explicit 
+--- | --- | --- 
+^ | double | \|
+\| | float | \|
+\| | long | \|
+\| | int | \|
+\| | short, char | \|
+\| | byte | ⌄
+---
+### Display output using System.out
+1. System.out.print()
+
+        System.out.print("Hello ");
+        System.out.print("World!");
+        // Hello World!
+2. System.out.println()
+
+        System.out.println("Hello");
+        System.out.println("World!");
+        // Hello 
+        // World!
+3. System.out.printf()
+
+        String greet = "Hello", receive = "World";
+        System.out.printf("%s %s!", greet, receive);
+        // Hello World!
+---
+### Predefined Libraries
+- readily available packages and classes for development
+- API Description
+    - documentation/description of a class/package
+    - field summary
+    - method summary
+    - constructor summary
+- Fully Qualified Name use
+
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+- Import them in order to use
+    1. Explicit Import
+        
+            import java.util.Scanner;   // importing the Scanner class
+    2. Implicit Import
+
+            import java.util.*; // importing the util package and the classes inside it
+        - is discouraged because there might be a name conflict between classes of the same name
+    3. Static Import
+
+            import static java.lang.System.out; 
+            // out.println() instead of System.out.println()
+- `java.lang` and your current package doesn't need to be imported
+---
+### Classes and Objects
+- Classes consists of fields, contructors, or methods
+- Can be called using its name if a field/method is static 
+
+        double tiles = Math.ceil(tilesNeeded);
+- Create an object to create an instance of a class
+- Object is a reference variable
+
+        Scanner scanner = new Scanner(System.in);
+        // this creates an instance of the Scanner class called scanner
+- Commonly used classes:
+    1. Math Class - a class with static fields and methods used for mathematical operations
+    2. Random Class - a class for generating random digits
+    3. Scanner Class - a class that parses primitive values and strings for input
