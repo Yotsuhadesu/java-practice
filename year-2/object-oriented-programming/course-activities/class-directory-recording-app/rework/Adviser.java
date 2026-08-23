@@ -7,5 +7,13 @@ public class Adviser extends Person{
         super(lastName, firsttName, middleName, gender, birthDate, contactNumber);
         this.degree = degree;
     }
+    public Adviser() {
+        this(null, null, null, null, null, null, 0);
+    }
 
+    public String getDegree() { return this.degree; }
+
+    public void assignAdviser() {
+        System.out.print();
+    }
 }
