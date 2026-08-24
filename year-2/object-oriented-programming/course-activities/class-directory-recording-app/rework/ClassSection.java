@@ -7,28 +7,22 @@ public class ClassSection {
     private ArrayList<Student> students;    // ArrayList of Student objects 
     private ArrayList<Student> sortedStudents;
 
-    // constructors
-    /*
-    public ClassSection(String gradeLevel, String section, Adviser adviser, ArrayList<Student> students) {
+    // constructor
+    public ClassSection(String gradeLevel, String section) {
         this.gradeLevel = gradeLevel;
         this.section = section;
-        this.adviser = adviser;
-        this.students = students;
-    }
-    */
-    public ClassSection() {
-        this.gradeLevel = null;
-        this.section = null;
         this.adviser = null;
         this.students = new ArrayList<>();
     }
 
+    // setters
     public void setGradelevel(String gradeLevel) { this.gradeLevel = gradeLevel; }
 
     public void setSection(String section) { this.section = section; }
 
     public void setAdviser(Adviser adviser) {this.adviser = adviser; }
 
+    // getters
     public String getGradeLevel() { return this.gradeLevel; }
     
     public String getSection() { return this.section; }
@@ -39,24 +33,25 @@ public class ClassSection {
 
     public ArrayList<Student> getSortedStudents() { return this.sortedStudents; }
 
+    // utility methods
     public void viewClassDirectory(ClassSection classSection) {
+        System.out.println("=".repeat(75));
         if (classSection.getGradeLevel() != null && classSection.getSection() != null) {
             // show class info
-            System.out.println("=".repeat(75));
             System.out.println("CLASS SECTION DIRECTORY");
             System.out.printf("Grade Level: %s\tSection: %s\n", classSection.getGradeLevel(), classSection.getSection());
             System.out.println("-".repeat(75));
         } else {
-            System.out.println("No class assigned. Please save assign a class and section or save and load directory to file first.");
+            System.out.println("WARNING! No class assigned. \nPlease assign a class and section or save and load directory to file first.");
         }
         if (classSection.getAdviser() != null) {
             // show adviser info
             System.out.println("ADVISER INFORMATION");
             Adviser adviser = classSection.getAdviser();
             String adLastName = adviser.getLastName();
-            String adFirstName = adviser.getFirsttName();
+            String adFirstName = adviser.getFirstName();
             String adMiddleName = adviser.getMiddleName();
-            String adGender = adviser.getMiddleName();
+            String adGender = adviser.getGender();
             String adBirthdate = adviser.getBirthDate();
             adviser.computeAge();   // compute the age first
             int adAge = adviser.getAge();
@@ -67,7 +62,7 @@ public class ClassSection {
             System.out.printf("Contact: %d | Degree: %s\n", adContactNumber, adDegree);
             System.out.println("-".repeat(75));
         } else {
-            System.out.println("No adviser assigned. Please assign an adviser or save and load directory from file.");
+            System.out.println("WARNING! No adviser assigned. \nPlease assign an adviser or save and load directory from file.");
         }
 
         if (classSection.getStudents() != null && classSection.getStudents().size() != 0) {
@@ -79,9 +74,9 @@ public class ClassSection {
             for (Student student : sortedStudents) {
                 long stLRN = student.getLRN();
                 String stLastName = student.getLastName();
-                String stFirstName = student.getFirsttName();
+                String stFirstName = student.getFirstName();
                 String stMiddleName = student.getMiddleName();
-                String stGender = student.getMiddleName();
+                String stGender = student.getGender();
                 String stBirthdate = student.getBirthDate();
                 student.computeAge();
                 int stAge = student.getAge();
@@ -89,34 +84,36 @@ public class ClassSection {
                 String stAddress = student.getAddress();
     
                 System.out.printf("[%02d]\tLRN: %d\n", i, stLRN);
-                System.out.printf("\tName: %s, %s %s\n", stFirstName, stLastName, stMiddleName);
+                System.out.printf("\tName: %s, %s %s\n", stLastName, stFirstName, stMiddleName);
                 System.out.printf("\tGender: %s |  Birthdate: %s (Age: %d) | Contact: %d\n", stGender, stBirthdate, stAge, stContactNumber);
                 System.out.printf("\tAddress: %s\n", stAddress);
                 i++;
             }
         } else {
-            System.out.println("No students in class. Please add a student or save and load directory from file.");
+            System.out.println("WARNING! No students in class. \nPlease add a student or save and load directory from file.");
         }
         System.out.println("=".repeat(75));
     }
-
+    
     public void sortStudents() {
+        if (sortedStudents != null && sortedStudents.size() != 0) { sortedStudents.clear(); }
+        if (this.students == null || this.students.size() == 0) { return; }
         ArrayList<Student> sortedStudents = new ArrayList<>(this.students);
 
         int size = sortedStudents.size();
         for (int i = 1; i < size; i++) {
             Student key = sortedStudents.get(i);
-            String keyLastName = key.getLastName();
+            String keyName = key.getLastName() + " " + key.getFirstName();
             int j = i - 1;  // sorted Student object(s) boundary
             
-            while (j >= 0 &&  sortedStudents.get(j).getLastName().compareToIgnoreCase(keyLastName) > 0) {
+            while (j >= 0 &&  (sortedStudents.get(j).getLastName() + " " + sortedStudents.get(j).getFirstName()).compareToIgnoreCase(keyName) > 0) {
                 sortedStudents.set(j + 1, sortedStudents.get(j));
                 j--;
             }
             // place the unsorted element to its correct position
             sortedStudents.set(j + 1, key);
         }
-        this.sortedStudents =  sortedStudents;
+        this.sortedStudents = sortedStudents;
     }
 
     public void assignAdviser(ClassSection classSection) {
@@ -137,8 +134,7 @@ public class ClassSection {
             }
         }
         if (willAssign) {
-            System.out.println();
-            System.out.println("ADVISER INFORMATION FORM");
+            System.out.println("--- ASSIGN ADVISER ---");
             UserInput.acceptString();
             System.out.print("Enter Last Name: ");
             String adLastName = UserInput.acceptString();
@@ -188,5 +184,9 @@ public class ClassSection {
 
         classSection.addStudent(new Student(stLRN, stAddress, stLastName, stFirstName, stMiddleName, stGender, stBirthDate, adContactNumber));
         System.out.println("Student added successfully.");
+    }
+
+    public void clearDirectory() {
+        this.students = new ArrayList<>();
     }
 }

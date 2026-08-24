@@ -42,7 +42,7 @@ public class UserInput {
         String address = scanner.nextLine();
 
         return new Student(lrn, address, lastName, firstName, middleName, 
-                           gender, birthDate, contactNumber);
+            gender, birthDate, contactNumber);
     }
 
     public static String acceptString() { return scanner.nextLine(); }
