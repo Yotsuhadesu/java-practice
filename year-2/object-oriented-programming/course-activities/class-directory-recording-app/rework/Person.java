@@ -4,7 +4,7 @@ import java.time.Period;
 public class Person {
     // protected keyword so that these can only be used by classes inside the package and the child classes
     protected String lastName;
-    protected String firsttName;
+    protected String firstName;
     protected String middleName;
     protected String gender;
     protected String birthDate;
@@ -21,10 +21,10 @@ public class Person {
      * @param birthDate
      * @param contactNumber
      */
-    public Person(String lastName, String firsttName, String middleName, 
+    public Person(String lastName, String firstName, String middleName, 
                   String gender, String birthDate, long contactNumber) {
         this.lastName = lastName;
-        this.firsttName = firsttName;
+        this.firstName = firstName;
         this.middleName = middleName;
         this.gender = gender;
         this.birthDate = birthDate;
@@ -32,15 +32,34 @@ public class Person {
     }
 
     public void computeAge() {
-        LocalDate birthDate = LocalDate.parse(this.birthDate);
-        LocalDate currDate = LocalDate.now();
-        this.age = Period.between(birthDate, currDate).getYears();
+        if (this.birthDate != null) {
+            LocalDate birthDate = LocalDate.parse(this.birthDate);
+            LocalDate currDate = LocalDate.now();
+            this.age = Period.between(birthDate, currDate).getYears();
+        } else {
+            System.out.println("Please assign a bitrhdate first.");
+        }
     }
+
+    // setters
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public void setMiddleName(String middleName) { this.middleName = middleName; }
+
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    
+    public void setGender(String gender) { this.gender = gender; }
+
+    public void setBirthDate(String birthDate) { this.birthDate = birthDate; }
+
+    public void setContactNumber(long contactNumber) { this.contactNumber = contactNumber; }
+
+    public void setAge(int age) { this.age = age; }
 
     // getters
     public String getLastName() { return this.lastName; }
 
-    public String getFirsttName() { return this.firsttName; }
+    public String getFirsttName() { return this.firstName; }
 
     public String getMiddleName() { return this.middleName; }
 
@@ -52,5 +71,4 @@ public class Person {
 
     public int getAge() { return this.age; }
 
-    public void setAge(int age) { this.age = age; }
 }
