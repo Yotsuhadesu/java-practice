@@ -55,6 +55,7 @@ public class FileProcess {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.println("Directory successfully saved!");
         } else {
             System.out.println("File doesn't exist. Please create \"ClassDirectory.txt\"");
         }
@@ -105,86 +106,12 @@ public class FileProcess {
                             break;
                     }
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.println("File successfully loaded!");
         } else {
             System.out.println("File doesn't exist or is empty.");
-        }
-    }
-
-    public static void editStudent(ClassSection classSection) {
-        if (classSection.getStudents() == null || classSection.getStudents().size() == 0) {
-            System.out.println("No student enbrolled yet. Please add a student first.");
-            return;
-        }
-        System.out.print("Enter LRN: ");
-        long inputLRN = UserInput.acceptLong();
-        UserInput.acceptString();
-        boolean found = false;
-        for (Student student : classSection.getStudents()) {
-            if (student.getLRN() == inputLRN) {
-                System.out.println("""
-                        1. LRN
-                        2. Last Name
-                        3. First Name
-                        4. Middle Name
-                        5. Gender
-                        6. BirthDate
-                        7. Contact Number
-                        8. Home Address
-                        9. Exit
-                        Choice:\t""");
-                int choice = UserInput.acceptInt();
-                UserInput.acceptString();
-                switch (choice) {
-                    case 1:
-                        System.out.print("Enter LRN: ");
-                        student.setLRN(UserInput.acceptLong());
-                        UserInput.acceptString();
-                        break;
-                    case 2:
-                        System.out.print("Enter Last Name: ");
-                        student.setLastName(UserInput.acceptString());
-                        break;
-                    case 3:
-                        System.out.print("Enter First Name: ");
-                        student.setFirstName(UserInput.acceptString());
-                        break;
-                    case 4:
-                        System.out.print("Enter Middle Name: ");
-                        student.setMiddleName(UserInput.acceptString());
-                        break;
-                    case 5:
-                        System.out.print("Enter Gender: ");
-                        student.setGender(UserInput.acceptString());
-                        break;
-                    case 6:
-                        System.out.print("Enter Birthdate (YYYY-MM-DD): ");
-                        student.setBirthDate(UserInput.acceptString());
-                        break;
-                    case 7:
-                        System.out.print("Enter Contact Number: ");
-                        student.setContactNumber(UserInput.acceptLong());
-                        break;
-                    case 8:
-                        System.out.print("Enter Home Address: ");
-                        student.setAddress(UserInput.acceptString());
-                        break;
-                    case 9:
-                        System.out.println("Exiting the updating student system...");
-                        return;
-                    default:
-                        System.out.println("Invalid Input!");
-                        break;
-                }
-                found = true;
-                break; // stop once match is updated
-            }
-        }
-        if (!found) {
-            System.out.println("LRN not found.");
         }
     }
 }

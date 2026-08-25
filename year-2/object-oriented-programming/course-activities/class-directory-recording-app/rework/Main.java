@@ -18,7 +18,7 @@ public class Main {
                     classSection.addStudent(classSection);
                     break;
                 case 4:
-                    FileProcess.editStudent(classSection);
+                    classSection.editStudent(classSection);
                     break;
                 case 5:
                     FileProcess.saveDirectory(classSection);

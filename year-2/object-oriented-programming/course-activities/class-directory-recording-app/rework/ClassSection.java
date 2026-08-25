@@ -96,7 +96,6 @@ public class ClassSection {
     }
     
     public void sortStudents() {
-        if (sortedStudents != null && sortedStudents.size() != 0) { sortedStudents.clear(); }
         if (this.students == null || this.students.size() == 0) { return; }
         ArrayList<Student> sortedStudents = new ArrayList<>(this.students);
 
@@ -135,7 +134,6 @@ public class ClassSection {
         }
         if (willAssign) {
             System.out.println("--- ASSIGN ADVISER ---");
-            UserInput.acceptString();
             System.out.print("Enter Last Name: ");
             String adLastName = UserInput.acceptString();
             System.out.print("Enter First Name: ");
@@ -148,7 +146,6 @@ public class ClassSection {
             String adBirthDate = UserInput.acceptString();
             System.out.print("Enter Contact Number: ");
             long adContactNumber = UserInput.acceptLong();
-            UserInput.acceptString();   // consume leftover \n
             System.out.print("Enter Degree: ");
             String adDegree = UserInput.acceptString();
             
@@ -162,10 +159,8 @@ public class ClassSection {
 
     public void addStudent(ClassSection classSection) {
         System.out.printf("--- %s ---\n", "ADD NEW STUDENT" );
-        UserInput.acceptString();
         System.out.print("Enter LRN: ");
         long stLRN = UserInput.acceptLong();
-        UserInput.acceptString();   // consume leftover \n
         System.out.print("Enter Last Name: ");
         String stLastName = UserInput.acceptString();
         System.out.print("Enter First Name: ");
@@ -178,7 +173,6 @@ public class ClassSection {
         String stBirthDate = UserInput.acceptString();
         System.out.print("Enter Contact Number: ");
         long adContactNumber = UserInput.acceptLong();
-        UserInput.acceptString();   // consume leftover \n
         System.out.print("Enter Home Address: ");
         String stAddress = UserInput.acceptString();
 
@@ -188,5 +182,78 @@ public class ClassSection {
 
     public void clearDirectory() {
         this.students = new ArrayList<>();
+    }
+
+    public void editStudent(ClassSection classSection) {
+        if (classSection.getStudents() == null || classSection.getStudents().size() == 0) {
+            System.out.println("No student enrolled yet. Please add a student first.");
+            return;
+        }
+        System.out.print("Enter LRN: ");
+        long inputLRN = UserInput.acceptLong();
+        boolean found = false;
+        for (Student student : classSection.getStudents()) {
+            if (student.getLRN() == inputLRN) {
+                System.out.println("""
+                        1. LRN
+                        2. Last Name
+                        3. First Name
+                        4. Middle Name
+                        5. Gender
+                        6. BirthDate
+                        7. Contact Number
+                        8. Home Address
+                        9. Exit
+                        Choice:\t""");
+                int choice = UserInput.acceptInt();
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter LRN: ");
+                        student.setLRN(UserInput.acceptLong());
+                        break;
+                    case 2:
+                        System.out.print("Enter Last Name: ");
+                        student.setLastName(UserInput.acceptString());
+                        break;
+                    case 3:
+                        System.out.print("Enter First Name: ");
+                        student.setFirstName(UserInput.acceptString());
+                        break;
+                    case 4:
+                        System.out.print("Enter Middle Name: ");
+                        student.setMiddleName(UserInput.acceptString());
+                        break;
+                    case 5:
+                        System.out.print("Enter Gender: ");
+                        student.setGender(UserInput.acceptString());
+                        break;
+                    case 6:
+                        System.out.print("Enter Birthdate (YYYY-MM-DD): ");
+                        student.setBirthDate(UserInput.acceptString());
+                        break;
+                    case 7:
+                        System.out.print("Enter Contact Number: ");
+                        student.setContactNumber(UserInput.acceptLong());
+                        break;
+                    case 8:
+                        System.out.print("Enter Home Address: ");
+                        student.setAddress(UserInput.acceptString());
+                        break;
+                    case 9:
+                        System.out.println("Exiting the updating student system...");
+                        return;
+                    default:
+                        System.out.println("Invalid Input!");
+                        break;
+                }
+                found = true;
+                break; // stop once match is updated
+            }
+        }
+        if (!found) {
+            System.out.println("LRN not found.");
+        } else {
+            System.out.println("Student successfully updated!");
+        }
     }
 }
