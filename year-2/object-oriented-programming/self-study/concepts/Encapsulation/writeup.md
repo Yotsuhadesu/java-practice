@@ -36,5 +36,3 @@ The generic setter enables the user to dictate how much balance he has, while th
 
 ## Teach it
 Encapsulation is a concept in Object Oriented Programming that encourages program designs that doesn't allow users besides the creator to put or change values from a container. Games that has currency or keeps track of scores uses this concept.
-
-
