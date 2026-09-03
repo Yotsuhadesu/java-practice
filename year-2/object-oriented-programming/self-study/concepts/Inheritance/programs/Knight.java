@@ -5,6 +5,6 @@ public class Knight extends ChessPiece {
     }
     @Override
     public void move() {
-        System.out.println("The knight moved in L shaped path.");
+        System.out.println("The knight moves in an L-shaped path.");
     }
 }

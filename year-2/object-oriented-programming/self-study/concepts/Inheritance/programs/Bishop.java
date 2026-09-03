@@ -5,6 +5,6 @@ public class Bishop extends ChessPiece {
     }
     @Override
     public void move() {
-        System.out.println("The bishop moved in a diagonal path.");
+        System.out.println("The bishop moves diagonally.");
     }
 }
