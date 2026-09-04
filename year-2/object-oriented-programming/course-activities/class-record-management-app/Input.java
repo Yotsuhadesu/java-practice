@@ -41,6 +41,7 @@ public class Input {
     public static int acceptInt(String prompt) {
         System.out.print(prompt + " ");
         while (!scanner.hasNextInt()) {
+            System.out.print(prompt + " ");
             scanner.next();
         }
         int input = scanner.nextInt();
