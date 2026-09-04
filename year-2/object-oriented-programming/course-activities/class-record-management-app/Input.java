@@ -5,13 +5,23 @@ public class Input {
 
     public static void showMenu() {
         System.out.println("=".repeat(50));
-        System.out.println("\tUNIVERSITY OF NUEVA CACERES");
-        System.out.println("\tClass Record Management System");
-        System.out.println();
-        System.out.println("=== MAIN MENU ===");
         System.out.println("""
-                
-                """;);
+            \tUNIVERSITY OF NUEVA CACERES
+            \tClass Record Management System""");
+        System.out.println("=".repeat(50));
+        System.out.println();
+        System.out.println("""
+                === MAIN MENU ===
+                [1] Assign College & Program Details
+                [2] Assign Subject / Course Details
+                [3] Set / Update Assigned Instructor
+                [4] Add Enrolled Student
+                [5] Remove Student by ID
+                [6] Display Enrolled Students (Unsorted / Sorted)
+                [7] Display Full Class Record
+                [8] Save Class Record to File
+                [9] Load Class Record from File
+                [0] Exit""");
     }
 
     public static String acceptString(String prompt) {
@@ -20,19 +30,19 @@ public class Input {
             System.out.print(prompt + " ");
             input = scanner.nextLine();
             if (input == null || input.isBlank()) {
-                scanner.next();
+                scanner.nextLine();
             } else {
                 break;
             }
         } while(scanner.hasNext());
-
         return input;
     }
 
     public static int acceptInt(String prompt) {
-        do {
-            System.out.print(prompt + " ");
-        } while (!scanner.hasNextInt());
+        System.out.print(prompt + " ");
+        while (!scanner.hasNextInt()) {
+            scanner.next();
+        }
         int input = scanner.nextInt();
         scanner.nextLine();
         return input;

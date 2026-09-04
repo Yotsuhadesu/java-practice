@@ -1,15 +1,19 @@
 public class Main {
     public static void main(String[] args) {
         ClassRecord classRecord = new ClassRecord();
+        Input.showMenu();
         int choice;
         do {
+            System.out.println();
             choice = Input.acceptInt("Select option:");
+            System.out.println();
             switch (choice) {
                 case 1:
                     classRecord.assignCollegeDetails();
+                    classRecord.assignProgramDetails();
                     break;
                 case 2:
-
+                    classRecord.assignCourseDetails();
                     break;
                 case 3:
 
