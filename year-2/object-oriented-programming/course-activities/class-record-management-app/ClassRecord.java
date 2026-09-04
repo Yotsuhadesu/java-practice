@@ -23,9 +23,9 @@ public class ClassRecord implements ClassList{
     @Override 
     public void assignCourseDetails() {
         System.out.println("--- COURSE (SUBJECT) DETAILS ---");
-        course.setSubjectName(Input.acceptString("Enter Subject Code:"));
-        course.setSubjectCode(Input.acceptString("Enter Subject ID:"));
-        course.setSubjectID(Input.acceptString("Enter Subject Name:"));
+        course.setSubjectCode(Input.acceptString("Enter Subject Code:"));
+        course.setSubjectID(Input.acceptString("Enter Subject ID:"));
+        course.setSubjectName(Input.acceptString("Enter Subject Name:"));
         course.setUnits(Input.acceptInt("Enter Units:"));
         System.out.println(">> Course details successfully set!");
 
@@ -42,6 +42,9 @@ public class ClassRecord implements ClassList{
     }
     @Override
     public void addStudent() {
+        if (students.size() == 40) {
+            System.out.println("The current class is at full capacity. It cannot accept more students.");
+        }
         System.out.printf("--- ADD ENROLLED STUDENT (Current: %d/40) ---\n", students.size());
         String studentNumber = Input.acceptString("Enter Student No:");
         String firstName = Input.acceptString("Enter First Name:");
@@ -55,11 +58,26 @@ public class ClassRecord implements ClassList{
     }
     @Override
     public void removeStudent() {
-
+        String studentNumber = Input.acceptString("Enter Student Number:");
+        students.removeIf(student -> student.getStudentNumber().equals(studentNumber));
+        System.out.println(">>> Student successfully removed!");
     }
     @Override
     public void displayStudents() {
-
+        switch (Input.acceptInt("""
+                === ENROLLED STUDENT LIST ===
+                [1] Sort Alphabetically
+                [2] Display in Order Added
+                Select option:""")) {
+            case 1:
+                System.out.println("Bayoretto Ebegaden des");
+                break;
+            case 2:
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                break;
+        }
     }
     @Override
     public void displayClassRecord() {
