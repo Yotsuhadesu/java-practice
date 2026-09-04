@@ -6,6 +6,7 @@ public class ClassRecord implements ClassList{
     Course course = new Course();
     Faculty faculty = new Faculty(null, null, null, null, null);
     ArrayList <Student> students = new ArrayList<>();
+    ArrayList <Student> sortedStudents = new ArrayList<>(); 
     
     @Override 
     public void assignCollegeDetails() {
@@ -42,10 +43,10 @@ public class ClassRecord implements ClassList{
     }
     @Override
     public void addStudent() {
-        if (students.size() == 40) {
+        if (students.size() == MAX_STUDENTS) {
             System.out.println("The current class is at full capacity. It cannot accept more students.");
         }
-        System.out.printf("--- ADD ENROLLED STUDENT (Current: %d/40) ---\n", students.size());
+        System.out.printf("--- ADD ENROLLED STUDENT (Current: %d/%d) ---\n", students.size(), MAX_STUDENTS);
         String studentNumber = Input.acceptString("Enter Student No:");
         String firstName = Input.acceptString("Enter First Name:");
         String middleName = Input.acceptString("Enter Middle Name:");
@@ -73,6 +74,7 @@ public class ClassRecord implements ClassList{
                 System.out.println("Bayoretto Ebegaden des");
                 break;
             case 2:
+                displayStudents(students);
                 break;
             default:
                 System.out.println("Invalid choice.");
@@ -82,5 +84,30 @@ public class ClassRecord implements ClassList{
     @Override
     public void displayClassRecord() {
 
+    }
+
+    public void sortStudents() {
+        this.sortedStudents = this.students;
+        for (int i = 1; i < sortedStudents.size(); i++) {
+            Student key = sortedStudents.get(i);
+            int j = i - 1;
+            while (j >= 0 && sortedStudents.get(j).getCompleteName().compareToIgnoreCase(key.getCompleteName()) > 0) {
+                sortedStudents.set(j + 1, sortedStudents.get(j));
+            }
+            sortedStudents.set(j + 1, key);
+        }
+    }
+
+    public void displayStudents(ArrayList<Student> students) {
+        int i = 1;
+        System.out.println("-".repeat(100));
+        System.out.printf("%-2s %-15s %-50s %-10s %-20s\n", "#", "STUDENT NO.", "COMPLETE NAME (Lastname, Firstname M.I.)", "GENDER", "COURSE ENROLLED");
+        System.out.println("-".repeat(100));
+        for (Student student : students) {
+            System.out.printf("%-2d %-15s %-50s %-10s %-20s\n", i, student.getStudentNumber(), student.getCompleteName(), student.getGender(), student.getCourse());
+            i++;
+        }
+        System.out.println("-".repeat(100));
+        System.out.printf("Total Enrolled: %d / %d Students\n", students.size(), MAX_STUDENTS);
     }
 }
