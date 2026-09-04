@@ -10,6 +10,10 @@ public class ClassRecord implements ClassList{
     @Override 
     public void assignCollegeDetails() {
         System.out.println("--- COLLEGE & PROGRAM ASSIGNMENT ---");
+        college.setCollegeCode(Input.acceptString("Enter College Code:"));
+        college.setCollegeName(Input.acceptString("Enter College Name:"));
+        program.setProgramCode(Input.acceptString("Enter Program Code:"));
+        program.setProgramName(Input.acceptString("Enter Program Name:"));
     }
     @Override
     public void assignProgramDetails() {
