@@ -33,8 +33,7 @@ public class Student extends Person{
     public void setGender(String gender) {
         this.gender = gender;
     }
-    public void setCourse(String course) {
+    public void setCourse(String course) { 
         this.course = course;
     }
-    
 }
