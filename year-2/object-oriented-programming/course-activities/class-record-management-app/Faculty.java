@@ -12,6 +12,7 @@ public class Faculty extends Person{
 
     @Override
     public String getCompleteName() {
+        if (middleName == null) { return null; }
         return String.format("%s %s. %s, %s", firstName, middleName.charAt(0), lastName, degree);
     }
 

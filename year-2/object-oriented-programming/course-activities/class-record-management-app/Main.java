@@ -28,7 +28,7 @@ public class Main {
                     classRecord.displayStudents();
                     break;
                 case 7:
-                    classRecord.displayStudents();
+                    classRecord.displayClassRecord();
                     break;
                 case 8:
 

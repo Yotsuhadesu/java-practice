@@ -1,30 +1,30 @@
 public class Course {
-    private String subjectCode;
-    private String subjectID;
-    private String subjectName;
+    private String courseCode;
+    private String courseID;
+    private String courseName;
     private int units;
 
-    public String getSubjectCode() {
-        return this.subjectCode;
+    public String getCourseCode() {
+        return this.courseCode;
     }
-    public String getSubjectID() {
-        return this.subjectID;
+    public String getCourseID() {
+        return this.courseID;
     }
-    public String getSubjectName() {
-        return this.subjectName;
+    public String getCourseName() {
+        return this.courseName;
     }
     public int getUnits() {
         return this.units;
     }
     
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
-    public void setSubjectID(String subjectID) {
-        this.subjectID = subjectID;
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
     }
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
     public void setUnits(int units) {
         this.units = units;

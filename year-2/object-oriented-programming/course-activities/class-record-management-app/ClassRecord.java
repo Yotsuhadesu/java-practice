@@ -7,7 +7,7 @@ public class ClassRecord implements ClassList{
     Faculty faculty = new Faculty(null, null, null, null, null);
     ArrayList <Student> students = new ArrayList<>();
     ArrayList <Student> sortedStudents = new ArrayList<>(); 
-    
+
     @Override 
     public void assignCollegeDetails() {
         System.out.println("--- COLLEGE & PROGRAM ASSIGNMENT ---");
@@ -24,9 +24,9 @@ public class ClassRecord implements ClassList{
     @Override 
     public void assignCourseDetails() {
         System.out.println("--- COURSE (SUBJECT) DETAILS ---");
-        course.setSubjectCode(Input.acceptString("Enter Subject Code:"));
-        course.setSubjectID(Input.acceptString("Enter Subject ID:"));
-        course.setSubjectName(Input.acceptString("Enter Subject Name:"));
+        course.setCourseCode(Input.acceptString("Enter Subject Code:"));
+        course.setCourseID(Input.acceptString("Enter Subject ID:"));
+        course.setCourseName(Input.acceptString("Enter Subject Name:"));
         course.setUnits(Input.acceptInt("Enter Units:"));
         System.out.println(">> Course details successfully set!");
 
@@ -72,10 +72,10 @@ public class ClassRecord implements ClassList{
                 Select option:""")) {
             case 1:
                 sortStudents();
-                displayStudents(sortedStudents);
+                viewStudents(sortedStudents);
                 break;
             case 2:
-                displayStudents(students);
+                viewStudents(students);
                 break;
             default:
                 System.out.println("Invalid choice.");
@@ -84,7 +84,24 @@ public class ClassRecord implements ClassList{
     }
     @Override
     public void displayClassRecord() {
-
+        System.out.println("=".repeat(100));
+        System.out.println("OFFICIAL CLASS RECORD | University of Nueva Caceres");
+        System.out.println("=".repeat(100));
+        System.out.printf("""
+                COLLEGE: [%s] %s
+                PROGRAM: [%s] %s
+                COURSE: %s - %s (Subject ID: %s | Units: %d)
+                INSTRUCTOR: %s, %s (ID: %s)\n""", 
+                college.getCollegeCode(), college.getCollegeName(),
+                program.getProgramCode(), program.getProgramName(),
+                course.getCourseCode(), course.getCourseName(), course.getCourseID(), course.getUnits(),
+                faculty.getCompleteName(), faculty.getDegree(), faculty.getFacultyID()
+            );
+        System.out.println("-".repeat(100));
+        System.out.println("ENROLLED STUDENTS ROSTER (Sorted Alphabetically):");
+        sortStudents();
+        viewStudents(sortedStudents);
+        System.out.println("=".repeat(100));
     }
 
     public void sortStudents() {
@@ -100,7 +117,7 @@ public class ClassRecord implements ClassList{
         }
     }
 
-    public void displayStudents(ArrayList<Student> students) {
+    public void viewStudents(ArrayList<Student> students) {
         int i = 1;
         System.out.println("-".repeat(100));
         System.out.printf("%-2s %-15s %-50s %-10s %-20s\n", "#", "STUDENT NO.", "COMPLETE NAME (Lastname, Firstname M.I.)", "GENDER", "COURSE ENROLLED");
