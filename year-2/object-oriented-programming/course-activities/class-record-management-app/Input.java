@@ -30,11 +30,11 @@ public class Input {
             System.out.print(prompt + " ");
             input = scanner.nextLine();
             if (input == null || input.isBlank()) {
-                scanner.nextLine();
+                System.out.println("Please enter a valid input.");
             } else {
                 break;
             }
-        } while(scanner.hasNext());
+        } while(input == null || input.isBlank());
         return input;
     }
 
