@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 public class FileProcess {
-    public static void saveToFile(ClassRecord classRecord) {
+    public static void saveToFile(College college, Program program, Course course, Faculty faculty, ArrayList<Student> students) {
         System.out.println("--- PERSISTENT FILE STORAGE ---");
-        File file = new File("ClassRecord_" + classRecord.course.getCourseCode() + ".txt");
+        File file = new File("ClassRecord_" + course.getCourseCode() + ".txt");
         if (!file.exists()) {
             System.out.println("Creating " + file.getName() + ".");
             System.out.println(file.getName() + " successfully created!");
@@ -17,7 +17,6 @@ public class FileProcess {
         System.out.printf("Saving current class record to \"%s\"...\n", file.getName());
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             // save college
-            College college = classRecord.college;
             writer.write("COLLEGE|" + 
                 college.getCollegeCode() + "|" +
                 college.getCollegeName()
@@ -25,7 +24,6 @@ public class FileProcess {
             writer.newLine();
             
             // save program
-            Program program = classRecord.program;
             writer.write("PROGRAM|" + 
             program.getProgramCode() + "|" +
             program.getProgramName()
@@ -33,7 +31,6 @@ public class FileProcess {
             writer.newLine();
 
             // save course
-            Course course = classRecord.course;
             writer.write("COURSE|" + 
                 course.getCourseCode() + "|" +
                 course.getCourseID() + "|" +
@@ -43,7 +40,6 @@ public class FileProcess {
             writer.newLine();
             
             // save faculty
-            Faculty faculty = classRecord.faculty;
             writer.write("FACULTY|" + 
                 faculty.getFacultyID() + "|" +
                 faculty.getFirstName() + "|" +
@@ -54,7 +50,6 @@ public class FileProcess {
             writer.newLine();
 
             // save students
-            ArrayList<Student> students = classRecord.students;
             for(Student student : students) {
                 writer.write("STUDENT|" + 
                     student.getStudentNumber() + "|" +
@@ -66,14 +61,14 @@ public class FileProcess {
                 );
                 writer.newLine();
             }
-            System.out.println(">>> Class record data saved successfully!");
+            System.out.println(">> Class record data saved successfully!");
         } catch (Exception e) {
             System.out.println("Cannot save the class record to " + file.getName() + ".");
         }
     }
     
-    public static void loadFromFile(ClassRecord classRecord) {
-        File file = new File("ClassRecord_" + classRecord.course.getCourseCode() + ".txt");
+    public static void loadFromFile(College college, Program program, Course course, Faculty faculty, ArrayList<Student> students) {
+        File file = new File("ClassRecord_" + course.getCourseCode() + ".txt");
         if (!file.exists()) {
             System.out.println(file.getName() + " doesn't exist. Please save the class record to file first.");
             return;
@@ -87,25 +82,25 @@ public class FileProcess {
 
                 switch (attributes[0]) {
                     case "COLLEGE":
-                        classRecord.college.setCollegeCode(attributes[1]);
-                        classRecord.college.setCollegeName(attributes[2]);
+                        college.setCollegeCode(attributes[1]);
+                        college.setCollegeName(attributes[2]);
                         break;
                     case "PROGRAM":
-                        classRecord.program.setProgramCode(attributes[1]);
-                        classRecord.program.setProgramName(attributes[2]);
+                        program.setProgramCode(attributes[1]);
+                        program.setProgramName(attributes[2]);
                         break;
                     case "COURSE":
-                        classRecord.course.setCourseCode(attributes[1]);
-                        classRecord.course.setCourseID(attributes[2]);
-                        classRecord.course.setCourseName(attributes[3]);
-                        classRecord.course.setUnits(Integer.parseInt(attributes[4]));
+                        course.setCourseCode(attributes[1]);
+                        course.setCourseID(attributes[2]);
+                        course.setCourseName(attributes[3]);
+                        course.setUnits(Integer.parseInt(attributes[4]));
                         break;
                     case "FACULTY":
-                        classRecord.faculty.setFacultyID(attributes[1]);
-                        classRecord.faculty.setFirstName(attributes[2]);
-                        classRecord.faculty.setMiddleName(attributes[3]);
-                        classRecord.faculty.setLastName(attributes[4]);
-                        classRecord.faculty.setDegree(attributes[5]);
+                        faculty.setFacultyID(attributes[1]);
+                        faculty.setFirstName(attributes[2]);
+                        faculty.setMiddleName(attributes[3]);
+                        faculty.setLastName(attributes[4]);
+                        faculty.setDegree(attributes[5]);
                         break;
                     case "STUDENT":
                         String studentNumber = attributes[1];
@@ -113,16 +108,16 @@ public class FileProcess {
                         String middleName = attributes[3];
                         String lastName = attributes[4];
                         String gender = attributes[5];
-                        String course = attributes[6];
-                        Student student = new Student(firstName, middleName, lastName, studentNumber, gender, course);
-                        classRecord.students.add(student); 
+                        String stCourse = attributes[6];
+                        Student student = new Student(firstName, middleName, lastName, studentNumber, gender, stCourse);
+                        students.add(student); 
                         break;
                     default:
                         System.out.println("Invalid classification encountered: " + attributes[0]);
                         break;
                 }
             }
-            System.out.println(">>> Class record data fetched successfully!");
+            System.out.println(">> Class record data fetched successfully!");
         } catch (Exception e) {
             System.out.println("An error occurred while reading " + file.getName() + ".");
         }

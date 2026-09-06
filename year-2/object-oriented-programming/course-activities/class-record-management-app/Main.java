@@ -31,10 +31,10 @@ public class Main {
                     classRecord.displayClassRecord();
                     break;
                 case 8:
-                    FileProcess.saveToFile(classRecord);
+                    classRecord.saveToFile();
                     break;
                 case 9:
-                    FileProcess.loadFromFile(classRecord);
+                    classRecord.loadFromFile();
                     break;
                 case 0:
                     System.out.println("Exiting system. Thank you for using UNC Class Record System!");
