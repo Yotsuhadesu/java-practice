@@ -126,7 +126,7 @@ public class ClassRecord implements ClassList{
     }
 
     public void sortStudents() {
-        this.sortedStudents = this.students;
+        ArrayList<Student> sortedStudents = new ArrayList<>(this.students);
         for (int i = 1; i < sortedStudents.size(); i++) {
             Student key = sortedStudents.get(i);
             int j = i - 1;
@@ -136,6 +136,7 @@ public class ClassRecord implements ClassList{
             }
             sortedStudents.set(j + 1, key);
         }
+        this.sortedStudents = sortedStudents;
     }
 
     public void viewStudents(ArrayList<Student> students) {
