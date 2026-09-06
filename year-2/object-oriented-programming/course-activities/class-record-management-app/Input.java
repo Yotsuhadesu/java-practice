@@ -48,4 +48,13 @@ public class Input {
         scanner.nextLine();
         return input;
     }
+
+    public static boolean acceptBoolean(String prompt) {
+        System.out.print(prompt + " ");
+        while (!scanner.hasNextBoolean()) {
+            System.out.print(prompt + " ");
+            scanner.next();
+        }
+        return scanner.nextBoolean();
+    }
 }
