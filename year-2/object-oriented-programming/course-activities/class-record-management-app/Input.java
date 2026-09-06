@@ -30,7 +30,7 @@ public class Input {
             System.out.print(prompt + " ");
             input = scanner.nextLine();
             if (input == null || input.isBlank()) {
-                System.out.println("Please enter a valid input.");
+                System.out.println(">>> Please enter a valid input.");
             } else {
                 break;
             }
@@ -41,6 +41,7 @@ public class Input {
     public static int acceptInt(String prompt) {
         System.out.print(prompt + " ");
         while (!scanner.hasNextInt()) {
+            System.out.println(">>> Please enter a valid number.");
             System.out.print(prompt + " ");
             scanner.next();
         }
@@ -52,9 +53,12 @@ public class Input {
     public static boolean acceptBoolean(String prompt) {
         System.out.print(prompt + " ");
         while (!scanner.hasNextBoolean()) {
+            System.out.println(">>> Please only enter true or false.");
             System.out.print(prompt + " ");
             scanner.next();
         }
-        return scanner.nextBoolean();
+        boolean bool = scanner.nextBoolean();
+        scanner.nextLine();
+        return bool;
     }
 }
