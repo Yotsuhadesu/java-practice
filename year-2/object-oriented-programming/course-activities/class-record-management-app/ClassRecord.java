@@ -106,7 +106,7 @@ public class ClassRecord implements ClassList{
     @Override
     public void displayClassRecord() {
         System.out.println("=".repeat(100));
-        System.out.println("OFFICIAL CLASS RECORD | University of Nueva Caceres");
+        System.out.println("OFFICIAL CLASS RECORD | " + getInstitutionName());
         System.out.println("=".repeat(100));
         System.out.printf(
                 "COLLEGE: [%s] %s\n" +

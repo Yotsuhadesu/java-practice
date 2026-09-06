@@ -3,11 +3,11 @@ import java.util.Scanner;
 public class Input {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void showMenu() {
+    public static void showMenu(ClassRecord classRecord) {
         System.out.println("=".repeat(50));
-        System.out.println("""
-            \tUNIVERSITY OF NUEVA CACERES
-            \tClass Record Management System""");
+        System.out.printf(
+            "\t%s\n" +
+            "\tClass Record Management System\n", classRecord.getInstitutionName());
         System.out.println("=".repeat(50));
         System.out.println();
         System.out.println("""

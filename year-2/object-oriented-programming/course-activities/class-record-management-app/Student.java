@@ -14,6 +14,7 @@ public final class Student extends Person{
 
     @Override
     public String getCompleteName() {
+        if (this.getMiddleName() == null) { return null; }
         return String.format("%s, %s %s.", lastName, firstName, middleName.charAt(0));
     }
 
