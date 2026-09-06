@@ -87,15 +87,15 @@ public class ClassRecord implements ClassList{
         System.out.println("=".repeat(100));
         System.out.println("OFFICIAL CLASS RECORD | University of Nueva Caceres");
         System.out.println("=".repeat(100));
-        System.out.printf("""
-                COLLEGE: [%s] %s
-                PROGRAM: [%s] %s
-                COURSE: %s - %s (Subject ID: %s | Units: %d)
-                INSTRUCTOR: %s, %s (ID: %s)\n""", 
+        System.out.printf(
+                "COLLEGE: [%s] %s\n" +
+                "PROGRAM: [%s] %s\n" +
+                "COURSE: %s - %s (Subject ID: %s | Units: %d)\n" +
+                "INSTRUCTOR: %s (ID: %s)\n", 
                 college.getCollegeCode(), college.getCollegeName(),
                 program.getProgramCode(), program.getProgramName(),
                 course.getCourseCode(), course.getCourseName(), course.getCourseID(), course.getUnits(),
-                faculty.getCompleteName(), faculty.getDegree(), faculty.getFacultyID()
+                faculty.getCompleteName(), faculty.getFacultyID()
             );
         System.out.println("-".repeat(100));
         System.out.println("ENROLLED STUDENTS ROSTER (Sorted Alphabetically):");
@@ -120,10 +120,10 @@ public class ClassRecord implements ClassList{
     public void viewStudents(ArrayList<Student> students) {
         int i = 1;
         System.out.println("-".repeat(100));
-        System.out.printf("%-2s %-15s %-50s %-10s %-20s\n", "#", "STUDENT NO.", "COMPLETE NAME (Lastname, Firstname M.I.)", "GENDER", "COURSE ENROLLED");
+        System.out.printf("%-2s %-13s %-45s %-8s %-18s\n", "#", "STUDENT NO.", "COMPLETE NAME (Lastname, Firstname M.I.)", "GENDER", "COURSE ENROLLED");
         System.out.println("-".repeat(100));
         for (Student student : students) {
-            System.out.printf("%-2d %-15s %-50s %-10s %-20s\n", i, student.getStudentNumber(), student.getCompleteName(), student.getGender(), student.getCourse());
+            System.out.printf("%-2d %-13s %-45s %-8s %-18s\n", i, student.getStudentNumber(), student.getCompleteName(), student.getGender(), student.getCourse());
             i++;
         }
         System.out.println("-".repeat(100));
