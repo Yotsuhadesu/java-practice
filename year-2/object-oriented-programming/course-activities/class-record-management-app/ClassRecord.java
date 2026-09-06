@@ -76,12 +76,12 @@ public class ClassRecord implements ClassList{
             boolean willRemove = Input.acceptBoolean("Remove " + student.getCompleteName() + "? (true/false)");
             if (willRemove) {
                 students.remove(i);
-                System.out.println(">>> Student successfully removed!");
+                System.out.println(">> Student successfully removed!");
             } else {
-                System.out.println(">>> Student didn't get removed!");
+                System.out.println(">> Student didn't get removed!");
             }
         } else {
-            System.out.println(">>> Unknown student number.");
+            System.out.println(">> Unknown student number.");
         }
     }
     @Override
@@ -93,13 +93,13 @@ public class ClassRecord implements ClassList{
                 Select option:""")) {
             case 1:
                 sortStudents();
-                viewStudents(sortedStudents);
+                viewStudents(sortedStudents, "TABLE");
                 break;
             case 2:
-                viewStudents(students);
+                viewStudents(students, "TABLE");
                 break;
             default:
-                System.out.println("Invalid choice.");
+                System.out.println(">> Invalid choice.");
                 break;
         }
     }
@@ -121,7 +121,7 @@ public class ClassRecord implements ClassList{
         System.out.println("-".repeat(100));
         System.out.println("ENROLLED STUDENTS ROSTER (Sorted Alphabetically):");
         sortStudents();
-        viewStudents(sortedStudents);
+        viewStudents(sortedStudents, "ITEM");
         System.out.println("=".repeat(100));
     }
 
@@ -139,16 +139,29 @@ public class ClassRecord implements ClassList{
         this.sortedStudents = sortedStudents;
     }
 
-    public void viewStudents(ArrayList<Student> students) {
+    public void viewStudents(ArrayList<Student> students, String format) {
         int i = 1;
         System.out.println("-".repeat(100));
-        System.out.printf("%-2s %-13s %-45s %-8s %-18s\n", "#", "STUDENT NO.", "COMPLETE NAME (Lastname, Firstname M.I.)", "GENDER", "COURSE ENROLLED");
-        System.out.println("-".repeat(100));
-        for (Student student : students) {
-            System.out.printf("%-2d %-13s %-45s %-8s %-18s\n", i, student.getStudentNumber(), student.getCompleteName(), student.getGender(), student.getCourse());
-            i++;
+        switch (format) {
+            case "TABLE":
+                System.out.printf("%-2s %-13s %-45s %-8s %-18s\n", "#", "STUDENT NO.", "COMPLETE NAME (Lastname, Firstname M.I.)", "GENDER", "COURSE ENROLLED");
+                System.out.println("-".repeat(100));
+                for (Student student : students) {
+                    System.out.printf("%-2d %-13s %-45s %-8s %-18s\n", i, student.getStudentNumber(), student.getCompleteName(), student.getGender(), student.getCourse());
+                    i++;
+                }
+                System.out.println("-".repeat(100));
+                System.out.printf("Total Enrolled: %d / %d Students\n", students.size(), MAX_STUDENTS);
+                break;
+            case "ITEM":
+                for (Student student : students) {
+                    System.out.printf("%d. [%s] %s | Gender: %s | Program: %s\n", i, student.getStudentNumber(), student.getCompleteName(), student.getGender(), student.getCourse());
+                    i++;
+                }
+                break;
+            default:
+                System.out.println(">>> Invalid student viewing format.");
+                break;
         }
-        System.out.println("-".repeat(100));
-        System.out.printf("Total Enrolled: %d / %d Students\n", students.size(), MAX_STUDENTS);
     }
 }
