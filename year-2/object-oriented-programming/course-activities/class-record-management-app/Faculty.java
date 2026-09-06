@@ -1,4 +1,4 @@
-public class Faculty extends Person{
+public final class Faculty extends Person{
     private String facultyID;
     private String degree;
 
