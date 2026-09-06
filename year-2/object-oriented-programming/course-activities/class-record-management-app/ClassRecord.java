@@ -45,6 +45,7 @@ public class ClassRecord implements ClassList{
     public void addStudent() {
         if (students.size() == MAX_STUDENTS) {
             System.out.println("The current class is at full capacity. It cannot accept more students.");
+            return;
         }
         System.out.printf("--- ADD ENROLLED STUDENT (Current: %d/%d) ---\n", students.size(), MAX_STUDENTS);
         String studentNumber = Input.acceptString("Enter Student No:");
