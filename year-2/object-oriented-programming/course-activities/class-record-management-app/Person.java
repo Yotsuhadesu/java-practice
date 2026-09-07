@@ -12,6 +12,9 @@ public abstract class Person {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    public Person() {
+        this(null, null);
+    }
     public abstract String getCompleteName();
 
     public String getFirstName() {

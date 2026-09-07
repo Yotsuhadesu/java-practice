@@ -10,11 +10,11 @@ public class FileProcess {
         System.out.println("--- PERSISTENT FILE STORAGE ---");
         File file = new File("ClassRecord_" + course.getCourseCode() + ".txt");
         if (!file.exists()) {
-            System.out.println("Creating " + file.getName() + ".");
-            System.out.println(file.getName() + " successfully created!");
+            System.out.println(">> Creating " + file.getName() + ".");
+            System.out.println(">> " + file.getName() + " successfully created!");
         }
 
-        System.out.printf("Saving current class record to \"%s\"...\n", file.getName());
+        System.out.printf(">> Saving current class record to \"%s\"...\n", file.getName());
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             // save college
             writer.write("COLLEGE|" + 
@@ -71,11 +71,11 @@ public class FileProcess {
     public static void loadFromFile(College college, Program program, Course course, Faculty faculty, ArrayList<Student> students) {
         File file = new File("ClassRecord_" + course.getCourseCode() + ".txt");
         if (!file.exists()) {
-            System.out.println(">>" + file.getName() + " doesn't exist. Please save the class record to file first.");
+            System.out.println(">> " + file.getName() + " doesn't exist. Please save the class record to file first.");
             return;
         }
 
-        System.out.printf("Fetching class record data from \"%s\"...\n", file.getName());
+        System.out.printf(">> Fetching class record data from \"%s\"...\n", file.getName());
         students.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -115,7 +115,7 @@ public class FileProcess {
                         students.add(student); 
                         break;
                     default:
-                        System.out.println("Invalid classification encountered: " + attributes[0]);
+                        System.out.println(">> Invalid classification encountered: " + attributes[0]);
                         break;
                 }
             }

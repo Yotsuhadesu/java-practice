@@ -9,6 +9,11 @@ public final class Faculty extends Person{
         this.facultyID = facultyID;
         this.degree = degree;
     }
+    public Faculty() {
+        super();
+        this.facultyID = null;
+        this.degree = null;
+    }
 
     @Override
     public String getCompleteName() {
