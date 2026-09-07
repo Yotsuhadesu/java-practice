@@ -6,9 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 public class FileProcess {
+    // static method to save the college, program, course, faculty, and the students to a text file
     public static void saveToFile(College college, Program program, Course course, Faculty faculty, ArrayList<Student> students) {
         System.out.println("--- PERSISTENT FILE STORAGE ---");
-        File file = new File("ClassRecord_" + course.getCourseCode() + ".txt");
+        File file = new File("ClassRecord_" + course.getCourseCode() + ".txt"); // dynamic file naming
         if (!file.exists()) {
             System.out.println(">> Creating " + file.getName() + ".");
             System.out.println(">> " + file.getName() + " successfully created!");
@@ -68,6 +69,7 @@ public class FileProcess {
         }
     }
     
+    // static method to retrieve college, programs, course, faculty, and the students from a text file
     public static void loadFromFile(College college, Program program, Course course, Faculty faculty, ArrayList<Student> students) {
         File file = new File("ClassRecord_" + course.getCourseCode() + ".txt");
         if (!file.exists()) {

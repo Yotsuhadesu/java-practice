@@ -1,4 +1,4 @@
-public abstract class Person {
+public abstract class Person {  // a class to be inherited by classes with related fields
     protected String firstName;
     protected String middleName;
     protected String lastName;

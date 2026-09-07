@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class ClassRecord implements ClassList{
+    // composition of initialized class instances
     private College college = new College();
     private Program program = new Program();
     private Course course = new Course();
@@ -8,6 +9,7 @@ public class ClassRecord implements ClassList{
     private ArrayList <Student> students = new ArrayList<>();
     private ArrayList <Student> sortedStudents = new ArrayList<>(); 
 
+    // overrridden abstract methods from the ClassList interface
     @Override 
     public void assignCollegeDetails() {
         System.out.println("--- COLLEGE & PROGRAM ASSIGNMENT ---");
@@ -124,6 +126,7 @@ public class ClassRecord implements ClassList{
         System.out.println("=".repeat(100));
     }
 
+    // helper methods
     public void saveToFile() {
         FileProcess.saveToFile(this.college, this.program, this.course, this.faculty, this.students);
     }
@@ -132,7 +135,9 @@ public class ClassRecord implements ClassList{
     }
 
     public void sortStudents() {
-        ArrayList<Student> sortedStudents = new ArrayList<>(this.students);
+        ArrayList<Student> sortedStudents = new ArrayList<>(this.students); // copy the ArrayList of Student objects
+
+        // insertion sort
         for (int i = 1; i < sortedStudents.size(); i++) {
             Student key = sortedStudents.get(i);
             int j = i - 1;

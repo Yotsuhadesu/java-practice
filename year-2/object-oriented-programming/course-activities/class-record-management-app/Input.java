@@ -24,6 +24,7 @@ public class Input {
                 [0] Exit""");
     }
 
+    // static input validation methods
     public static String acceptString(String prompt) {
         String input;
         do {
@@ -37,7 +38,6 @@ public class Input {
         } while(input == null || input.isBlank());
         return input;
     }
-
     public static int acceptInt(String prompt) {
         System.out.print(prompt + " ");
         while (!scanner.hasNextInt()) {
@@ -49,7 +49,6 @@ public class Input {
         scanner.nextLine();
         return input;
     }
-
     public static boolean acceptBoolean(String prompt) {
         System.out.print(prompt + " ");
         while (!scanner.hasNextBoolean()) {
