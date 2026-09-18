@@ -65,7 +65,7 @@ public class ClassRecord implements ClassList{
 
         boolean isFound = false;
         int i = 0;
-        for (Student student : students) {
+        for (Student student : students) {  // find the student's index in the ArrayList
             if (student.getStudentNumber().equals(studentNumber)) {
                 isFound = true;
                 break;
