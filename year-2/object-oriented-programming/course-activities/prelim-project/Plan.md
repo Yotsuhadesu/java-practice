@@ -37,3 +37,5 @@ Water Amount | Price per Piece | Price per Box
 - Input - for input validation
 - Order - order information
 - Inventory - stocks
+- Cashier - the entity who records the transaction
+- Customer - customer information
