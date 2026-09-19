@@ -14,6 +14,9 @@ public class Person {
         this.contactNumber = contactNumber;
         this.address = address;
     }
+    public Person() {
+        
+    }
     
     public void setLastName(String lastName) {
         this.lastName = lastName;
