@@ -14,16 +14,35 @@ public class FileHandler {
             return;
         }
         // show the products
-        System.out.println("PRODUCT | PRICE PER PIECE | STOCK");
+        System.out.printf("%-15s | %-10s | %-10s \n", "PRODUCT", "PRICE", "STOCK");
         try (BufferedReader reader = new BufferedReader(new FileReader(productsFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] productAttributes = line.split("\\|");
-                System.out.println(productAttributes[0] + " | " + productAttributes[1] + " | " + productAttributes[2]);
+                System.out.printf("%-15s | P%-9s | %-10s \n", productAttributes[0], productAttributes[1], productAttributes[2]);
             }
         } catch (Exception e) {
             System.out.println(">> An error occurred while reading the file.");
             e.printStackTrace();
         } 
+    }
+
+    public static double getProductPrice(String productName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(productsFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] productAttributes = line.split("\\|");
+                if (productAttributes[0].equals(productName)) {
+                    double price = Double.parseDouble(productAttributes[1]);
+                    System.out.printf(">> %s: P%.2f", productName, price);
+                    return price;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while reading the file.");
+            e.printStackTrace();
+        } 
+        System.out.println(">> The system could not find the product name.");
+        return 0;
     }
 }
