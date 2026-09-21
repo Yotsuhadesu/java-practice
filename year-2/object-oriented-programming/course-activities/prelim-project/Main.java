@@ -7,8 +7,7 @@ public class Main {
             choice = Input.acceptInt("Choice:");
             switch (choice) {
                 case 1:
-                    menuSystem.askCustomerInfo();
-                    menuSystem.askOrderDetails();
+                    menuSystem.placeOrder();
                     break;
                 case 0:
                     System.out.println(">> Exiting the program...");
@@ -17,6 +16,7 @@ public class Main {
                     System.out.println(">> Invalid choice.");
                     break;
             }
+            System.out.println();
         } while (choice != 0);
     }
 }

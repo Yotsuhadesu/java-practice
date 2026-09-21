@@ -1,23 +1,26 @@
 import java.time.LocalDate;
 
 public class OrderDetails {
-    private Order order;
-    private Product product;
+    private String deliveryMethod;
+    private LocalDate orderDate;
 
-    public OrderDetails(Order order, Product product) {
-        this.order = order;
-        this.product = product;
+    public OrderDetails(String deliveryMethod, LocalDate orderDate) {
+        this.deliveryMethod = deliveryMethod;
+        this.orderDate = orderDate;
     }
-
     public OrderDetails() {
         
     }
 
+    public String getDeliveryMethod() {
+        return this.deliveryMethod;
+    }
+    public LocalDate getOrderDate() {
+        return this.orderDate;
+    }
+
     public static OrderDetails askOrderDetails() {
         System.out.println("--- ORDER DETAILS FORM ---");
-        FileHandler.showProducts();
-        String productName = Input.acceptString("Product Name:");
-        int productQuantity = Input.acceptInt("Quantity:");
         String deliveryMethod = null;
         do {
             switch (Input.acceptInt("""
@@ -36,6 +39,12 @@ public class OrderDetails {
                     break;
             }
         } while (deliveryMethod == null || (!deliveryMethod.equals("Pickup")  && !deliveryMethod.equals("Deliver")));
-        return new OrderDetails(new Order(deliveryMethod, LocalDate.now()), new Product(productName, productQuantity));
+        return new OrderDetails(deliveryMethod, LocalDate.now());
+    }
+
+    public void showOrderDetails() {
+        System.out.println("--- ORDER DETAILS ---");
+        System.out.println("Delivery Method: " + getDeliveryMethod());
+        System.out.println("Date: " + getOrderDate());
     }
 }

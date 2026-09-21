@@ -12,4 +12,11 @@ public class Customer extends Person{
         String address = Input.acceptString("Address:");
         return new Customer(lastName, firstName, middleName, contactNumber, address);
     }
+
+    public void showCustomerInfo() {
+        System.out.println("--- CUSTOMER INFORMATION ---");
+        System.out.println("Name: " + getLastName() + ", " + getFirstName() + " " + getMiddleName());
+        System.out.println("Contact Number: " + getContactNumber());
+        System.out.println("Address: " + getAddress());
+    }
 }

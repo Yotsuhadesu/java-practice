@@ -5,9 +5,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 public class FileHandler {
+    // PRODUCT FILE HANDLER
     final static File productsFile = new File("Products.txt");
     public static void showProducts() {
-        System.out.println("--- PRODUCTS ---");
         // check if the file exists or is empty
         if (!productsFile.exists() || productsFile.length() == 0) {
             System.out.println(">> There are no products.");
@@ -34,7 +34,6 @@ public class FileHandler {
                 String[] productAttributes = line.split("\\|");
                 if (productAttributes[0].equals(productName)) {
                     double price = Double.parseDouble(productAttributes[1]);
-                    System.out.printf(">> %s: P%.2f", productName, price);
                     return price;
                 }
             }
@@ -44,5 +43,21 @@ public class FileHandler {
         } 
         System.out.println(">> The system could not find the product name.");
         return 0;
+    }
+
+    // TRANSACTION FILE HANDLER
+    final static File transactionFile = new File("Transaction.txt");
+    public static String getLastTransactionID() {
+        String lastLine = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(transactionFile))) {
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                lastLine = currentLine;
+            }
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while reading the file.");
+            e.printStackTrace();
+        } 
+        return lastLine.split("\\|")[0];
     }
 }
