@@ -1,9 +1,8 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MenuSystem implements AquadelSystem {
-    ArrayList<Customer> customers = new ArrayList<>();
-    Product product = new Product();
-    OrderDetails orderDetails = new OrderDetails();
+    Queue<Transaction> transactions = new LinkedList<>();
 
     public void placeOrder() {
         Customer newCustomer = Customer.askCustomerInfo();
@@ -13,10 +12,8 @@ public class MenuSystem implements AquadelSystem {
         newProduct.showProductInfo();
         newOrderDetails.showOrderDetails();
         if(Input.acceptBoolean("Place Order (true/false)? ")) {
-            this.customers.add(newCustomer);
-            this.product = newProduct;
-            this.orderDetails = newOrderDetails;
-            System.out.println(">> Customer, Product, and Order added successfully.");
+            transactions.add(new Transaction(newCustomer, newProduct, newOrderDetails));
+            System.out.println(">> Transaction added to queue.");
         } else {
             System.out.println(">> Customer, Product, and Order was not added.");
         }
