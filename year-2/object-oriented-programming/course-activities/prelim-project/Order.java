@@ -1,14 +1,14 @@
 import java.time.LocalDate;
 
-public class OrderDetails {
+public class Order {
     private String deliveryMethod;
     private LocalDate orderDate;
 
-    public OrderDetails(String deliveryMethod, LocalDate orderDate) {
+    public Order(String deliveryMethod, LocalDate orderDate) {
         this.deliveryMethod = deliveryMethod;
         this.orderDate = orderDate;
     }
-    public OrderDetails() {
+    public Order() {
         
     }
 
@@ -19,7 +19,7 @@ public class OrderDetails {
         return this.orderDate;
     }
 
-    public static OrderDetails askOrderDetails() {
+    public static Order askOrderInformation() {
         System.out.println("--- ORDER DETAILS FORM ---");
         String deliveryMethod = null;
         do {
@@ -39,11 +39,11 @@ public class OrderDetails {
                     break;
             }
         } while (deliveryMethod == null || (!deliveryMethod.equals("Pickup")  && !deliveryMethod.equals("Deliver")));
-        return new OrderDetails(deliveryMethod, LocalDate.now());
+        return new Order(deliveryMethod, LocalDate.now());
     }
 
-    public void showOrderDetails() {
-        System.out.println("--- ORDER DETAILS ---");
+    public void showOrderInformation() {
+        System.out.println("--- ORDER INFORMATION ---");
         System.out.println("Delivery Method: " + getDeliveryMethod());
         System.out.println("Date: " + getOrderDate());
     }

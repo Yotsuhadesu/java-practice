@@ -47,4 +47,7 @@ public class Person {
     public String getAddress() {
         return this.address;
     }
+    public String getFullName() {
+        return this.lastName + ", " + this.firstName + " " + this.middleName;
+    }
 }

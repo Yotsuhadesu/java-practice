@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileHandler {
     // PRODUCT FILE HANDLER
@@ -73,16 +75,59 @@ public class FileHandler {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(transactionFile, true))) {
             // Transaction ID|Order Date|Customer Name|Product Name|Total Amount|Status
             writer.write(
-                transaction.getLastTransactionID() + "|" + 
-                transaction.getOrderDateString() + "|" + 
+                transaction.getTransactionID() + "|" + 
+                transaction.getOrderDate().toString() + "|" + 
                 transaction.getCustomerFullName() + "|" + 
                 transaction.getProductName() + "|" + 
-                transaction.getTotalAmountString() + 
-                "|Unsettled"
+                String.valueOf(transaction.getQuantity()) + "|" +
+                transaction.getDeliveryMethod() + "|" +
+                String.valueOf(transaction.getTotalAmount()) + "|" +
+                transaction.getStatus()
             );
             writer.newLine();
+            System.out.println(">> Transaction saved to file successfully.");
         } catch (Exception e) {
-            System.out.println(">> AN error occurred while saving the transaction.");
+            System.out.println(">> An error occurred while saving the transaction.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateTransaction(Transaction updatedTransaction) {
+        // get the updated Transaction String
+        String updatedTransactionString = updatedTransaction.getTransactionID() + "|" + 
+                updatedTransaction.getOrderDate().toString() + "|" + 
+                updatedTransaction.getCustomerFullName() + "|" + 
+                updatedTransaction.getProductName() + "|" + 
+                String.valueOf(updatedTransaction.getQuantity()) + "|" +
+                updatedTransaction.getDeliveryMethod() + "|" +
+                String.valueOf(updatedTransaction.getTotalAmount()) + "|" +
+                updatedTransaction.getStatus()
+            ;
+
+        // replace the outdated transaction and store in a list
+        List<String> transactionStrings = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(transactionFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.split("\\|")[0].equals(updatedTransaction.getTransactionID())) {
+                    transactionStrings.add(updatedTransactionString);
+                }  else {
+                    transactionStrings.add(line);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while reading the transaction file.");
+            e.printStackTrace();
+        }
+
+        // write the updated transactions to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(transactionFile))) {
+            for (String line : transactionStrings) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while writing the updated transaction file.");
             e.printStackTrace();
         }
     }

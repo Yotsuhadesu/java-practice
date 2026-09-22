@@ -9,6 +9,9 @@ public class Main {
                 case 1:
                     menuSystem.placeOrder();
                     break;
+                case 2:
+                    menuSystem.viewOrders();
+                    break;
                 case 0:
                     System.out.println(">> Exiting the program...");
                     break;
