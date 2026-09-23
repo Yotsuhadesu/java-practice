@@ -1,9 +1,19 @@
+import java.util.ArrayList;
+
 public class Product {
+    private String productID;
     private String productName;
     private double price;
     private int quantity;
     private double totalAmount;
+    private int stock;
 
+     public Product(String productID, String productName, double price, int stock) {
+        this.productID = productID;
+        this.productName = productName;
+        this.price = price;
+        this.stock = stock;
+    }
     public Product(String productName, double price, int quantity, double totalAmount) {
         this.productName = productName;
         this.price = price;
@@ -14,14 +24,16 @@ public class Product {
 
     }
 
-    public void setPrice() {
-        this.price = FileHandler.getProductPrice(this.productName);
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-    public void setTotalAmount() {
-        setPrice();
+    public void computeTotalAmount() {
         this.totalAmount = this.price * this.quantity;
     }
 
+    public String getProductID() {
+        return this.productID;
+    }
     public String getProductName() {
         return this.productName;
     }
@@ -34,15 +46,27 @@ public class Product {
     public double getTotalAmount() {
         return this.totalAmount;
     }
+    public int getStock() {
+        return this.stock;
+    }
 
-    public static Product askProduct() {
+    public static Product askProduct(ArrayList<Product> products) {
         System.out.println("--- PRODUCT INFORMATION FORM ---");
-        FileHandler.showProducts();
-        String productName = Input.acceptString("Product Name:");
-        double price = FileHandler.getProductPrice(productName);
-        int quantity = Input.acceptInt("Quantity:");
-        double totalAmount =  price * quantity;
-        return new Product(productName, price, quantity, totalAmount);
+        if (products.isEmpty()) {
+            System.out.println(">> There are no prducts. Please try loading the products first.");
+        } else {
+            System.out.printf("%-3s | %-15s | %-10s | %s \n", "ID", "PRODUCT", "PRICE", "STOCK");
+            for (Product product : products) {
+                System.out.printf("%-3s | %-15s | P%-9s | %s \n", product.getProductID(), product.getProductName(), String.valueOf(product.getPrice()), String.valueOf(product.getStock()));
+            }
+        }
+        Product product = FileHandler.getProduct(Input.acceptString("Product ID:"));
+        product.setQuantity(Input.acceptInt("Quantity:"));
+        do {
+            product.setQuantity(Input.acceptInt("Quantity:"));
+        } while (product.getQuantity() > product.getStock());
+        product.computeTotalAmount();
+        return product;
     }
 
     public void showProductInfo() {

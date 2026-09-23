@@ -6,6 +6,7 @@ public class Input {
                 --- MENU ---
                 1. Place Order
                 2. View Orders
+                3. Load Products
                 0. Exit\s""");
     }
 
@@ -18,7 +19,7 @@ public class Input {
                 break;
             }
         } while(true);
-        return string;
+        return string.trim();
     }
 
     public static int acceptInt(String prompt) {
