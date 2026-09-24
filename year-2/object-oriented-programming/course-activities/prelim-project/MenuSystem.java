@@ -5,9 +5,14 @@ import java.util.Queue;
 public class MenuSystem implements AquadelSystem {
     Queue<Transaction> orders = new LinkedList<>();
     ArrayList<Product> products = new ArrayList<>();
+    ArrayList<Customer> customers = new ArrayList<>();
 
+    public void loadOrders() {
+        this.orders.clear();
+        this.orders = FileHandler.loadOrders();
+    }
     public void loadProducts() {
-        products = FileHandler.loadProducts();
+        this.products = FileHandler.loadProducts();
     }
     public void placeOrder() {
         Customer newCustomer = Customer.askCustomerInfo();
@@ -29,6 +34,9 @@ public class MenuSystem implements AquadelSystem {
             orders.add(newTransaction);
             System.out.println(">> Order added to queue.");
             FileHandler.saveTransaction(newTransaction);
+            System.out.println(">> Transaction saved to file.");
+            FileHandler.updateStock(newProduct, "SUBTRACT");
+            System.out.println(">> Stock updated successfully.");
         } else {
             System.out.println(">> Order was cancelled.");
         }
@@ -36,7 +44,13 @@ public class MenuSystem implements AquadelSystem {
 
     public void viewOrders() {
         System.out.println("--- ORDERS IN QUEUE ---");
-        System.out.printf(" %-5s | %-10s | %-40s | %-15s | %-5s | %-5s | %-5s | %s \n", 
+
+        if (this.orders.isEmpty()) {
+            System.out.println(">> There are no orders in queue.");
+            return; 
+        }
+
+        System.out.printf(" %-5s | %-10s | %-35s | %-20s | %-10s | %-10s | %-10s | %s \n", 
             "ID", 
             "DATE", 
             "NAME", 
@@ -48,7 +62,7 @@ public class MenuSystem implements AquadelSystem {
         );
         for(Transaction transaction : this.orders) {
             System.out.printf(
-                " %-5s | %-10s | %-40s | %-15s | %-5s | %-5s | %-5s | %s \n",
+                " %-5s | %-10s | %-35s | %-20s | %-10s | %-10s | %-10s | %s \n",
                 transaction.getTransactionID(),
                 transaction.getOrderDate().toString(),
                 transaction.getCustomerFullName(),
@@ -64,7 +78,7 @@ public class MenuSystem implements AquadelSystem {
 
     public void updateOrderStatus() {
         System.out.println("--- UPDATE ORDER STATUS ---");
-        String transactionID = Input.acceptString("ID: ");
+        String transactionID = Input.acceptString("ID:");
         Transaction transaction = new Transaction();
         boolean exists = false;
         for (Transaction currentTransaction : this.orders) {
@@ -92,10 +106,10 @@ public class MenuSystem implements AquadelSystem {
                 2. Delivering
                 3. Settled
                 Choice:\s""");
-            do {
-                switch (choice) {
+            switch (choice) {
                 case 1:
-                    transaction.setStatus("Cancellled");
+                    transaction.setStatus("Cancelled");
+                    FileHandler.updateStock(transaction.getProduct(), "ADD");
                     break;
                 case 2:
                     transaction.setStatus("Delivering");
@@ -107,7 +121,7 @@ public class MenuSystem implements AquadelSystem {
                     System.out.println(">> Invalid choice.");
                     break;
             }
-            } while (choice != 1 && choice != 2 && choice != 3);
+            FileHandler.updateTransaction(transaction);
             System.out.println(">> Status updated successfully.");
         } else {
             System.out.println(">> Order ID doesn't exist.");

@@ -6,7 +6,7 @@ public class Input {
                 --- MENU ---
                 1. Place Order
                 2. View Orders
-                3. Load Products
+                3. Update Order Status
                 0. Exit\s""");
     }
 

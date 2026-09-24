@@ -53,7 +53,7 @@ public class Product {
     public static Product askProduct(ArrayList<Product> products) {
         System.out.println("--- PRODUCT INFORMATION FORM ---");
         if (products.isEmpty()) {
-            System.out.println(">> There are no prducts. Please try loading the products first.");
+            System.out.println(">> There are no prducts.");
         } else {
             System.out.printf("%-3s | %-15s | %-10s | %s \n", "ID", "PRODUCT", "PRICE", "STOCK");
             for (Product product : products) {
@@ -61,6 +61,10 @@ public class Product {
             }
         }
         Product product = FileHandler.getProduct(Input.acceptString("Product ID:"));
+        do {
+            System.out.println(">> Product unavailable.");
+            product = FileHandler.getProduct(Input.acceptString("Product ID:"));
+        } while (product.getQuantity() <= 0);
         product.setQuantity(Input.acceptInt("Quantity:"));
         do {
             product.setQuantity(Input.acceptInt("Quantity:"));
