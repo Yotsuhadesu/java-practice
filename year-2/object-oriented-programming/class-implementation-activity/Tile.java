@@ -1,3 +1,9 @@
+/**
+ * The Tile class is used to create tile objects that will hold their dimensions and access utility methods.
+ * 
+ * @author Jethro Elano (jethro.elano@unc.edu.ph)
+ */
+
 public class Tile {
     // encapsulated fields
     private String brandName;
@@ -7,7 +13,14 @@ public class Tile {
     private int tilesNeeded;
     private double totalCost;
     
-    // constructors
+    /**
+     * constructors
+     * 
+     * @param brandName
+     * @param tileLength
+     * @param tileWidth
+     * @param tileCost
+     */
     public Tile(String brandName, double tileLength, double tileWidth, double tileCost) {
         this.brandName = brandName;
         this.tileLength = tileLength;
@@ -16,7 +29,7 @@ public class Tile {
     }
 
     // setters for each field for initialization or value assignment
-    public void setBrand(String brandName) {
+    public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
     public void setTileLength(double tileLength) {
@@ -30,19 +43,20 @@ public class Tile {
     }
 
     // getters that returns each field's value
-    public String getBrand() {
+    public String getBrandName() {
         return this.brandName;
     }
     public double getTileArea() {
         return (this.tileLength / 100) * (this.tileWidth / 100);    // get tile area in meters
     }
-    public int getTilesNeeded(double floorArea) {
-        this.tilesNeeded = ((int)(floorArea / getTileArea())) + 1;  // divide the floor area to tile area in square meters, convert to int to round down, and add 1 to fill the gap
+    public void computeTilesNeeded(double floorArea) {
+        this.tilesNeeded = (int) Math.ceil(floorArea / getTileArea());  // divide the floor area to tile area in square meters and round up to the nearest whole number
+    }
+    public int getTilesNeeded() {
         return this.tilesNeeded;   
     }
-    public double getTotalCost(double tilesNeeded) {
+    public void computeTotalCost(double tilesNeeded) {
         this.totalCost = this.tileCost * tilesNeeded;   // assign the value to the totalCost field
-        return this.totalCost;
     }
     public double getTotalCost() {
         return this.totalCost;
