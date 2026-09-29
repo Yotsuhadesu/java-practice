@@ -42,8 +42,8 @@ public class Main {
 
             System.out.println("Result: ");
             System.out.printf("- Excess KM: %d km\n", excessDistance);
-            System.out.printf("- Excess Charge: %,.2f\n", excessCharge);
-            System.out.printf("- Total Cost: %,.2f\n", totalCost);
+            System.out.printf("- Excess Charge: ₱%,.2f\n", excessCharge);
+            System.out.printf("- Total Cost: ₱%,.2f\n", totalCost);
             System.out.println();
 
             System.out.print("Do you want to enter another company? (Y/N) ");
@@ -77,10 +77,12 @@ public class Main {
         System.out.println();
         System.out.println("=".repeat(10) + " SUMMARY " + "=".repeat(10));
         System.out.println("Highest Total Cost: ");
-        System.out.printf("- Company: %s (%,.2f total)\n", highCompanyname, highTotalCost);
+        System.out.printf("- Company: %s (₱%,.2f total)\n", highCompanyname, highTotalCost);
         System.out.println();
         System.out.println("Lowest Total Cost: ");
-        System.out.printf("- Company: %s (%,.2f total)\n", lowCompanyName, lowTotalCost);
-        System.out.println("=".repeat(28));
+        System.out.printf("- Company: %s (₱%,.2f total)\n", lowCompanyName, lowTotalCost);
+        System.out.println("=".repeat(30));
+
+        scanner.close();
     }
 }

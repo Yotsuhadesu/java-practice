@@ -5,21 +5,18 @@ public class CarRental {
     private double rentalPrice;
     private int includedDistance;
     private double excessRate;
-    public int excessDistance;
-    public double excessCharge;
-    public double totalCost;
+    private int excessDistance;
+    private double excessCharge;
+    private double totalCost;
 
 
     // constructor
-    public CarRental(int driveDistance, String companyName, double rentalPrice, int includedDistance, double excessRate) {
-        this.driveDistance = driveDistance;
-        this.companyName = companyName;
-        this.rentalPrice = rentalPrice;
-        this.includedDistance = includedDistance;
-        this.excessRate = excessRate;
-    }
     public CarRental() {
-        this(0, null, 0.0, 0, 0.0);
+        this.driveDistance = 0;
+        this.companyName = null;
+        this.rentalPrice = 0.0;
+        this.includedDistance = 0;
+        this.excessRate = 0.0;
     }
 
     // setters
