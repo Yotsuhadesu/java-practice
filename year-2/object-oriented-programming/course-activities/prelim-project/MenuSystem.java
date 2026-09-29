@@ -26,9 +26,13 @@ public class MenuSystem implements AquadelSystem {
         Customer newCustomer = Customer.askCustomerInfo(this.customers);
         Product newProduct = Product.askProduct(this.products);
         Order newOrder = Order.askOrderInformation();
+        newProduct.setToDeliver(newOrder.getToDeliver());
+        newProduct.computeTotalAmount();
+
         newCustomer.showCustomerInfo();
         newProduct.showProductInfo();
         newOrder.showOrderInformation();
+
         if (Input.acceptBoolean("Place Order (true/false)? ")) {
             Transaction newTransaction = new Transaction(
                 newOrder.getOrderDate(), 
@@ -112,27 +116,32 @@ public class MenuSystem implements AquadelSystem {
                 String.valueOf(transaction.getTotalAmount()),
                 transaction.getStatus()
             );
-            int choice = Input.acceptInt("""
-                Pick Status:
-                1. Cancelled
-                2. Delivering
-                3. Settled
-                Choice:\s""");
-            switch (choice) {
-                case 1:
-                    transaction.setStatus("Cancelled");
-                    FileHandler.updateStock(transaction.getProduct(), transaction.getQuantity(),"ADD");
-                    break;
-                case 2:
-                    transaction.setStatus("Delivering");
-                    break;
-                case 3:
-                    transaction.setStatus("Settled");
-                    break;
-                default:
-                    System.out.println(">> Invalid choice.");
-                    return;
-            }
+            boolean isValid = false;
+            do {
+                switch (Input.acceptInt("""
+                    Pick Status:
+                    1. Cancelled
+                    2. Delivering
+                    3. Settled
+                    Choice:\s""")) {
+                    case 1:
+                        transaction.setStatus("Cancelled");
+                        FileHandler.updateStock(transaction.getProduct(), transaction.getQuantity(),"ADD");
+                        isValid = true;
+                        break;
+                    case 2:
+                        transaction.setStatus("Delivering");
+                        isValid = true;
+                        break;
+                    case 3:
+                        transaction.setStatus("Settled");
+                        isValid = true;
+                        break;
+                    default:
+                        System.out.println(">> Invalid choice.");
+                        break;
+                }
+            } while (!isValid);
             FileHandler.updateTransaction(transaction);
             System.out.println(">> Status updated successfully.");
         } else {

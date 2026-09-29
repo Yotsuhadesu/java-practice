@@ -48,4 +48,5 @@ Water Amount | Price per Piece
 ## System Issues
 - [x] The product information form doesn't accept quantity that is equal to stock.
 - [x] The saved product ID in transaction file is always null.
-- [ ] Delivery Method doesn't add 5 peso fee
+- [x] Delivery Method doesn't add 5 peso fee
+- [x] Input accepts pipe character.

@@ -7,6 +7,7 @@ public class Product {
     private int quantity;
     private double totalAmount;
     private int stock;
+    private boolean toDeliver;
 
      public Product(String productID, String productName, double price, int stock) {
         this.productID = productID;
@@ -30,8 +31,15 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    public void setToDeliver(boolean toDeliver) {
+        this.toDeliver = toDeliver;
+    }
     public void computeTotalAmount() {
-        this.totalAmount = this.price * this.quantity;
+        if (this.toDeliver) {
+            this.totalAmount = this.price * this.quantity + 5;
+        } else {
+            this.totalAmount = this.price * this.quantity;
+        }
     }
 
     public static Product getProduct(ArrayList<Product> products, String productID) {
@@ -83,7 +91,6 @@ public class Product {
         do {
             product.setQuantity(Input.acceptInt("Quantity:"));
         } while (product.getQuantity() > product.getStock() || product.getQuantity() <= 0);
-        product.computeTotalAmount();
         return product;
     }
 

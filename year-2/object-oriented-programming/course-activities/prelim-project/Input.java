@@ -15,8 +15,12 @@ public class Input {
         do {
             System.out.print(prompt + " ");
             string = scanner.nextLine();
-            if (string != null && !string.isBlank() && !string.contains("\\|")) {
+            if (string != null && !string.isBlank() && !string.contains("|")) {
                 break;
+            } else if (string == null || string.isBlank()) {
+                System.out.println(">> Input must not be empty.");
+            } else if (string.contains("|")) {
+                System.out.println(">> Input must not contain \"|\".");
             }
         } while(true);
         return string.trim();
