@@ -3,4 +3,6 @@ public interface AquadelSystem {
         return "Aquadel Water Refilling Station";
     }
     void placeOrder();
+    void viewOrders();
+    void updateOrderStatus();
 }

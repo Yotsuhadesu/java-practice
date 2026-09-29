@@ -5,6 +5,7 @@ public class Input {
         System.out.println("""
                 --- MENU ---
                 1. Place Order
+                2. View Orders
                 0. Exit\s""");
     }
 
