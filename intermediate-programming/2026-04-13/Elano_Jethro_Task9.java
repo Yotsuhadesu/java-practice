@@ -102,6 +102,7 @@ public class Elano_Jethro_Task9 {
         int start = accountLineNo - 2;
         int end = accountLineNo + 3;
         int lineNo = 0;
+        System.out.println("- - - - - - - - - - - - - - - - - - - -");
         try(BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while((line = br.readLine()) != null) {
@@ -113,6 +114,7 @@ public class Elano_Jethro_Task9 {
         } catch (IOException e) {
             System.out.println("Cannot read the file.");
         }
+        System.out.println("- - - - - - - - - - - - - - - - - - - -");
     }
     public static void main(String[] args) {
         createFile(file.exists());  // create file first
@@ -215,7 +217,7 @@ public class Elano_Jethro_Task9 {
                     accountNumberSearch(sc.nextLine());
                     break;
                 default:
-                    System.out.println("Exiting the program."); // exit the program properly
+                    System.out.println("Exiting the program..."); // exit the program properly
                     break;
             }
         }
