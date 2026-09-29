@@ -60,8 +60,28 @@ public class ClassRecord implements ClassList{
     @Override
     public void removeStudent() {
         String studentNumber = Input.acceptString("Enter Student Number:");
-        students.removeIf(student -> student.getStudentNumber().equals(studentNumber));
-        System.out.println(">>> Student successfully removed!");
+
+        boolean isFound = false;
+        int i = 0;
+        for (Student student : students) {
+            if (student.getStudentNumber().equals(studentNumber)) {
+                isFound = true;
+                break;
+            }
+            i++;
+        }
+        if (isFound) {
+            Student student = students.get(i);
+            boolean willRemove = Input.acceptBoolean("Remove " + student.getCompleteName() + "? (true/false)");
+            if (willRemove) {
+                students.remove(i);
+                System.out.println(">>> Student successfully removed!");
+            } else {
+                System.out.println(">>> Student didn't get removed!");
+            }
+        } else {
+            System.out.println(">>> Unknown student number.");
+        }
     }
     @Override
     public void displayStudents() {
