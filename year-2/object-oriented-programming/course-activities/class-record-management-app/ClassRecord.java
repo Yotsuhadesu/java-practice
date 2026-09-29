@@ -1,25 +1,24 @@
 import java.util.ArrayList;
 
 public class ClassRecord implements ClassList{
-    College college = new College();
-    Program program = new Program();
-    Course course = new Course();
-    Faculty faculty = new Faculty(null, null, null, null, null);
-    ArrayList <Student> students = new ArrayList<>();
-    ArrayList <Student> sortedStudents = new ArrayList<>(); 
+    private College college = new College();
+    private Program program = new Program();
+    private Course course = new Course();
+    private Faculty faculty = new Faculty(null, null, null, null, null);
+    private ArrayList <Student> students = new ArrayList<>();
+    private ArrayList <Student> sortedStudents = new ArrayList<>(); 
 
     @Override 
     public void assignCollegeDetails() {
         System.out.println("--- COLLEGE & PROGRAM ASSIGNMENT ---");
         college.setCollegeCode(Input.acceptString("Enter College Code:"));
         college.setCollegeName(Input.acceptString("Enter College Name:"));
-        System.out.println(">> College successfully assigned!");
     }
     @Override
     public void assignProgramDetails() {
         program.setProgramCode(Input.acceptString("Enter Program Code:"));
         program.setProgramName(Input.acceptString("Enter Program Name:"));
-        System.out.println(">> Program successfully assigned!");
+        System.out.println(">> College and Program successfully assigned!");
     }
     @Override 
     public void assignCourseDetails() {
@@ -44,7 +43,7 @@ public class ClassRecord implements ClassList{
     @Override
     public void addStudent() {
         if (students.size() == MAX_STUDENTS) {
-            System.out.println("The current class is at full capacity. It cannot accept more students.");
+            System.out.println(">> The current class is at full capacity. It cannot accept more students.");
             return;
         }
         System.out.printf("--- ADD ENROLLED STUDENT (Current: %d/%d) ---\n", students.size(), MAX_STUDENTS);
@@ -87,7 +86,7 @@ public class ClassRecord implements ClassList{
     @Override
     public void displayStudents() {
         switch (Input.acceptInt("""
-                === ENROLLED STUDENT LIST ===
+                === ENROLLED STUDENTS LIST ===
                 [1] Sort Alphabetically
                 [2] Display in Order Added
                 Select option:""")) {
@@ -125,6 +124,13 @@ public class ClassRecord implements ClassList{
         System.out.println("=".repeat(100));
     }
 
+    public void saveToFile() {
+        FileProcess.saveToFile(this.college, this.program, this.course, this.faculty, this.students);
+    }
+    public void loadFromFile() {
+        FileProcess.loadFromFile(this.college, this.program, this.course, this.faculty, this.students);
+    }
+
     public void sortStudents() {
         ArrayList<Student> sortedStudents = new ArrayList<>(this.students);
         for (int i = 1; i < sortedStudents.size(); i++) {
@@ -160,7 +166,7 @@ public class ClassRecord implements ClassList{
                 }
                 break;
             default:
-                System.out.println(">>> Invalid student viewing format.");
+                System.out.println(">> Invalid student viewing format.");
                 break;
         }
     }
