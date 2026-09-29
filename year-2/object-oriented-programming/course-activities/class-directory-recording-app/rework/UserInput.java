@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class UserInput {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void showMenu() {
         System.out.print("""
@@ -18,7 +18,7 @@ public class UserInput {
 
     public static int pickAction() {
         System.out.print("Select an option: ");
-        return scanner.nextInt();
+        return acceptInt();
     }
 
     public static Student addStudent() {
@@ -45,11 +45,38 @@ public class UserInput {
             gender, birthDate, contactNumber);
     }
 
-    public static String acceptString() { return scanner.nextLine(); }
+    public static String acceptString() { 
+        String in;
+        do {
+            in = scanner.nextLine();
+            if (in == null || in.isBlank()) {
+                System.out.println("Invalid input!");
+            } else {
+                break;
+            }
+        } while (scanner.hasNextLine());
+        return in; 
+    }
 
     public static char acceptChar() { return scanner.next().toUpperCase().charAt(0); }
 
-    public static long acceptLong() { return scanner.nextLong(); }
+    public static long acceptLong() { 
+        while (!scanner.hasNextLong()) {
+           System.out.println("Invalid Input!");
+           scanner.next();
+        }
+        long lo = scanner.nextLong();
+        scanner.nextLine();
+        return lo;
+    }
 
-    public static int acceptInt() { return scanner.nextInt(); }
+    public static int acceptInt() { 
+        while (!scanner.hasNextInt()) {
+           System.out.println("Invalid Input!");
+           scanner.next();
+        }
+        int in =  scanner.nextInt();
+        scanner.nextLine();
+        return in;
+     }
 }
