@@ -47,7 +47,12 @@ public class FileHandler {
 
     // TRANSACTION FILE HANDLER
     final static File transactionFile = new File("Transaction.txt");
-    public static String getLastTransactionID() {
+    public static int getLastTransactionID() {
+        // check if the file exists or is empty
+        if (!transactionFile.exists() || transactionFile.length() == 0) {
+            System.out.println(">> There are no transactions.");
+            return 0;
+        }
         String lastLine = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(transactionFile))) {
             String currentLine;
@@ -58,6 +63,27 @@ public class FileHandler {
             System.out.println(">> An error occurred while reading the file.");
             e.printStackTrace();
         } 
-        return lastLine.split("\\|")[0];
+        return Integer.parseInt(lastLine.split("\\|")[0]);
+    }
+
+    public static void saveTransaction(Transaction transaction) {
+        if (!transactionFile.exists()) {
+            System.out.println(">> Transaction file doesn't exist.");
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(transactionFile, true))) {
+            // Transaction ID|Order Date|Customer Name|Product Name|Total Amount|Status
+            writer.write(
+                transaction.getLastTransactionID() + "|" + 
+                transaction.getOrderDateString() + "|" + 
+                transaction.getCustomerFullName() + "|" + 
+                transaction.getProductName() + "|" + 
+                transaction.getTotalAmountString() + 
+                "|Unsettled"
+            );
+            writer.newLine();
+        } catch (Exception e) {
+            System.out.println(">> AN error occurred while saving the transaction.");
+            e.printStackTrace();
+        }
     }
 }
