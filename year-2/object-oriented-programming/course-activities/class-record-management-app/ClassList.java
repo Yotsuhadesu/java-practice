@@ -1,8 +1,8 @@
 public interface ClassList {
     int MAX_STUDENTS = 40;
 
-    default void getInstitutionName() {
-        System.out.println("University of Nueva Caceres");
+    default String getInstitutionName() {
+        return "University of Nueva Caceres";
     }
 
     void assignCollegeDetails();

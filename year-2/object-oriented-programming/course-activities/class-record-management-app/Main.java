@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         ClassRecord classRecord = new ClassRecord();
-        Input.showMenu();
+        Input.showMenu(classRecord);
         int choice;
         do {
             System.out.println();
