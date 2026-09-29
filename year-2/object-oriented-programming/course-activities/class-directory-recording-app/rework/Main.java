@@ -3,6 +3,7 @@ public class Main {
         ClassSection classSection = new ClassSection();
         int choice;
         do {
+            System.out.println();
             UserInput.showMenu();
             choice = UserInput.pickAction();
             switch (choice) {
@@ -10,17 +11,16 @@ public class Main {
                     classSection.viewClassDirectory(classSection);
                     break;
                 case 2:
-                    // update/assign an adviser
-                    
+                    classSection.assignAdviser(classSection);
                     break;
                 case 3:
-                    
+                    classSection.addStudent(classSection);
                     break;
                 case 4:
-                    
+                    FileProcess.editStudent(classSection);
                     break;
                 case 5:
-                    
+                    FileProcess.saveDirectory(classSection);
                     break;
                 case 6:
                     FileProcess.loadDirectory(classSection);

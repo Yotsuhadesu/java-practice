@@ -12,8 +12,4 @@ public class Adviser extends Person{
     }
 
     public String getDegree() { return this.degree; }
-
-    public void assignAdviser() {
-        System.out.print();
-    }
 }

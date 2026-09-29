@@ -1,4 +1,3 @@
-import java.rmi.StubNotFoundException;
 import java.util.ArrayList;
 
 public class ClassSection {
@@ -20,7 +19,7 @@ public class ClassSection {
     public ClassSection() {
         this.gradeLevel = null;
         this.section = null;
-        this.adviser = new Adviser();
+        this.adviser = null;
         this.students = new ArrayList<>();
     }
 
@@ -29,8 +28,6 @@ public class ClassSection {
     public void setSection(String section) { this.section = section; }
 
     public void setAdviser(Adviser adviser) {this.adviser = adviser; }
-
-    public void addStudent(Student student) { students.add(student); }
 
     public String getGradeLevel() { return this.gradeLevel; }
     
@@ -43,52 +40,62 @@ public class ClassSection {
     public ArrayList<Student> getSortedStudents() { return this.sortedStudents; }
 
     public void viewClassDirectory(ClassSection classSection) {
-        // show class info
-        System.out.println("=".repeat(75));
-        System.out.println("CLASS SECTION DIRECTORY");
-        System.out.printf("Grade Level: %s\tSection: %s\n", classSection.getGradeLevel(), classSection.getSection());
-        System.out.println("-".repeat(75));
+        if (classSection.getGradeLevel() != null && classSection.getSection() != null) {
+            // show class info
+            System.out.println("=".repeat(75));
+            System.out.println("CLASS SECTION DIRECTORY");
+            System.out.printf("Grade Level: %s\tSection: %s\n", classSection.getGradeLevel(), classSection.getSection());
+            System.out.println("-".repeat(75));
+        } else {
+            System.out.println("No class assigned. Please save assign a class and section or save and load directory to file first.");
+        }
+        if (classSection.getAdviser() != null) {
+            // show adviser info
+            System.out.println("ADVISER INFORMATION");
+            Adviser adviser = classSection.getAdviser();
+            String adLastName = adviser.getLastName();
+            String adFirstName = adviser.getFirsttName();
+            String adMiddleName = adviser.getMiddleName();
+            String adGender = adviser.getMiddleName();
+            String adBirthdate = adviser.getBirthDate();
+            adviser.computeAge();   // compute the age first
+            int adAge = adviser.getAge();
+            long adContactNumber = adviser.getContactNumber();
+            String adDegree = adviser.getDegree();
+            System.out.printf("Name: Prof. %s %s %s\n", adFirstName, adMiddleName, adLastName);
+            System.out.printf("Gender: %s | Birthdate: %s (Age: %d)\n", adGender, adBirthdate, adAge);
+            System.out.printf("Contact: %d | Degree: %s\n", adContactNumber, adDegree);
+            System.out.println("-".repeat(75));
+        } else {
+            System.out.println("No adviser assigned. Please assign an adviser or save and load directory from file.");
+        }
 
-        // show adviser info
-        System.out.println("ADVISER INFORMATION");
-        Adviser adviser = classSection.getAdviser();
-        String adLastName = adviser.getLastName();
-        String adFirstName = adviser.getFirsttName();
-        String adMiddleName = adviser.getMiddleName();
-        String adGender = adviser.getMiddleName();
-        String adBirthdate = adviser.getBirthDate();
-        adviser.computeAge();   // compute the age first
-        int adAge = adviser.getAge();
-        long adContactNumber = adviser.getContactNumber();
-        String adDegree = adviser.getDegree();
-        System.out.printf("Name: Prof. %s %s %s\n", adFirstName, adMiddleName, adLastName);
-        System.out.printf("Gender: %s | Birthdate: %s (Age: %d)\n", adGender, adBirthdate, adAge);
-        System.out.printf("Contact: %d | Degree: %s\n", adContactNumber, adDegree);
-        System.out.println("-".repeat(75));
-
-
-        // show student list
-        classSection.sortStudents();    // sort the students in a dedicated ArrayList first
-        ArrayList<Student> sortedStudents =  classSection.getSortedStudents();  // make an ArrayList that points to the sorted ArrayList
-        System.out.println("ENROLLED STUDENTS (Sorted Alphabetically - Total: " + sortedStudents.size() + ")");
-        int i = 1;  // counter variable
-        for (Student student : sortedStudents) {
-            long stLRN = student.getLRN();
-            String stLastName = student.getLastName();
-            String stFirstName = student.getFirsttName();
-            String stMiddleName = student.getMiddleName();
-            String stGender = student.getMiddleName();
-            String stBirthdate = student.getBirthDate();
-            student.computeAge();
-            int stAge = student.getAge();
-            long stContactNumber = student.getContactNumber();
-            String stAddress = student.getAddress();
-
-            System.out.printf("[%02d]\tLRN: %d\n", i, stLRN);
-            System.out.printf("\tName: %s, %s %s\n", stFirstName, stLastName, stMiddleName);
-            System.out.printf("\tGender: %s |  Birthdate: %s (Age: %d) | Contact: %d\n", stGender, stBirthdate, stAge, stContactNumber);
-            System.out.printf("\tAddress: %s\n", stAddress);
-            i++;
+        if (classSection.getStudents() != null && classSection.getStudents().size() != 0) {
+            // show student list
+            classSection.sortStudents();    // sort the students in a dedicated ArrayList first
+            ArrayList<Student> sortedStudents =  classSection.getSortedStudents();  // make an ArrayList that points to the sorted ArrayList
+            System.out.println("ENROLLED STUDENTS (Sorted Alphabetically - Total: " + sortedStudents.size() + ")");
+            int i = 1;  // counter variable
+            for (Student student : sortedStudents) {
+                long stLRN = student.getLRN();
+                String stLastName = student.getLastName();
+                String stFirstName = student.getFirsttName();
+                String stMiddleName = student.getMiddleName();
+                String stGender = student.getMiddleName();
+                String stBirthdate = student.getBirthDate();
+                student.computeAge();
+                int stAge = student.getAge();
+                long stContactNumber = student.getContactNumber();
+                String stAddress = student.getAddress();
+    
+                System.out.printf("[%02d]\tLRN: %d\n", i, stLRN);
+                System.out.printf("\tName: %s, %s %s\n", stFirstName, stLastName, stMiddleName);
+                System.out.printf("\tGender: %s |  Birthdate: %s (Age: %d) | Contact: %d\n", stGender, stBirthdate, stAge, stContactNumber);
+                System.out.printf("\tAddress: %s\n", stAddress);
+                i++;
+            }
+        } else {
+            System.out.println("No students in class. Please add a student or save and load directory from file.");
         }
         System.out.println("=".repeat(75));
     }
@@ -110,5 +117,76 @@ public class ClassSection {
             sortedStudents.set(j + 1, key);
         }
         this.sortedStudents =  sortedStudents;
+    }
+
+    public void assignAdviser(ClassSection classSection) {
+        boolean willAssign = true;
+        if (classSection.getAdviser() != null) {
+            System.out.print("There is already an assigned adviser to this class.\nReplace Adviser (Y/N)? ");
+            char choice = UserInput.acceptChar();
+            System.out.println(choice);
+            switch(choice) {
+                case 'Y':
+                    break;
+                case 'N':
+                    willAssign = false;
+                    break;
+                default:
+                    willAssign = false;
+                    System.out.println("Invalid choice.");
+            }
+        }
+        if (willAssign) {
+            System.out.println();
+            System.out.println("ADVISER INFORMATION FORM");
+            UserInput.acceptString();
+            System.out.print("Enter Last Name: ");
+            String adLastName = UserInput.acceptString();
+            System.out.print("Enter First Name: ");
+            String adFirstName = UserInput.acceptString();
+            System.out.print("Enter Middle Name: ");
+            String adMiddleName = UserInput.acceptString();
+            System.out.print("Enter Gender: ");
+            String adGender = UserInput.acceptString();
+            System.out.print("Enter Birth Date (YYYY-MM-DD): ");
+            String adBirthDate = UserInput.acceptString();
+            System.out.print("Enter Contact Number: ");
+            long adContactNumber = UserInput.acceptLong();
+            UserInput.acceptString();   // consume leftover \n
+            System.out.print("Enter Degree: ");
+            String adDegree = UserInput.acceptString();
+            
+            classSection.setAdviser(new Adviser(adDegree, adLastName, adFirstName, adMiddleName, adGender, adBirthDate, adContactNumber));
+
+            System.out.println("Adviser assigned successfully.");
+        }
+    }
+
+    public void addStudent(Student student) { students.add(student); }
+
+    public void addStudent(ClassSection classSection) {
+        System.out.printf("--- %s ---\n", "ADD NEW STUDENT" );
+        UserInput.acceptString();
+        System.out.print("Enter LRN: ");
+        long stLRN = UserInput.acceptLong();
+        UserInput.acceptString();   // consume leftover \n
+        System.out.print("Enter Last Name: ");
+        String stLastName = UserInput.acceptString();
+        System.out.print("Enter First Name: ");
+        String stFirstName = UserInput.acceptString();
+        System.out.print("Enter Middle Name: ");
+        String stMiddleName = UserInput.acceptString();
+        System.out.print("Enter Gender: ");
+        String stGender = UserInput.acceptString();
+        System.out.print("Enter Birth Date (YYYY-MM-DD): ");
+        String stBirthDate = UserInput.acceptString();
+        System.out.print("Enter Contact Number: ");
+        long adContactNumber = UserInput.acceptLong();
+        UserInput.acceptString();   // consume leftover \n
+        System.out.print("Enter Home Address: ");
+        String stAddress = UserInput.acceptString();
+
+        classSection.addStudent(new Student(stLRN, stAddress, stLastName, stFirstName, stMiddleName, stGender, stBirthDate, adContactNumber));
+        System.out.println("Student added successfully.");
     }
 }

@@ -4,7 +4,7 @@ public class UserInput {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void showMenu() {
-        System.out.println("""
+        System.out.print("""
                            === SCHOOL CLASS DIRECTORY SYSTEM ===
                            [1] View Class Directory
                            [2] Assign/Update Adviser
@@ -17,7 +17,6 @@ public class UserInput {
     }
 
     public static int pickAction() {
-        System.out.println();
         System.out.print("Select an option: ");
         return scanner.nextInt();
     }
@@ -46,7 +45,11 @@ public class UserInput {
                            gender, birthDate, contactNumber);
     }
 
-    public static String acceptString() {
-        
-    }
+    public static String acceptString() { return scanner.nextLine(); }
+
+    public static char acceptChar() { return scanner.next().toUpperCase().charAt(0); }
+
+    public static long acceptLong() { return scanner.nextLong(); }
+
+    public static int acceptInt() { return scanner.nextInt(); }
 }
