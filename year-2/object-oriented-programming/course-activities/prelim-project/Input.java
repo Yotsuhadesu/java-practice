@@ -1,15 +1,10 @@
 import java.util.Scanner;
 public class Input {
     public static Scanner scanner = new Scanner(System.in);
-    public static void menu(int choice) {
-        switch (choice) {
-            case 1:
-                
-                break;
-        
-            default:
-                break;
-        }
+    public static void showMenu() {
+        System.out.println("""
+                1. Place Order
+                0. Exit\s""");
     }
 
     public static String acceptString(String prompt) {
