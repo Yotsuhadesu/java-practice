@@ -22,7 +22,7 @@ public class FileHandler {
                 String[] attributes = line.split("\\|");
                 products.add(new Product(attributes[0], attributes[1], Double.parseDouble(attributes[2]), Integer.parseInt(attributes[3])));
             }
-            System.out.println(">> Products extracted successfully.");
+            System.out.println(">> Products fetched successfully.");
         } catch (Exception e) {
             System.out.println(">> An error occurred while reading the product file.");
             e.printStackTrace();
@@ -49,16 +49,14 @@ public class FileHandler {
     }
 
     // update product stocks 
-    public static void updateStock(Product product, String opration) {
+    public static void updateStock(Product product, int quantity, String opration) {
         String productID = product.getProductID();
         int updatedStock = product.getStock();
-        System.out.println(">> The product ID is " + productID + " and the stock is " + updatedStock);
         if (opration.equals("ADD")) {
-            updatedStock += product.getQuantity();
+            updatedStock += quantity;
         } else if (opration.equals("SUBTRACT")) {
-            updatedStock -= product.getQuantity();
+            updatedStock -= quantity;
         }
-        System.out.println("The updated stock is " + updatedStock);
 
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(productsFile))) {
@@ -67,6 +65,7 @@ public class FileHandler {
                 String[] attributes = line.split("\\|");
                 if (attributes[0].equals(productID)) {
                     lines.add(attributes[0] + "|" + attributes[1] + "|" + attributes[2] + "|" + String.valueOf(updatedStock));
+                    continue;
                 }
                 lines.add(line);
             }
@@ -136,7 +135,7 @@ public class FileHandler {
         String updatedTransactionString = updatedTransaction.getTransactionID() + "|" + 
                 updatedTransaction.getOrderDate().toString() + "|" + 
                 updatedTransaction.getCustomerFullName() + "|" + 
-                updatedTransaction.getProductName() + "|" + 
+                updatedTransaction.getProductID() + "|" + 
                 String.valueOf(updatedTransaction.getQuantity()) + "|" +
                 updatedTransaction.getDeliveryMethod() + "|" +
                 String.valueOf(updatedTransaction.getTotalAmount()) + "|" +
@@ -172,7 +171,7 @@ public class FileHandler {
     }
 
     // extract orders from file to queue
-    public static Queue<Transaction> loadOrders() {
+    public static Queue<Transaction> loadOrders(ArrayList<Product> products) {
         Queue<Transaction> transactions = new LinkedList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(transactionFile))) {
             String line;
@@ -184,6 +183,7 @@ public class FileHandler {
                         LocalDate.parse(attributes[1]), 
                         attributes[2], 
                         attributes[3], 
+                        Product.getProduct(products, attributes[3]),
                         Integer.parseInt(attributes[4]), 
                         attributes[5], 
                         Double.parseDouble(attributes[6]), 
@@ -199,7 +199,43 @@ public class FileHandler {
     }
 
     // CUSTOMER FILE HANDLER
+    final static File customerFile = new File("Customer.txt");
 
+    public static ArrayList<Customer> loadCustomers() {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
+            String line;
+            while((line = reader.readLine()) != null) {
+                String[] attributes = line.split("\\|");
+                customers.add(new Customer(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]));
+            }
+            System.out.println(">> Customers fetched successfully.");
+
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while reding the customer file.");
+            e.printStackTrace();
+        }
+        return customers;
+    }
+    
+    public static int getLastCustomerID() {
+        // check if the file exists or is empty
+        if (!transactionFile.exists() || transactionFile.length() == 0) {
+            System.out.println(">> There are no customers.");
+            return 0;
+        }
+        String lastLine = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(customerFile))) {
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                lastLine = currentLine;
+            }
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while reading the customer file.");
+            e.printStackTrace();
+        } 
+        return Integer.parseInt(lastLine.split("\\|")[0]);
+    }
 
     // CASHIER FILE HADNLER
 }

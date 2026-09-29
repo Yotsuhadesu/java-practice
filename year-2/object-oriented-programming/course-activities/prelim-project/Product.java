@@ -31,6 +31,15 @@ public class Product {
         this.totalAmount = this.price * this.quantity;
     }
 
+    public static Product getProduct(ArrayList<Product> products, String productID) {
+        for (Product product : products) {
+            if (product.getProductID().equals(productID)) {
+                return product;
+            }
+        }
+        System.out.println(">> Product cannot be found.");
+        return new Product();
+    }
     public String getProductID() {
         return this.productID;
     }
@@ -61,10 +70,10 @@ public class Product {
             }
         }
         Product product = FileHandler.getProduct(Input.acceptString("Product ID:"));
-        do {
+        while (product.getStock() <= 0) {
             System.out.println(">> Product unavailable.");
             product = FileHandler.getProduct(Input.acceptString("Product ID:"));
-        } while (product.getQuantity() <= 0);
+        }
         product.setQuantity(Input.acceptInt("Quantity:"));
         do {
             product.setQuantity(Input.acceptInt("Quantity:"));

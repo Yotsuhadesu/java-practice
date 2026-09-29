@@ -9,10 +9,14 @@ public class MenuSystem implements AquadelSystem {
 
     public void loadOrders() {
         this.orders.clear();
-        this.orders = FileHandler.loadOrders();
+        this.orders = FileHandler.loadOrders(products);
     }
     public void loadProducts() {
         this.products = FileHandler.loadProducts();
+    }
+    public void loadCustomers() {
+        this.customers.clear();
+        this.customers = FileHandler.loadCustomers();
     }
     public void placeOrder() {
         Customer newCustomer = Customer.askCustomerInfo();
@@ -35,7 +39,7 @@ public class MenuSystem implements AquadelSystem {
             System.out.println(">> Order added to queue.");
             FileHandler.saveTransaction(newTransaction);
             System.out.println(">> Transaction saved to file.");
-            FileHandler.updateStock(newProduct, "SUBTRACT");
+            FileHandler.updateStock(newProduct, newTransaction.getQuantity(), "SUBTRACT");
             System.out.println(">> Stock updated successfully.");
         } else {
             System.out.println(">> Order was cancelled.");
@@ -109,7 +113,7 @@ public class MenuSystem implements AquadelSystem {
             switch (choice) {
                 case 1:
                     transaction.setStatus("Cancelled");
-                    FileHandler.updateStock(transaction.getProduct(), "ADD");
+                    FileHandler.updateStock(transaction.getProduct(), transaction.getQuantity(),"ADD");
                     break;
                 case 2:
                     transaction.setStatus("Delivering");

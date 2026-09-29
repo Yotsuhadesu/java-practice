@@ -12,11 +12,11 @@ public class Transaction {
     private double totalAmount;
     private String status;
 
-    public Transaction(String transactionID, LocalDate orderDate, String customerFullName, String productID, int quantity, String deliveryMethod, double totalAmount, String status) {
+    public Transaction(String transactionID, LocalDate orderDate, String customerFullName, String productID, Product product, int quantity, String deliveryMethod, double totalAmount, String status) {
         this.transactionID = transactionID;
         this.customerFullName = customerFullName;
         this.productID = productID;
-        this.product = FileHandler.getProduct(productID);
+        this.product = product;
         this.productName = this.product.getProductName();
         this.quantity = quantity;
         this.deliveryMethod = deliveryMethod;
@@ -64,7 +64,7 @@ public class Transaction {
         return this.quantity;
     }
     public String getDeliveryMethod() {
-        return  this.deliveryMethod;
+        return this.deliveryMethod;
     }
     public double getTotalAmount() {
         return this.totalAmount;

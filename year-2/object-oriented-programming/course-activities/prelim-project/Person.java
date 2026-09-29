@@ -1,11 +1,13 @@
 public class Person {
+    protected String id;
     protected String lastName;
     protected String firstName;
     protected String middleName;
     protected String contactNumber;
     protected String address;
 
-    public Person(String lastName, String firstName, String middleName, String contactNumber, String address) {
+    public Person(String id, String lastName, String firstName, String middleName, String contactNumber, String address) {
+        this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
