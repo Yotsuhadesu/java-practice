@@ -22,10 +22,10 @@ public class Main {
                     classRecord.addStudent();
                     break;
                 case 5:
-
+                    classRecord.removeStudent();
                     break;
                 case 6:
-
+                    classRecord.displayStudents();
                     break;
                 case 7:
 
