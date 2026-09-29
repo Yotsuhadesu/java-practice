@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class FileProcess {
-    private static File file = new File("ClassDirectory.txt");
+    private static final File file = new File("ClassDirectory.txt");    // constant text file 
 
     public static void saveDirectory(ClassSection classSection) {
         if (file.exists()) {
@@ -23,7 +23,7 @@ public class FileProcess {
                     bWriter.write(
                         "Adviser|" + 
                         adviser.getLastName() + "|" + 
-                        adviser.getFirsttName() + "|" + 
+                        adviser.getFirstName() + "|" + 
                         adviser.getMiddleName() + "|" +
                         adviser.getGender() + "|" +
                         adviser.getBirthDate() + "|" +
@@ -34,7 +34,7 @@ public class FileProcess {
                 }
 
                 ArrayList<Student> students = classSection.getStudents();
-                if (students != null || students.size() != 0) {
+                if (students != null && students.size() != 0) {
                     // write student to file
                     for (Student student : students) {
                         // format: Student|LRN|last Name|First Name|Middle Name|gender|Birth Date|Contact Num|Address
@@ -42,7 +42,7 @@ public class FileProcess {
                             "Student|" + 
                             student.getLRN() + "|" + 
                             student.getLastName() + "|" +
-                            student.getFirsttName() + "|" +
+                            student.getFirstName() + "|" +
                             student.getMiddleName() + "|" +
                             student.getGender() + "|" +
                             student.getBirthDate() + "|" + 
@@ -61,6 +61,7 @@ public class FileProcess {
     }
 
     public static void loadDirectory(ClassSection classSection) {
+        classSection.clearDirectory();
         if (file.exists() && file.length() != 0) {
             try (BufferedReader bReader = new BufferedReader(new FileReader(file))) {
                 String line;

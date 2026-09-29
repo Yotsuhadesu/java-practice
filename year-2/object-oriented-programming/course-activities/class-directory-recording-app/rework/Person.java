@@ -11,16 +11,7 @@ public class Person {
     protected long contactNumber;
     private int age;
 
-    /**
-     * Constructor to be passed to child classes
-     * 
-     * @param lastName
-     * @param firsttName
-     * @param middleName
-     * @param gender
-     * @param birthDate
-     * @param contactNumber
-     */
+    // Constructor to be passed to child classes
     public Person(String lastName, String firstName, String middleName, 
                   String gender, String birthDate, long contactNumber) {
         this.lastName = lastName;
@@ -33,9 +24,9 @@ public class Person {
 
     public void computeAge() {
         if (this.birthDate != null) {
-            LocalDate birthDate = LocalDate.parse(this.birthDate);
-            LocalDate currDate = LocalDate.now();
-            this.age = Period.between(birthDate, currDate).getYears();
+            LocalDate birthDate = LocalDate.parse(this.birthDate);  // parse the String into ISO 8601 date format
+            LocalDate currDate = LocalDate.now();   // get the current date
+            this.age = Period.between(birthDate, currDate).getYears();  // get the years between the birthdate and current date
         } else {
             System.out.println("Please assign a bitrhdate first.");
         }
@@ -59,7 +50,7 @@ public class Person {
     // getters
     public String getLastName() { return this.lastName; }
 
-    public String getFirsttName() { return this.firstName; }
+    public String getFirstName() { return this.firstName; }
 
     public String getMiddleName() { return this.middleName; }
 

@@ -1,11 +1,12 @@
 public class Main {
     public static void main(String[] args) {
-        ClassSection classSection = new ClassSection();
+        ClassSection classSection = new ClassSection("Grade 10", "Newton");
         int choice;
         do {
             System.out.println();
             UserInput.showMenu();
             choice = UserInput.pickAction();
+            System.out.println();
             switch (choice) {
                 case 1:
                     classSection.viewClassDirectory(classSection);
