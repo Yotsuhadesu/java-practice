@@ -63,7 +63,7 @@ public class Main {
             }
         }
         String lowPackageName = tickets.get(lowIndex).getPackageName();
-        double lowDisocuntAMount = discountAmounts.get(lowIndex);
+        double lowDisocuntAmount = discountAmounts.get(lowIndex);
 
         System.out.println();
         System.out.println("=".repeat(10) + " SUMMARY " + "=".repeat(10));
@@ -71,7 +71,7 @@ public class Main {
         System.out.printf("- Package: %s (₱%,.2f saved)\n", highPackageName, highDisocuntAMount);
         System.out.println();
         System.out.println("Least Savings: ");
-        System.out.printf("- Package: %s (₱%,.2f saved)\n", lowPackageName, lowDisocuntAMount);
+        System.out.printf("- Package: %s (₱%,.2f saved)\n", lowPackageName, lowDisocuntAmount);
         System.out.println("=".repeat(30));
 
         scanner.close();
