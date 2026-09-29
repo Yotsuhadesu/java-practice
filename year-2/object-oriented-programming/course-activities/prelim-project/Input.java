@@ -15,7 +15,7 @@ public class Input {
         do {
             System.out.print(prompt + " ");
             string = scanner.nextLine();
-            if (string != null && !string.isBlank()) {
+            if (string != null && !string.isBlank() && !string.contains("\\|")) {
                 break;
             }
         } while(true);

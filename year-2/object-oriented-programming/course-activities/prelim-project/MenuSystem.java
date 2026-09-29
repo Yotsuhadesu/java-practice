@@ -131,7 +131,7 @@ public class MenuSystem implements AquadelSystem {
                     break;
                 default:
                     System.out.println(">> Invalid choice.");
-                    break;
+                    return;
             }
             FileHandler.updateTransaction(transaction);
             System.out.println(">> Status updated successfully.");

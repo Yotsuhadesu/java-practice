@@ -3,12 +3,12 @@
 - Address: Pili, Camarines Sur
 - Employees: Cashier, Delivery Guy, Dishwasher
 ## Prices (PHP)
-Water Amount | Price per Piece | Price per Box
+Water Amount | Price per Piece 
 --- | --- |---
 1 Gallon | 25 
-1 Liter | 17.50 | 248 (14 pcs)
-500 mL | 7.30 | 175 (24 pcs)
-350 mL | 5.83 | 140 (24 pcs)
+1 Liter | 17.50
+500 mL | 7.30 
+350 mL | 5.83 
 - Delivery Fee: 5 
 ## Workflow
 - Pickup
@@ -48,3 +48,4 @@ Water Amount | Price per Piece | Price per Box
 ## System Issues
 - [x] The product information form doesn't accept quantity that is equal to stock.
 - [x] The saved product ID in transaction file is always null.
+- [ ] Delivery Method doesn't add 5 peso fee

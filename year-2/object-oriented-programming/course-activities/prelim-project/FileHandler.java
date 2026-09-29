@@ -72,6 +72,7 @@ public class FileHandler {
         } catch (Exception e) {
             System.out.println(">> An error occurred while reading the product file.");
             e.printStackTrace();
+            return; 
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(productsFile))) {
@@ -156,6 +157,7 @@ public class FileHandler {
         } catch (Exception e) {
             System.out.println(">> An error occurred while reading the transaction file.");
             e.printStackTrace();
+            return;
         }
 
         // write the updated transactions to file
@@ -221,7 +223,7 @@ public class FileHandler {
     
     public static int getLastCustomerID() {
         // check if the file exists or is empty
-        if (!transactionFile.exists() || transactionFile.length() == 0) {
+        if (!customerFile.exists() || customerFile.length() == 0) {
             System.out.println(">> There are no customers.");
             return 0;
         }
