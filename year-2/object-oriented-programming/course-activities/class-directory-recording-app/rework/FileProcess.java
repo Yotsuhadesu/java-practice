@@ -3,7 +3,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
 
 public class FileProcess {
     private static File file = new File("ClassDirectory.txt");
@@ -44,10 +43,7 @@ public class FileProcess {
                             String adBirthdate = attributes[5];
                             long adContactNumber = Long.parseLong(attributes[6]);
                             String adDegree = attributes[7];
-                            Adviser adviser = classSection.getAdviser();
-                            if (adviser == null) {
-                                adviser = new Adviser(adDegree, adLastName, adFirstName, adMiddleName, adGender, adBirthdate, adContactNumber);
-                            }
+                            classSection.setAdviser(new Adviser(adDegree, adLastName, adFirstName, adMiddleName, adGender, adBirthdate, adContactNumber));
                             break;
                         case "Student":
                             // Student|LRN|Last Name|First Name|Middle Name|Gender|Birth Date|Contact Number|Address
@@ -59,12 +55,8 @@ public class FileProcess {
                             String stBirthdate = attributes[6];
                             long stContactNumber = Long.parseLong(attributes[7]);
                             String stAddress = attributes[8];
-                            ArrayList<Student> students = classSection.getStudents();
-                            if (students == null) {
-                                students = new ArrayList<>();
-                            }
                             // public Student(long lrn, String address, String lastName, String firsttName, String middleName, String gender, String birthDate, long contactNumber)
-                            students.add(new Student(stLRN, stAddress, stLastName, stFirstName, stMiddleName, stGender, stBirthdate, stContactNumber));
+                            classSection.addStudent(new Student(stLRN, stAddress, stLastName, stFirstName, stMiddleName, stGender, stBirthdate, stContactNumber));
                             break;
                         default:
                             System.out.println("Invalid category.");

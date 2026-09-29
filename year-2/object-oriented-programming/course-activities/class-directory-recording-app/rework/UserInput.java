@@ -17,6 +17,7 @@ public class UserInput {
     }
 
     public static int pickAction() {
+        System.out.println();
         System.out.print("Select an option: ");
         return scanner.nextInt();
     }
@@ -43,5 +44,9 @@ public class UserInput {
 
         return new Student(lrn, address, lastName, firstName, middleName, 
                            gender, birthDate, contactNumber);
+    }
+
+    public static String acceptString() {
+        
     }
 }

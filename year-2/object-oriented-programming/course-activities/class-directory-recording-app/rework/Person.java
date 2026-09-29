@@ -37,11 +37,20 @@ public class Person {
         this.age = Period.between(birthDate, currDate).getYears();
     }
 
-    public int getAge() {
-        return this.age;
-    }
+    // getters
+    public String getLastName() { return this.lastName; }
 
-    public String getLastName() {
-        return this.lastName;
-    }
+    public String getFirsttName() { return this.firsttName; }
+
+    public String getMiddleName() { return this.middleName; }
+
+    public String getGender() { return this.gender; }
+
+    public String getBirthDate() { return this.birthDate; }
+
+    public long getContactNumber() { return this.contactNumber; }
+
+    public int getAge() { return this.age; }
+
+    public void setAge(int age) { this.age = age; }
 }
