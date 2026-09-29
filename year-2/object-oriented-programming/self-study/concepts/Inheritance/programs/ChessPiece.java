@@ -9,6 +9,6 @@ public class ChessPiece {
     }
 
     public void move() {
-        System.out.println("The piece moved.");
+        System.out.println("Unknown piece");
     }
 }
