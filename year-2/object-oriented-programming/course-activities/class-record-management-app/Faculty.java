@@ -15,7 +15,6 @@ public class Faculty extends Person{
         return String.format("%s %s. %s, %s", firstName, middleName.charAt(0), lastName, degree);
     }
 
-
     public String getFacultyID() {
         return this.facultyID;
     }
@@ -29,5 +28,4 @@ public class Faculty extends Person{
     public void setDegree(String degree) {
         this.degree = degree;
     }
-
 }

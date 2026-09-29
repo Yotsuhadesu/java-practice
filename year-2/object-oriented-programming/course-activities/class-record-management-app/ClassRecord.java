@@ -71,7 +71,8 @@ public class ClassRecord implements ClassList{
                 [2] Display in Order Added
                 Select option:""")) {
             case 1:
-                System.out.println("Bayoretto Ebegaden des");
+                sortStudents();
+                displayStudents(sortedStudents);
                 break;
             case 2:
                 displayStudents(students);
@@ -93,6 +94,7 @@ public class ClassRecord implements ClassList{
             int j = i - 1;
             while (j >= 0 && sortedStudents.get(j).getCompleteName().compareToIgnoreCase(key.getCompleteName()) > 0) {
                 sortedStudents.set(j + 1, sortedStudents.get(j));
+                j--;
             }
             sortedStudents.set(j + 1, key);
         }
