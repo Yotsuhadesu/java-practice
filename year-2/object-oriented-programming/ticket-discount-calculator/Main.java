@@ -9,7 +9,7 @@ public class Main {
 
         discount.askAttendeesCount(scanner);
         int attendeesCount = discount.getAttendeesCount();
-        boolean hasDiscount = discount.getHasDiscount();
+        boolean hasDiscount = discount.getHasDiscount();   
 
         int i = 1;
         char choice;
