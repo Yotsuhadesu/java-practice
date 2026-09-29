@@ -1,0 +1,5 @@
+COLLEGE|SCIS|School of Computer and Information Sciences
+PROGRAM|BSIT|Bachelor of Science in Information Technology
+COURSE|IT204|10452|Object Oriented Programming|3
+FACULTY|F-2018-091|Maria|Cruz|Santos|Master of Science in Information Technology
+STUDENT|25-31046|Jethro|Bolanos|Elano|Male|BSIT
