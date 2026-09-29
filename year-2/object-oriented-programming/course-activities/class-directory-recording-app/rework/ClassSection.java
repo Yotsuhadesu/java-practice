@@ -27,16 +27,16 @@ public class ClassSection {
     }
 
     public ArrayList<Student> sortedStudents() {
-        ArrayList<Student> sortedStudents = new ArrayList<>();
-        int size = this.students.size();
+        ArrayList<Student> sortedStudents = new ArrayList<>(this.students);
+        int size = sortedStudents.size();
 
         for (int i = 1; i < size; i++) {
-            Student student = this.students.get(i);
-            String keyLastName = student.
+            String keyLastName = sortedStudents.get(i).getLastName();
             int j = i - 1;
             
-            while (j >= 0 && ) {
-
+            while (j >= 0 &&  sortedStudents.get(j).getLastName().compareToIgnoreCase(keyLastName) > 0) {
+                
+                j--;
             }
         }
     }
