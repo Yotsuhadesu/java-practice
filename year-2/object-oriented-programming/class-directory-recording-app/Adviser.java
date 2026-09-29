@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.Period;
+
 public class Adviser {
     // fields
     private String lastName;
@@ -7,7 +10,8 @@ public class Adviser {
     private String birthDate;
     private long contactNumber;
     private String highestDegree;
-    
+    private int age; // computed later
+
     // constructor
     public Adviser(String lastName, String firstName, String middleName, 
         String gender, String birthDate, long contactNumber, String highestDegree) {
@@ -36,7 +40,7 @@ public class Adviser {
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
-    public void setContactNumber(int contactNumber) {
+    public void setContactNumber(long contactNumber) {
         this.contactNumber = contactNumber;
     }
     public void setHighestDegree(String highestDegree) {
@@ -64,5 +68,16 @@ public class Adviser {
     }
     public String getHighestDegree() {
         return this.highestDegree;
+    }
+    public int getAge() {
+        return this.age;
+    }
+
+    // calculate age from birthdate
+    public void processAge() {
+        LocalDate birthDate = LocalDate.parse(this.birthDate);
+        LocalDate currrentdate = LocalDate.now();
+        Period age = Period.between(birthDate, currrentdate);
+        this.age = age.getYears();
     }
 }

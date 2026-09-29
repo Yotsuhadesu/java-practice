@@ -7,9 +7,9 @@ public class ClassSection {
     private Adviser adviser;
     private ArrayList<Student> students;
 
-    // composition
+    // init empty list
     public ClassSection() {
-        
+        this.students = new ArrayList<>();
     }
 
     // setters

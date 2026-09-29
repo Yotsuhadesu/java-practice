@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.Period;
 public class Student {
     // fields
     private long lRN;
@@ -8,6 +10,7 @@ public class Student {
     private String birthDate;
     private long contactNumber;
     private String homeAddress;
+    private int age; // computed later
 
     // constructor
     public Student(long lRN, String lastName, String firstName, 
@@ -73,5 +76,16 @@ public class Student {
     }
     public String getHomeAddress() {
         return this.homeAddress;
+    }
+    public int getAge() {
+        return this.age;
+    }
+
+    // calculate age from birthdate
+    public void processAge() {
+        LocalDate birthDate = LocalDate.parse(this.birthDate);
+        LocalDate currrentdate = LocalDate.now();
+        Period age = Period.between(birthDate, currrentdate);
+        this.age = age.getYears();
     }
 }

@@ -1,3 +1,4 @@
+import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -6,8 +7,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Student> students = new ArrayList<>();
         ClassSection classSection = new ClassSection();
+
+        // initial section setup
+        System.out.print("Enter Grade Level: ");
+        classSection.setGradeLevel(scanner.nextInt());
+        scanner.nextLine();
+        System.out.print("Enter Section: ");
+        classSection.setSection(scanner.nextLine());
+
+        // menu
         System.out.println("=== SCHOOL CLASS DIRECTORY SYSTEM ===");
         System.out.println("[1] View Class Directory");
         System.out.println("[2] Assign/Update Adviser");
@@ -22,28 +31,30 @@ public class Main {
             System.out.print("Select an option: ");
             choice = scanner.nextInt();
             scanner.nextLine();
+            System.out.println();
             switch (choice) {
                 case 1:
-                    
+                    viewClassDirectory(classSection);
                     break;
                 case 2:
-                    Adviser adviser = assignAdviser(scanner);
+                    classSection.setAdviser(assignAdviser(scanner));
+                    System.out.println(">>> Adviser assigned successfully.");
                     break;
                 case 3:
-                    addStudent(students, scanner);
+                    addStudent(classSection.getStudents(), scanner);
                     break;
                 case 4:
-                    
+                    updateStudent(classSection, scanner);
                     break;
                 case 5:
                     saveDirectory(classSection);
                     break;
                 case 6:
-                    
+                    loadDirectory(classSection);
                     break;
                 case 7:
                     System.out.println("Exiting program. Goodbye!");
-                    break;
+                    return;
                 default:
                     System.out.println("Invalid input!");
                     break;
@@ -51,11 +62,25 @@ public class Main {
         } while(choice != 7);
     }
 
-    public static void viewClassDirectory() {
-
+    // print section, adviser, sorted student list
+    public static void viewClassDirectory(ClassSection classSection) {
+        System.out.println("=".repeat(50));
+        System.out.println("CLASS SECTION DIRECTORY");
+        System.out.println("Grade Level: Grade " + classSection.getGradeLevel() + "\tSection Name: " +  classSection.getSection());
+        System.out.println("-".repeat(50));
+        System.out.println("ADVISER INFORMATION:");
+        String advFullName = classSection.getAdviser().getFirstName() + " " + classSection.getAdviser().getMiddleName() + " " + classSection.getAdviser().getLastName();
+        System.out.println("Name: Prof. " + advFullName);
+        classSection.getAdviser().processAge();
+        System.out.println("Gender: " + classSection.getAdviser().getGender() + " | Birthdate: " + classSection.getAdviser().getBirthDate() + " (Age: " + classSection.getAdviser().getAge() + ")");
+        System.out.println("Contact: " + classSection.getAdviser().getContactNumber() + " | Degree: " + classSection.getAdviser().getHighestDegree());
+        sortStudents(classSection);
+        displayStudents(classSection);
     }
+
+    // prompt and build adviser
     public static Adviser assignAdviser(Scanner scanner) {
-        System.out.println("--- ASSIGN/UPDATE ADVISER ---");
+        System.out.println("--- ASSIGN ADVISER ---");
         System.out.print("Enter Last Name: ");
         String lastName = scanner.nextLine();
         System.out.print("Enter First Name: ");
@@ -73,6 +98,8 @@ public class Main {
         String highestDegree = scanner.nextLine();
         return new Adviser(lastName, firstName, middleName, gender, birthDate, contactNumber, highestDegree);
     }
+
+    // prompt and add new student
     public static void addStudent(ArrayList<Student> students, Scanner scanner) {
         System.out.println("--- ADD NEW STUDENT ---");
         System.out.print("Enter LRN: ");
@@ -94,29 +121,207 @@ public class Main {
         System.out.print("Enter Home Address: ");
         String homeAddress = scanner.nextLine();
         students.add(new Student(lRN, lastName, firstName, middleName, gender, birthDate, contactNumber, homeAddress));
+        System.out.println(">>> Student added successfully!");
     }
+
+    // bubble sort 
+    public static void sortStudents(ClassSection classSection) {
+        ArrayList<Student> students = classSection.getStudents();
+
+        for (int i = 0; i < students.size(); i++) {
+            for (int j = 0; j < students.size() - 1 - i; j++) {
+                String stCurrent = students.get(j).getLastName();
+                String stNext = students.get(j + 1).getLastName();
+                if (stCurrent.compareToIgnoreCase(stNext) > 0) {
+                    // swap
+                    Student temp = students.get(j);
+                    students.set(j, students.get(j + 1));
+                    students.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    // print all students
+    public static void displayStudents(ClassSection classSection) {
+        ArrayList<Student> students = classSection.getStudents();
+        System.out.println("-".repeat(50));
+        System.out.println("ENROLLED STUDENTS (Sorted Alphabetically - Total: " + students.size() + ")");
+        System.out.println();
+        int i = 1;
+        for (Student student : students) {
+            long lRN = student.getLRN();
+            String name = student.getLastName() + ", " + student.getFirstName() + " " + student.getMiddleName();
+            String gender = student.getGender();
+            String birthDate = student.getBirthDate();
+            student.processAge();
+            int age = student.getAge();
+            long contactNumber = student.getContactNumber();
+            String address = student.getHomeAddress();
+            System.out.println("[" + i + "]" + "\t" + "LRN: " + lRN);
+            System.out.println("\tName: " + name);
+            System.out.printf("\tGender: %s | Birthdate: %s (Age: %d) | Contact: %d\n", gender, birthDate, age, contactNumber);
+            System.out.println("\tAddress: " + address);
+            i++;
+        }
+        System.out.println("-".repeat(50));
+    }
+
+    // find student by LRN and edit chosen field
+    public static void updateStudent(ClassSection classSection, Scanner scanner) {
+        System.out.print("Enter LRN: ");
+        long inputLRN = scanner.nextLong();
+        scanner.nextLine();
+        ArrayList<Student> students = classSection.getStudents();
+        boolean found = false;
+        for (Student student : students) {
+            if (student.getLRN() == inputLRN) {
+                System.out.println("""
+                        1. LRN
+                        2. Last Name
+                        3. First Name
+                        4. Middle Name
+                        5. Gender
+                        6. BirthDate
+                        7. Contact Number
+                        8. Home Address
+                        9. Exit
+                        Choice:\t""");
+                switch (scanner.nextInt()) {
+                    case 1:
+                        System.out.print("Enter LRN: ");
+                        student.setLrn(scanner.nextLong());
+                        scanner.nextLine();
+                        break;
+                    case 2:
+                        System.out.print("Enter Last Name: ");
+                        student.setLastName(scanner.nextLine());
+                        break;
+                    case 3:
+                        System.out.print("Enter First Name: ");
+                        student.setFirstName(scanner.nextLine());
+                        break;
+                    case 4:
+                        System.out.print("Enter Middle Name: ");
+                        student.setMiddleName(scanner.nextLine());
+                        break;
+                    case 5:
+                        System.out.print("Enter Gender: ");
+                        student.setGender(scanner.nextLine());
+                        break;
+                    case 6:
+                        System.out.print("Enter Birthdate (YYYY-MM-DD): ");
+                        student.setBirthDate(scanner.nextLine());
+                        break;
+                    case 7:
+                        System.out.print("Enter Contact Number: ");
+                        student.setContactNumber(scanner.nextLong());
+                        break;
+                    case 8:
+                        System.out.print("Enter Home Address: ");
+                        student.setHomeAddress(scanner.nextLine());
+                        break;
+                    case 9:
+                        System.out.println("Exiting the updating student system...");
+                        return;
+                    default:
+                        System.out.println("Invalid Input!");
+                        break;
+                }
+                found = true;
+                break; // stop once match is updated
+            }
+        }
+        if (!found) {
+            System.out.println("LRN not found.");
+        }
+    }
+
+    // write section, adviser, students to file
     public static void saveDirectory(ClassSection classSection) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("ClassDirectory.txt"))) {
-            writer.write("Section," + classSection.getGradeLevel() + "," + classSection.getSection());
+            writer.write("Section," + classSection.getGradeLevel() + "," + 
+            classSection.getSection());
             writer.newLine();
             
             Adviser adviser = classSection.getAdviser();
-            String advFullName = adviser.getFirstName() + " " + adviser.getMiddleName() + " " + adviser.getLastName();
-            writer.write("Adviser," + advFullName + "," + adviser.getGender() + "," + adviser.getBirthDate() + "," + adviser.getContactNumber() + "," + adviser.getHighestDegree());
-            writer.newLine();
-            
-            for (Student student : classSection.getStudents()) {
-                String stFullName = student.getLastName() + "," + student.getFirstName() + "," + student.getMiddleName();
-                writer.write("Student," + student.getLRN() + "," + stFullName + "," + student.getGender() + "," + student.getBirthDate() + "," + student.getContactNumber() + "," + student.getHomeAddress());
+            if (adviser != null) {
+                writer.write("Adviser," + adviser.getLastName() + "," + 
+                adviser.getFirstName() + "," + adviser.getMiddleName() + "," + 
+                adviser.getGender() + "," + adviser.getBirthDate() + "," + 
+                adviser.getContactNumber() + "," + adviser.getHighestDegree());
                 writer.newLine();
+            }
+            
+            if (classSection.getStudents() != null) {
+                for (Student student : classSection.getStudents()) {
+                    writer.write("Student," + student.getLRN() + "," + 
+                    student.getLastName() + "," + student.getFirstName() + "," + 
+                    student.getMiddleName() + "," + student.getGender() + "," + 
+                    student.getBirthDate() + "," + student.getContactNumber() + "," + 
+                    student.getHomeAddress());
+                    writer.newLine();
+                }
             }
         } catch (Exception e) {
             System.out.println("An error occurred while saving the file.");
+            e.printStackTrace();
         }
+        System.out.println(">>> Directory saved successfully!");
     }
-    public static void loadDirectory(File file, ClassSection classSection) {
-        try(BufferedReader reader = new BufferedReader(file)) {
 
+    // read section, adviser, students from file
+    public static void loadDirectory(ClassSection classSection) {
+        try(BufferedReader reader = new BufferedReader(new FileReader("ClassDirectory.txt"))) {
+            classSection.getStudents().clear(); // avoid duplicates on reload
+            String line;
+
+            while((line = reader.readLine()) != null) {
+                String attribute = line.split(",")[0];
+
+                switch (attribute) {
+                    case "Section":
+                        int gradeLevel = Integer.parseInt(line.split(",")[1]);
+                        String section = line.split(",")[2];
+                        classSection.setGradeLevel(gradeLevel);
+                        classSection.setSection(section);
+                        break;
+                    case "Adviser":
+                        String advLastName = line.split(",")[1];
+                        String advFirstName = line.split(",")[2];
+                        String advMiddleName = line.split(",")[3];
+                        String advGender = line.split(",")[4];
+                        String advBirthDate = line.split(",")[5];
+                        long advContactNumber = Long.parseLong(line.split(",")[6]);
+                        String advDegree = line.split(",")[7];
+                        Adviser adviser = new Adviser(advLastName, advFirstName, advMiddleName, advGender, advBirthDate, advContactNumber, advDegree);
+                        classSection.setAdviser(adviser);
+                        break;
+                    case "Student":
+                        long lRN = Long.parseLong(line.split(",")[1]);
+                        String stdLastName = line.split(",")[2];
+                        String stdFirstName = line.split(",")[3];
+                        String stdMiddleName = line.split(",")[4];
+                        String stdGender = line.split(",")[5];
+                        String stdBirthDate = line.split(",")[6];
+                        long stdContactNumber = Long.parseLong(line.split(",")[7]);
+                        String stdAddress = line.split(",")[8];
+                        ArrayList<Student> students = classSection.getStudents();
+                        if (students == null) {
+                            students = new ArrayList<>();
+                            classSection.setStudents(students);
+                        }
+                        students.add(new Student(lRN, stdLastName, stdFirstName, stdMiddleName, stdGender, stdBirthDate, stdContactNumber, stdAddress));
+                        break;
+                    default:
+                        System.out.println("Invalid attribute.");
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred while reading the file.");
+            e.printStackTrace();
         }
+        System.out.println(">>> Directory loaded successfully!");
     }
 }
