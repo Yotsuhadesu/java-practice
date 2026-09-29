@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         MenuSystem menuSystem = new MenuSystem();
+        menuSystem.cashierLogIn();
         int choice;
         do {
             menuSystem.loadProducts();
@@ -17,6 +18,8 @@ public class Main {
                     break;
                 case 3:
                     menuSystem.updateOrderStatus();
+                    break;
+                case 4:
                     break;
                 case 0:
                     System.out.println(">> Exiting the program...");

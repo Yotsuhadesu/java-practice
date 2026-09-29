@@ -24,6 +24,9 @@ public class Product {
 
     }
 
+    public void setProductID(String productID) {
+        this.productID = productID;
+    }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -69,12 +72,14 @@ public class Product {
                 System.out.printf("%-3s | %-15s | P%-9s | %s \n", product.getProductID(), product.getProductName(), String.valueOf(product.getPrice()), String.valueOf(product.getStock()));
             }
         }
-        Product product = FileHandler.getProduct(Input.acceptString("Product ID:"));
+        String productID = Input.acceptString("Product ID:");
+        Product product = FileHandler.getProduct(productID);
         while (product.getStock() <= 0) {
             System.out.println(">> Product unavailable.");
-            product = FileHandler.getProduct(Input.acceptString("Product ID:"));
+            productID = Input.acceptString("Product ID:");
+            product = FileHandler.getProduct(productID);
         }
-        product.setQuantity(Input.acceptInt("Quantity:"));
+        product.setProductID(productID);
         do {
             product.setQuantity(Input.acceptInt("Quantity:"));
         } while (product.getQuantity() > product.getStock() || product.getQuantity() <= 0);

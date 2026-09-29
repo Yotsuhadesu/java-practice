@@ -28,10 +28,10 @@ public class Transaction {
         this.orderDate = orderDate;
         this.status = status;
     }
-    public Transaction(LocalDate orderDate, String customerID, String productName, int quantity, String deliveryMethod, double totalAmount, String status) {
+    public Transaction(LocalDate orderDate, String customerID, String productID, int quantity, String deliveryMethod, double totalAmount, String status) {
         this.transactionID = String.format("%05d", (getLastTransactionID() + 1));
         this.customerID = customerID;
-        this.productName = productName;
+        this.productID = productID;
         this.quantity = quantity;
         this.deliveryMethod = deliveryMethod;
         this.totalAmount = totalAmount;

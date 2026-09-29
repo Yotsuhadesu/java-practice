@@ -238,5 +238,53 @@ public class FileHandler {
         return Integer.parseInt(lastLine.split("\\|")[0]);
     }
 
+    public static void saveCustomer(Customer customer) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(customerFile, true))) {
+            writer.write(customer.getCustomerID() + "|" +
+            customer.getLastName() + "|" +
+            customer.getFirstName() + "|" +
+            customer.getMiddleName() + "|" +
+            customer.getContactNumber() + "|" +
+            customer.getAddress()
+        );
+        writer.newLine();
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while saving the customer to file.");
+            e.printStackTrace();
+        }
+    }
+
     // CASHIER FILE HADNLER
+    final static File cashierFile = new File("Cashier.txt");
+    public static boolean cashierIDExists(String cashierID) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(cashierFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.split("\\|")[0].equals(cashierID)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while reading the cashier file.");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static Cashier getCashier(String cashierID) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(cashierFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] attributes = line.split("\\|");
+
+                if (attributes[0].equals(cashierID)) {
+                    return new Cashier(cashierID, attributes[1], attributes[2], attributes[3], attributes[4], attributes[5], attributes[6]);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(">> An error occurred while reading the cashier file.");
+            e.printStackTrace();
+        }
+        return new Cashier();
+    }
 }

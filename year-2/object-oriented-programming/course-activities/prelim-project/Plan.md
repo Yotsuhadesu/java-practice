@@ -10,7 +10,6 @@ Water Amount | Price per Piece | Price per Box
 500 mL | 7.30 | 175 (24 pcs)
 350 mL | 5.83 | 140 (24 pcs)
 - Delivery Fee: 5 
-- Promo: Every 10 gallon of water, get 1 free gallon of water.
 ## Workflow
 - Pickup
     1. The customer places their order.
@@ -39,3 +38,13 @@ Water Amount | Price per Piece | Price per Box
 - Inventory - stocks
 - Cashier - the entity who records the transaction
 - Customer - customer information
+
+## Tasks
+- [x] - save customer in a text file
+- [ ] - view transactions
+- [ ] - search transactions
+- [x] - cashier log in
+
+## System Issues
+- [x] The product information form doesn't accept quantity that is equal to stock.
+- [x] The saved product ID in transaction file is always null.

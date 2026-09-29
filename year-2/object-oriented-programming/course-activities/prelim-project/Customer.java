@@ -1,16 +1,26 @@
 import java.util.ArrayList;
 
 public class Customer extends Person{
+    private boolean isNew = false;
+
     public Customer(String customerID, String lastName, String firstName, String middleName, String contactNumber, String address) {
         super(customerID, lastName, firstName, middleName, contactNumber, address);
+    }
+    public Customer(boolean isNew, String customerID, String lastName, String firstName, String middleName, String contactNumber, String address) {
+        super(customerID, lastName, firstName, middleName, contactNumber, address);
+        this.isNew = isNew;
     }
     public Customer() {
 
     }
 
+    public boolean getIsNew() {
+        return this.isNew;
+    }
+
     public static Customer askCustomerInfo(ArrayList<Customer> customers) {
         boolean isNew = Input.acceptBoolean("New Customer (true/false):");
-        if (!isNew) {
+        if (isNew) {
             System.out.println("CUSTOMER INFORMATION FORM");
             String customerID = String.format("%05d", FileHandler.getLastCustomerID() + 1);
             String lastName = Input.acceptString("Last Name:");
@@ -18,7 +28,7 @@ public class Customer extends Person{
             String middleName = Input.acceptString("Middle Name:");
             String contactNumber = Input.acceptString("Contact Number:");
             String address = Input.acceptString("Address:");
-            return new Customer(customerID, lastName, firstName, middleName, contactNumber, address);
+            return new Customer(isNew, customerID, lastName, firstName, middleName, contactNumber, address);
         } else {
             do {
                 String contactNumber = Input.acceptString("Contact Number:");

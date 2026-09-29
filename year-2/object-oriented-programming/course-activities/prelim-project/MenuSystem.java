@@ -6,7 +6,11 @@ public class MenuSystem implements AquadelSystem {
     Queue<Transaction> orders = new LinkedList<>();
     ArrayList<Product> products = new ArrayList<>();
     ArrayList<Customer> customers = new ArrayList<>();
+    Cashier cashier = new Cashier();
 
+    public void cashierLogIn() {
+        this.cashier = Cashier.logIn();
+    }
     public void loadOrders() {
         this.orders.clear();
         this.orders = FileHandler.loadOrders(products, customers);
@@ -19,7 +23,7 @@ public class MenuSystem implements AquadelSystem {
         this.customers = FileHandler.loadCustomers();
     }
     public void placeOrder() {
-        Customer newCustomer = Customer.askCustomerInfo(customers);
+        Customer newCustomer = Customer.askCustomerInfo(this.customers);
         Product newProduct = Product.askProduct(this.products);
         Order newOrder = Order.askOrderInformation();
         newCustomer.showCustomerInfo();
@@ -39,6 +43,10 @@ public class MenuSystem implements AquadelSystem {
             System.out.println(">> Order added to queue.");
             FileHandler.saveTransaction(newTransaction);
             System.out.println(">> Transaction saved to file.");
+            if (newCustomer.getIsNew()) {
+                FileHandler.saveCustomer(newCustomer);
+                System.out.println(">> New customer saved to file.");
+            }
             FileHandler.updateStock(newProduct, newTransaction.getQuantity(), "SUBTRACT");
             System.out.println(">> Stock updated successfully.");
         } else {
