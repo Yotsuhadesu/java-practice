@@ -4,6 +4,7 @@
 2. Java Identifiers, Keywords, and Datatypes
 3. Java Literals
 4. Java Variables
+5. Java Memory Addresses and the `final` keyword
 ---
 ### Java Program Basic Structure
 - It can have multiple classes but one public class at most, with the same name as the source file.
@@ -206,3 +207,14 @@
         1. BLock variable - variable inside a method
         2. Instance variable - variable inside a class and shared with methods
         3. Static variable - variable inside a class but is not accessible to non-static methods
+---
+### Java Memory Addresses and the `final` keyword
+- Java Memory Areas
+    - Method Area - static variables and other class-level data
+    - Heap Area - instance variables
+    - Stack Memory - runtime methods and local variables
+    - PC Register - store instructions to execute next
+    - Native Method stack - native method inocations
+- `final` keyword - used to effectively create a constant variable
+
+        final static double pi = 3.14;
