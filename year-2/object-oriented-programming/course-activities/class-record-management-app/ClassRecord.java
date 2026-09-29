@@ -4,7 +4,7 @@ public class ClassRecord implements ClassList{
     private College college = new College();
     private Program program = new Program();
     private Course course = new Course();
-    private Faculty faculty = new Faculty(null, null, null, null, null);
+    private Faculty faculty = new Faculty();
     private ArrayList <Student> students = new ArrayList<>();
     private ArrayList <Student> sortedStudents = new ArrayList<>(); 
 
