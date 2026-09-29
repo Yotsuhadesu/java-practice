@@ -3,19 +3,23 @@ import java.time.LocalDate;
 public class Transaction {
     private String transactionID;
     private LocalDate orderDate;
+    private String customerID;
+    private Customer customer;
     private String customerFullName;
-    String productID;
-    Product product;
+    private String productID;
+    private Product product;
     private String productName;
     private int quantity;
     private String deliveryMethod;
     private double totalAmount;
     private String status;
 
-    public Transaction(String transactionID, LocalDate orderDate, String customerFullName, String productID, Product product, int quantity, String deliveryMethod, double totalAmount, String status) {
+    public Transaction(String transactionID, LocalDate orderDate, String customerID, Customer customer, String productID, Product product, int quantity, String deliveryMethod, double totalAmount, String status) {
         this.transactionID = transactionID;
-        this.customerFullName = customerFullName;
+        this.customerID = customerID;
         this.productID = productID;
+        this.customer = customer;
+        this.customerFullName = this.customer.getFullName();
         this.product = product;
         this.productName = this.product.getProductName();
         this.quantity = quantity;
@@ -24,9 +28,9 @@ public class Transaction {
         this.orderDate = orderDate;
         this.status = status;
     }
-    public Transaction(LocalDate orderDate, String customerFullName, String productName, int quantity, String deliveryMethod, double totalAmount, String status) {
+    public Transaction(LocalDate orderDate, String customerID, String productName, int quantity, String deliveryMethod, double totalAmount, String status) {
         this.transactionID = String.format("%05d", (getLastTransactionID() + 1));
-        this.customerFullName = customerFullName;
+        this.customerID = customerID;
         this.productName = productName;
         this.quantity = quantity;
         this.deliveryMethod = deliveryMethod;
@@ -44,6 +48,9 @@ public class Transaction {
 
     public String getTransactionID() {
         return this.transactionID;
+    }
+    public String getCustomerID() {
+        return this.customerID;
     }
     public String getCustomerFullName() {
         return this.customerFullName;

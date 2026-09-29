@@ -77,7 +77,7 @@ public class Product {
         product.setQuantity(Input.acceptInt("Quantity:"));
         do {
             product.setQuantity(Input.acceptInt("Quantity:"));
-        } while (product.getQuantity() > product.getStock());
+        } while (product.getQuantity() > product.getStock() || product.getQuantity() <= 0);
         product.computeTotalAmount();
         return product;
     }

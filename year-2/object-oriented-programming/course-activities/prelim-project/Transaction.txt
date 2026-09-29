@@ -1,2 +1,3 @@
-00001|2026-09-24|Elano, Jethro Bolanos|001|5|Pickup|125.0|Cancelled
-00002|2026-09-27|E, E E|002|4|Pickup|120.0|Cancelled
+00001|2026-09-24|00001|001|5|Pickup|125.0|Pending
+00002|2026-09-27|00002|002|4|Pickup|120.0|Pending
+00003|2026-09-27|00001|null|4|Pickup|70.0|Pending

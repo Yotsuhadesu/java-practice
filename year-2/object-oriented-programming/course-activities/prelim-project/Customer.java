@@ -4,10 +4,13 @@ public class Customer extends Person{
     public Customer(String customerID, String lastName, String firstName, String middleName, String contactNumber, String address) {
         super(customerID, lastName, firstName, middleName, contactNumber, address);
     }
+    public Customer() {
+
+    }
 
     public static Customer askCustomerInfo(ArrayList<Customer> customers) {
         boolean isNew = Input.acceptBoolean("New Customer (true/false):");
-        if (isNew) {
+        if (!isNew) {
             System.out.println("CUSTOMER INFORMATION FORM");
             String customerID = String.format("%05d", FileHandler.getLastCustomerID() + 1);
             String lastName = Input.acceptString("Last Name:");
@@ -26,10 +29,21 @@ public class Customer extends Person{
                 }
                 System.out.println(">> Contact number doesn't exist.");
             } while (true);
-           
         }
     }
 
+    public String getCustomerID() {
+        return super.getID();
+    }
+    public static Customer getCustomer(ArrayList<Customer> Customers, String CustomerID) {
+        for (Customer customer : Customers) {
+            if (customer.getCustomerID().equals(CustomerID)) {
+                return customer;
+            }
+        }
+        System.out.println(">> Customer cannot be found.");
+        return new Customer();
+    }
     public void showCustomerInfo() {
         System.out.println("--- CUSTOMER INFORMATION ---");
         System.out.println("Name: " + getLastName() + ", " + getFirstName() + " " + getMiddleName());

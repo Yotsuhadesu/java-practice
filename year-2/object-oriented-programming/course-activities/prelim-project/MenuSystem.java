@@ -9,7 +9,7 @@ public class MenuSystem implements AquadelSystem {
 
     public void loadOrders() {
         this.orders.clear();
-        this.orders = FileHandler.loadOrders(products);
+        this.orders = FileHandler.loadOrders(products, customers);
     }
     public void loadProducts() {
         this.products = FileHandler.loadProducts();
@@ -19,17 +19,17 @@ public class MenuSystem implements AquadelSystem {
         this.customers = FileHandler.loadCustomers();
     }
     public void placeOrder() {
-        Customer newCustomer = Customer.askCustomerInfo();
+        Customer newCustomer = Customer.askCustomerInfo(customers);
         Product newProduct = Product.askProduct(this.products);
         Order newOrder = Order.askOrderInformation();
         newCustomer.showCustomerInfo();
         newProduct.showProductInfo();
         newOrder.showOrderInformation();
-        if(Input.acceptBoolean("Place Order (true/false)? ")) {
+        if (Input.acceptBoolean("Place Order (true/false)? ")) {
             Transaction newTransaction = new Transaction(
                 newOrder.getOrderDate(), 
-                newCustomer.getFullName(), 
-                newProduct.getProductName(), 
+                newCustomer.getCustomerID(), 
+                newProduct.getProductID(), 
                 newProduct.getQuantity(),
                 newOrder.getDeliveryMethod(),
                 newProduct.getTotalAmount(), 

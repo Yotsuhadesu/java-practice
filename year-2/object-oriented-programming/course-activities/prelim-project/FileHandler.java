@@ -111,11 +111,11 @@ public class FileHandler {
             System.out.println(">> Transaction file doesn't exist.");
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(transactionFile, true))) {
-            // Transaction ID|Order Date|Customer Name|Product Name|Total Amount|Status
+            // Transaction ID|Order Date|Customer ID|Product ID|Total Amount|Status
             writer.write(
                 transaction.getTransactionID() + "|" + 
                 transaction.getOrderDate().toString() + "|" + 
-                transaction.getCustomerFullName() + "|" + 
+                transaction.getCustomerID() + "|" + 
                 transaction.getProductID() + "|" + 
                 String.valueOf(transaction.getQuantity()) + "|" +
                 transaction.getDeliveryMethod() + "|" +
@@ -134,7 +134,7 @@ public class FileHandler {
         // get the updated Transaction String
         String updatedTransactionString = updatedTransaction.getTransactionID() + "|" + 
                 updatedTransaction.getOrderDate().toString() + "|" + 
-                updatedTransaction.getCustomerFullName() + "|" + 
+                updatedTransaction.getCustomerID() + "|" + 
                 updatedTransaction.getProductID() + "|" + 
                 String.valueOf(updatedTransaction.getQuantity()) + "|" +
                 updatedTransaction.getDeliveryMethod() + "|" +
@@ -171,7 +171,7 @@ public class FileHandler {
     }
 
     // extract orders from file to queue
-    public static Queue<Transaction> loadOrders(ArrayList<Product> products) {
+    public static Queue<Transaction> loadOrders(ArrayList<Product> products, ArrayList<Customer> customers) {
         Queue<Transaction> transactions = new LinkedList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(transactionFile))) {
             String line;
@@ -182,6 +182,7 @@ public class FileHandler {
                         attributes[0], 
                         LocalDate.parse(attributes[1]), 
                         attributes[2], 
+                        Customer.getCustomer(customers, attributes[2]),
                         attributes[3], 
                         Product.getProduct(products, attributes[3]),
                         Integer.parseInt(attributes[4]), 

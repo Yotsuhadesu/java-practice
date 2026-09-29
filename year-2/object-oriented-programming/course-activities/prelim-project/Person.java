@@ -34,6 +34,9 @@ public class Person {
         this.address = address;
     }
 
+    public String getID() {
+        return this.id;
+    }
     public String getLastName() {
         return this.lastName;
     }

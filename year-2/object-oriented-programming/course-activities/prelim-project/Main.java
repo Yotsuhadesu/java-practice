@@ -4,8 +4,8 @@ public class Main {
         int choice;
         do {
             menuSystem.loadProducts();
-            menuSystem.loadOrders();
             menuSystem.loadCustomers();
+            menuSystem.loadOrders();
             Input.showMenu();
             choice = Input.acceptInt("Choice:");
             switch (choice) {
