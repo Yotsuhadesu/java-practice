@@ -5,14 +5,14 @@ public class Discount {
     private boolean hasDiscount;
     private double discountAmount;
 
-    public Discount(int attendeesCount) {
-        this.attendeesCount = attendeesCount;
-        this.hasDiscount = this.attendeesCount >= 10;
-    }
     public Discount() {
-        this(0);
+        this.attendeesCount = 0;
+        this.hasDiscount = false;
     }
     
+    public void setHasDiscount() {
+        this.hasDiscount = this.attendeesCount >= 10;
+    }
     public void setDiscountAmount(double subTotal, double discountRate) {
         this.discountAmount = (this.hasDiscount) ? subTotal * (discountRate) / 100 : subTotal;
     }
