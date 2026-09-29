@@ -3,6 +3,7 @@ public class Input {
     public static Scanner scanner = new Scanner(System.in);
     public static void showMenu() {
         System.out.println("""
+                --- MENU ---
                 1. Place Order
                 0. Exit\s""");
     }
