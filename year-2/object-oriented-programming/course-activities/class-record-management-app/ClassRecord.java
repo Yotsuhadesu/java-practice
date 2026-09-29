@@ -32,11 +32,26 @@ public class ClassRecord implements ClassList{
     }
     @Override
     public void assignInstructorDetails() {
-
+        System.out.println("--- FACULTY INSTRUCTOR ASSIGNMENT ---");
+        faculty.setFacultyID(Input.acceptString("Enter Faculty ID:"));
+        faculty.setFirstName(Input.acceptString("Enter First Name:"));
+        faculty.setMiddleName(Input.acceptString("Enter Middle Name:"));
+        faculty.setLastName(Input.acceptString("Enter Last Name:"));
+        faculty.setDegree(Input.acceptString("Enter Highest Degree:"));
+        System.out.println(">> Instructor successfully assigned!");
     }
     @Override
     public void addStudent() {
-
+        System.out.printf("--- ADD ENROLLED STUDENT (Current: %d/40) ---\n", students.size());
+        String studentNumber = Input.acceptString("Enter Student No:");
+        String firstName = Input.acceptString("Enter First Name:");
+        String middleName = Input.acceptString("Enter Middle Name:");
+        String lastName = Input.acceptString("Enter Last Name:");
+        String gender = Input.acceptString("Enter Gender:");
+        String course = Input.acceptString("Enter Course Enrolled:");
+        Student student = new Student(firstName, middleName, lastName, studentNumber, gender, course);
+        students.add(student);
+        System.out.printf(">> Student %s added successfully!\n", student.getCompleteName());
     }
     @Override
     public void removeStudent() {

@@ -16,10 +16,10 @@ public class Main {
                     classRecord.assignCourseDetails();
                     break;
                 case 3:
-
+                    classRecord.assignInstructorDetails();
                     break;
                 case 4:
-
+                    classRecord.addStudent();
                     break;
                 case 5:
 
