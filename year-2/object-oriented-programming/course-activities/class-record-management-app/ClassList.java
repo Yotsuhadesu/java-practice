@@ -7,6 +7,7 @@ public interface ClassList {
 
     void assignCollegeDetails();
     void assignProgramDetails();
+    void assignCourseDetails();
     void assignInstructorDetails();
     void addStudent();
     void removeStudent();
