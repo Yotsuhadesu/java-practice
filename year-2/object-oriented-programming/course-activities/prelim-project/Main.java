@@ -3,6 +3,8 @@ public class Main {
         MenuSystem menuSystem = new MenuSystem();
         int choice;
         do {
+            menuSystem.loadOrders();
+            menuSystem.loadProducts();
             Input.showMenu();
             choice = Input.acceptInt("Choice:");
             switch (choice) {
@@ -13,7 +15,7 @@ public class Main {
                     menuSystem.viewOrders();
                     break;
                 case 3:
-                    menuSystem.loadProducts();
+                    menuSystem.updateOrderStatus();
                     break;
                 case 0:
                     System.out.println(">> Exiting the program...");
