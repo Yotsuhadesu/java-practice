@@ -56,9 +56,9 @@ public class Main {
 
         System.out.println("=".repeat(10) + " SUMMARY " + "=".repeat(10));
         System.out.println("Highest Budget Needed:");
-        System.out.printf("- Brand: %s (P%.2f)", highBrand, highCost);
+        System.out.printf("- Brand: %s (P%.2f total)\n", highBrand, highCost);
         System.out.println("Lowest Budget Needed:");
-        System.out.printf("- Brand: %s (P%.2f)", lowBrand, lowCost);
+        System.out.printf("- Brand: %s (P%.2f total)\n", lowBrand, lowCost);
         System.out.println("=".repeat(25));
 
         scanner.close();

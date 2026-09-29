@@ -41,5 +41,6 @@ public class RowColumnTotals {
             System.out.println("Column " + (i + 1) + " sum: " + columnSum);
         }
 
+        sc.close();
     }
 }

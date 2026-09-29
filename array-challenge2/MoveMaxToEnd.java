@@ -36,5 +36,7 @@ public class MoveMaxToEnd {
         for (int i : arr) {
             System.out.print(i + " ");
         }
+
+        sc.close();
     }
 }
