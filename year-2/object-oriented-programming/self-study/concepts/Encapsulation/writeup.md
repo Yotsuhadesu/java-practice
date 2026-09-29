@@ -5,7 +5,7 @@ Encapsulation is the principle of making fields, variables inside a class, direc
 
 ## Why implement it?
 If fields were `public` instead of `private`, the users of the program will have the ability to directly manipulate the values of the field. 
-For example, in a baking program, the field,
+For example, in a banking program, the field,
 
             public double balance;
 allows the user to execute the code,
