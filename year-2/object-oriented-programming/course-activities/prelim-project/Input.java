@@ -30,4 +30,26 @@ public class Input {
         scanner.nextLine();
         return number;
     }
+
+    public static double acceptDouble(String prompt) {
+        System.out.print(prompt + " ");
+        while (!scanner.hasNextDouble()) {
+            System.out.print(prompt + " ");
+            scanner.next();
+        }
+        double number = scanner.nextDouble();
+        scanner.nextLine();
+        return number;
+    }
+
+    public static boolean acceptBoolean(String prompt) {
+        System.out.print(prompt + " ");
+        while (!scanner.hasNextBoolean()) {
+            System.out.print(prompt + " ");
+            scanner.next();
+        }
+        boolean bool = scanner.nextBoolean();
+        scanner.nextLine();
+        return bool;
+    }
 }
