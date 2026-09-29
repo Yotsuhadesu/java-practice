@@ -63,18 +63,20 @@ public class FileProcess {
             }
             System.out.println(">> Class record data saved successfully!");
         } catch (Exception e) {
-            System.out.println("Cannot save the class record to " + file.getName() + ".");
+            System.out.println(">> Cannot save the class record to " + file.getName() + ".");
+            e.printStackTrace();
         }
     }
     
     public static void loadFromFile(College college, Program program, Course course, Faculty faculty, ArrayList<Student> students) {
         File file = new File("ClassRecord_" + course.getCourseCode() + ".txt");
         if (!file.exists()) {
-            System.out.println(file.getName() + " doesn't exist. Please save the class record to file first.");
+            System.out.println(">>" + file.getName() + " doesn't exist. Please save the class record to file first.");
             return;
         }
 
         System.out.printf("Fetching class record data from \"%s\"...\n", file.getName());
+        students.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -119,7 +121,8 @@ public class FileProcess {
             }
             System.out.println(">> Class record data fetched successfully!");
         } catch (Exception e) {
-            System.out.println("An error occurred while reading " + file.getName() + ".");
+            System.out.println(">> An error occurred while reading " + file.getName() + ".");
+            e.printStackTrace();
         }
     }
 }

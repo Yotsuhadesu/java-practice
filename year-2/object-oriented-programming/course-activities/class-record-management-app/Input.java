@@ -7,7 +7,7 @@ public class Input {
         System.out.println("=".repeat(50));
         System.out.printf(
             "\t%s\n" +
-            "\tClass Record Management System\n", classRecord.getInstitutionName());
+            "\tClass Record Management System\n", classRecord.getInstitutionName().toUpperCase());
         System.out.println("=".repeat(50));
         System.out.println();
         System.out.println("""
