@@ -34,7 +34,7 @@ public class Main {
                     FileProcess.saveToFile(classRecord);
                     break;
                 case 9:
-                    System.out.println("To be created.");
+                    FileProcess.loadFromFile(classRecord);
                     break;
                 case 0:
                     System.out.println("Exiting system. Thank you for using UNC Class Record System!");
