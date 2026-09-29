@@ -1,11 +1,10 @@
-import java.util.Scanner;
-
 public class Tile {
     // encapsulated fields
     private String brandName;
     private double tileLength;
     private double tileWidth;
     private double tileCost;
+    private int tilesNeeded;
     private double totalCost;
     
     // constructors
@@ -30,23 +29,23 @@ public class Tile {
         this.tileCost = tileCost;
     }
 
-    // getters
+    // getters that returns each field's value
     public String getBrand() {
         return this.brandName;
     }
     public double getTileArea() {
-        return (this.tileLength * this.tileWidth) / 100;
+        return (this.tileLength / 100) * (this.tileWidth / 100);    // get tile area in meters
     }
-    public double getTilesNeeded(double floorArea) {
-        return floorArea / getTileArea();
+    public int getTilesNeeded(double floorArea) {
+        this.tilesNeeded = ((int)(floorArea / getTileArea())) + 1;  // divide the floor area to tile area in square meters, convert to int to round down, and add 1 to fill the gap
+        return this.tilesNeeded;   
     }
     public double getTotalCost(double tilesNeeded) {
-        this.totalCost = this.tileCost * tilesNeeded;
+        this.totalCost = this.tileCost * tilesNeeded;   // assign the value to the totalCost field
         return this.totalCost;
     }
     public double getTotalCost() {
         return this.totalCost;
     }
-    // misc methods
 }
 
