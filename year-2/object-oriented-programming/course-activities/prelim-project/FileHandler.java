@@ -7,44 +7,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandler {
-    // PRODUCT FILE HANDLER
+    // PRODUCT FILE HANDLER METHODS
     final static File productsFile = new File("Products.txt");
-    public static void showProducts() {
-        // check if the file exists or is empty
-        if (!productsFile.exists() || productsFile.length() == 0) {
-            System.out.println(">> There are no products.");
-            return;
-        }
-        // show the products
-        System.out.printf("%-15s | %-10s | %-10s \n", "PRODUCT", "PRICE", "STOCK");
+    public static ArrayList<Product> loadProducts() {
+        ArrayList<Product> products = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(productsFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] productAttributes = line.split("\\|");
-                System.out.printf("%-15s | P%-9s | %-10s \n", productAttributes[0], productAttributes[1], productAttributes[2]);
+                String[] attributes = line.split("\\|");
+                products.add(new Product(attributes[0], attributes[1], Double.parseDouble(attributes[2]), Integer.parseInt(attributes[3])));
             }
+            System.out.println(">> Products extracted successfully.");
         } catch (Exception e) {
-            System.out.println(">> An error occurred while reading the file.");
+            System.out.println(">> An error occurred while reading the product file.");
             e.printStackTrace();
-        } 
+        }
+        return products;
     }
 
-    public static double getProductPrice(String productName) {
+    // return the product object by ID
+    public static Product getProduct(String productID) {
         try (BufferedReader reader = new BufferedReader(new FileReader(productsFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] productAttributes = line.split("\\|");
-                if (productAttributes[0].equals(productName)) {
-                    double price = Double.parseDouble(productAttributes[1]);
-                    return price;
+                String[] attributes = line.split("\\|");
+                if (attributes[0].equals(productID)) {
+                    return new Product(attributes[0], attributes[1], Double.parseDouble(attributes[2]), Integer.parseInt(attributes[3]));
                 }
             }
+            System.out.println(">> Product ID does not exist.");
         } catch (Exception e) {
-            System.out.println(">> An error occurred while reading the file.");
+            System.out.println(">> An error occurred while reading the product file.");
             e.printStackTrace();
-        } 
-        System.out.println(">> The system could not find the product name.");
-        return 0;
+        }
+        return new Product();
     }
 
     // TRANSACTION FILE HANDLER
@@ -131,4 +127,8 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
+
+    // CUSTOMER FILE HANDLER
+
+    // CASHIER FILE HADNLER
 }

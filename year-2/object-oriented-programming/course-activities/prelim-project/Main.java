@@ -12,6 +12,9 @@ public class Main {
                 case 2:
                     menuSystem.viewOrders();
                     break;
+                case 3:
+                    menuSystem.loadProducts();
+                    break;
                 case 0:
                     System.out.println(">> Exiting the program...");
                     break;

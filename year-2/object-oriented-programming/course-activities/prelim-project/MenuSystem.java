@@ -1,12 +1,17 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class MenuSystem implements AquadelSystem {
     Queue<Transaction> orders = new LinkedList<>();
+    ArrayList<Product> products = new ArrayList<>();
 
+    public void loadProducts() {
+        products = FileHandler.loadProducts();
+    }
     public void placeOrder() {
         Customer newCustomer = Customer.askCustomerInfo();
-        Product newProduct = Product.askProduct();
+        Product newProduct = Product.askProduct(this.products);
         Order newOrder = Order.askOrderInformation();
         newCustomer.showCustomerInfo();
         newProduct.showProductInfo();
