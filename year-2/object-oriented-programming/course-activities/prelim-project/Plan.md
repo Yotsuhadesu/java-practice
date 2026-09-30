@@ -50,3 +50,6 @@ Water Amount | Price per Piece
 - [x] The saved product ID in transaction file is always null.
 - [x] Delivery Method doesn't add 5 peso fee
 - [x] Input accepts pipe character.
+- [x] Money are stored as double, losing integrity.
+- [x] loops with no way to cancel
+- [ ] Gallon and gallon refill doesn't share the same stock

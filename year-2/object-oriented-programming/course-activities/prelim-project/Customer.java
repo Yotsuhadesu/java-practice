@@ -38,6 +38,9 @@ public class Customer extends Person{
                     }
                 }
                 System.out.println(">> Contact number doesn't exist.");
+                if (Input.acceptBoolean(">> Cancel? (true/false)")) {
+                    return new Customer();
+                }
             } while (true);
         }
     }

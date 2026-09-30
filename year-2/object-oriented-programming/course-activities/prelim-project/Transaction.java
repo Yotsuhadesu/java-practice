@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Transaction {
@@ -11,10 +12,13 @@ public class Transaction {
     private String productName;
     private int quantity;
     private String deliveryMethod;
-    private double totalAmount;
+    private BigDecimal totalAmount;
     private String status;
 
-    public Transaction(String transactionID, LocalDate orderDate, String customerID, Customer customer, String productID, Product product, int quantity, String deliveryMethod, double totalAmount, String status) {
+    public Transaction(String transactionID, LocalDate orderDate, String customerID, 
+        Customer customer, String productID, Product product, 
+        int quantity, String deliveryMethod, BigDecimal totalAmount, 
+        String status) {
         this.transactionID = transactionID;
         this.customerID = customerID;
         this.productID = productID;
@@ -28,7 +32,9 @@ public class Transaction {
         this.orderDate = orderDate;
         this.status = status;
     }
-    public Transaction(LocalDate orderDate, String customerID, String productID, int quantity, String deliveryMethod, double totalAmount, String status) {
+    public Transaction(LocalDate orderDate, String customerID, String productID, 
+        int quantity, String deliveryMethod, BigDecimal totalAmount, 
+        String status) {
         this.transactionID = String.format("%05d", (getLastTransactionID() + 1));
         this.customerID = customerID;
         this.productID = productID;
@@ -73,7 +79,7 @@ public class Transaction {
     public String getDeliveryMethod() {
         return this.deliveryMethod;
     }
-    public double getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return this.totalAmount;
     }
     public String getStatus() {

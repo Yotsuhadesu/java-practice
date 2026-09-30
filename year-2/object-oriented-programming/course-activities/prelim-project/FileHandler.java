@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,7 +21,7 @@ public class FileHandler {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] attributes = line.split("\\|");
-                products.add(new Product(attributes[0], attributes[1], Double.parseDouble(attributes[2]), Integer.parseInt(attributes[3])));
+                products.add(new Product(attributes[0], attributes[1], new BigDecimal(attributes[2]), Integer.parseInt(attributes[3])));
             }
             System.out.println(">> Products fetched successfully.");
         } catch (Exception e) {
@@ -37,10 +38,9 @@ public class FileHandler {
             while ((line = reader.readLine()) != null) {
                 String[] attributes = line.split("\\|");
                 if (attributes[0].equals(productID)) {
-                    return new Product(attributes[0], attributes[1], Double.parseDouble(attributes[2]), Integer.parseInt(attributes[3]));
+                    return new Product(attributes[0], attributes[1], new BigDecimal(attributes[2]), Integer.parseInt(attributes[3]));
                 }
             }
-            System.out.println(">> Product ID does not exist.");
         } catch (Exception e) {
             System.out.println(">> An error occurred while reading the product file.");
             e.printStackTrace();
@@ -189,7 +189,7 @@ public class FileHandler {
                         Product.getProduct(products, attributes[3]),
                         Integer.parseInt(attributes[4]), 
                         attributes[5], 
-                        Double.parseDouble(attributes[6]), 
+                        new BigDecimal(attributes[6]), 
                         attributes[7]));
                 } 
             }
@@ -217,7 +217,7 @@ public class FileHandler {
         } catch (Exception e) {
             System.out.println(">> An error occurred while reding the customer file.");
             e.printStackTrace();
-        }
+        } 
         return customers;
     }
     

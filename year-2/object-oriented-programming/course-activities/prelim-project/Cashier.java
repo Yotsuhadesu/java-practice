@@ -16,6 +16,10 @@ public class Cashier extends Person {
         String id = Input.acceptString("Cashier ID:");
         while (!FileHandler.cashierIDExists(id)) {
             System.out.println(">> Cashier ID does not exist.");
+            if (Input.acceptBoolean(">> Exit? (true/false)")) {
+                return new Cashier();
+            }
+
             id = Input.acceptString("Cashier ID:");
         }
         Cashier cashier = FileHandler.getCashier(id);
@@ -23,6 +27,9 @@ public class Cashier extends Person {
         while (true) {
             if (!password.equals(cashier.getPassword())) {
                 System.out.println(">> Wrong password.");
+                if (Input.acceptBoolean(">> Exit? (true/false)")) {
+                    return new Cashier();
+                }
                 password = Input.acceptString("Password:");
             } else {
                 return cashier;

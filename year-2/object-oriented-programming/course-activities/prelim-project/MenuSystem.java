@@ -24,7 +24,17 @@ public class MenuSystem implements AquadelSystem {
     }
     public void placeOrder() {
         Customer newCustomer = Customer.askCustomerInfo(this.customers);
+        if (newCustomer.getID() == null) {
+            System.out.println(">> Undefined customer. Exiting the place order prompt...");
+            return;
+        }
+
         Product newProduct = Product.askProduct(this.products);
+        if (newProduct.getProductID() == null) {
+            System.out.println(">> Undefined product. Exiting the place order prompt...");
+            return;
+        }
+
         Order newOrder = Order.askOrderInformation();
         newProduct.setToDeliver(newOrder.getToDeliver());
         newProduct.computeTotalAmount();

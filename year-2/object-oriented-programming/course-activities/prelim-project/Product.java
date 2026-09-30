@@ -1,21 +1,22 @@
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Product {
     private String productID;
     private String productName;
-    private double price;
+    private BigDecimal price;
     private int quantity;
-    private double totalAmount;
+    private BigDecimal totalAmount;
     private int stock;
     private boolean toDeliver;
 
-     public Product(String productID, String productName, double price, int stock) {
+     public Product(String productID, String productName, BigDecimal price, int stock) {
         this.productID = productID;
         this.productName = productName;
         this.price = price;
         this.stock = stock;
     }
-    public Product(String productName, double price, int quantity, double totalAmount) {
+    public Product(String productName, BigDecimal price, int quantity, BigDecimal totalAmount) {
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
@@ -36,9 +37,9 @@ public class Product {
     }
     public void computeTotalAmount() {
         if (this.toDeliver) {
-            this.totalAmount = this.price * this.quantity + 5;
+            this.totalAmount = (this.price.multiply(BigDecimal.valueOf(quantity))).add(BigDecimal.valueOf(5));
         } else {
-            this.totalAmount = this.price * this.quantity;
+            this.totalAmount = this.price.multiply(BigDecimal.valueOf(quantity));
         }
     }
 
@@ -57,13 +58,13 @@ public class Product {
     public String getProductName() {
         return this.productName;
     }
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
     public int getQuantity() {
         return this.quantity;
     }
-    public double getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return this.totalAmount;
     }
     public int getStock() {
@@ -74,23 +75,46 @@ public class Product {
         System.out.println("--- PRODUCT INFORMATION FORM ---");
         if (products.isEmpty()) {
             System.out.println(">> There are no prducts.");
+            return new Product();
         } else {
             System.out.printf("%-3s | %-15s | %-10s | %s \n", "ID", "PRODUCT", "PRICE", "STOCK");
             for (Product product : products) {
                 System.out.printf("%-3s | %-15s | P%-9s | %s \n", product.getProductID(), product.getProductName(), String.valueOf(product.getPrice()), String.valueOf(product.getStock()));
             }
         }
+
         String productID = Input.acceptString("Product ID:");
         Product product = FileHandler.getProduct(productID);
-        while (product.getStock() <= 0) {
-            System.out.println(">> Product unavailable.");
+        while (product.getProductID() == null || product.getStock() <= 0) {
+            if (product.getProductID() == null) {
+                System.out.println(">> Product ID does not exist.");
+            } else {
+                System.out.println(">> Product out of stock");
+            }
+
+            if (Input.acceptBoolean(">> Cancel? (true/false)")) {
+                return new Product();
+            }
+
             productID = Input.acceptString("Product ID:");
             product = FileHandler.getProduct(productID);
         }
         product.setProductID(productID);
-        do {
+
+        product.setQuantity(Input.acceptInt("Quantity:"));
+        while (product.getQuantity() > product.getStock() || product.getQuantity() <= 0) {
+            if (product.getQuantity() > product.getStock()) {
+                System.out.println(">> Quantity is greater than the stock, please try again.");
+            } else if (product.getQuantity() <= 0) {
+                System.out.println(">> Quantity must not be zero or negative, please try again.");
+            }
+
+            if (Input.acceptBoolean(">> Cancel? (true/false)")) {
+                return new Product();
+            }
+
             product.setQuantity(Input.acceptInt("Quantity:"));
-        } while (product.getQuantity() > product.getStock() || product.getQuantity() <= 0);
+        }
         return product;
     }
 

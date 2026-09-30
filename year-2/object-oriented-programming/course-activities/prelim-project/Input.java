@@ -51,6 +51,7 @@ public class Input {
     public static boolean acceptBoolean(String prompt) {
         System.out.print(prompt + " ");
         while (!scanner.hasNextBoolean()) {
+            System.out.println(">> Invalid bool value. Please try again.");
             System.out.print(prompt + " ");
             scanner.next();
         }

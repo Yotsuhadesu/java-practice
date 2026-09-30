@@ -2,6 +2,10 @@ public class Main {
     public static void main(String[] args) {
         MenuSystem menuSystem = new MenuSystem();
         menuSystem.cashierLogIn();
+        if (menuSystem.cashier.getID() == null) {
+            System.out.println(">> Exiting the program...");
+            return;
+        }
         int choice;
         do {
             menuSystem.loadProducts();
