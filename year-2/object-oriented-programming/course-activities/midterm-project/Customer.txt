@@ -1,3 +1,0 @@
-00001|Santos|Juan|Carlos|09333555100|United Arab Emirates
-00002|Baterbonia|Rene|Clert|09865234200|Ateneo de Davao
-00003|Bougainvillea|Violet|Evergarden|09222555100|Leidenschaftlich
