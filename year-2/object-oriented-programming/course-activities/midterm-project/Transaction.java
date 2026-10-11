@@ -15,6 +15,26 @@ public class Transaction implements Record {
     private BigDecimal delFee;
     private BigDecimal totAmount;
     private String payMethod;
+    private String tranStatus;
+
+    public Transaction(int tranID, LocalDate tranDate, String cusLastName, String cusFirstName, String cusConNum, String delAddress, String item, int itemQuantity, BigDecimal itemPrice, BigDecimal delFee, BigDecimal totAmount, String payMethod, String tranStatus) {
+        this.tranID = tranID;
+        this.tranDate = tranDate;
+        this.cusLastName = cusLastName;
+        this.cusFirstName = cusFirstName;
+        this.cusConNum = cusConNum;
+        this.delAddress = delAddress;
+        this.item = item;
+        this.itemQuantity = itemQuantity;
+        this.itemPrice = itemPrice;
+        this.delFee = delFee;
+        this.totAmount = totAmount;
+        this.payMethod = payMethod;
+        this.tranStatus = tranStatus;
+    }
+    public Transaction() {
+        
+    }
     
     @Override 
     public int getRecordID() {
@@ -38,114 +58,88 @@ public class Transaction implements Record {
         transactionData.add(this.tranStatus);
         return transactionData;
     }
+    
+    public void setTranID(int tranID) {
+        this.tranID = tranID;
+    }
+    public void setTranDate(LocalDate tranDate) {
+        this.tranDate = tranDate;
+    }
+    public void setCusLastName(String cusLastName) {
+        this.cusLastName = cusLastName;
+    }
+    public void setCusFirstName(String cusFirstName) {
+        this.cusFirstName = cusFirstName;
+    }
+    public void setCusConNum(String cusConNum) {
+        this.cusConNum = cusConNum;
+    }
+    public void setDelAddress(String delAddress) {
+        this.delAddress = delAddress;
+    }
+    public void setItem(String item) {
+        this.item = item;
+    }
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+    public void setItemPrice(BigDecimal itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+    public void setDelFee(BigDecimal delFee) {
+        this.delFee = delFee;
+    }
+    public void setTotAmount(BigDecimal totAmount) {
+        this.totAmount = totAmount;
+    }
+     public void setPayMethod(String payMethod) {
+        this.payMethod = payMethod;
+    }
+    public void setTranStatus(String tranStatus) {
+        this.tranStatus = tranStatus;
+    }
+   
 
     public int getTranID() {
         return this.tranID;
     }
-
-    public void setTranID(int tranID) {
-        this.tranID = tranID;
-    }
-
     public LocalDate getTranDate() {
         return this.tranDate;
     }
-
-    public void setTranDate(LocalDate tranDate) {
-        this.tranDate = tranDate;
-    }
-
     public String getCusLastName() {
         return this.cusLastName;
     }
-
-    public void setCusLastName(String cusLastName) {
-        this.cusLastName = cusLastName;
-    }
-
     public String getCusFirstName() {
         return this.cusFirstName;
     }
-
-    public void setCusFirstName(String cusFirstName) {
-        this.cusFirstName = cusFirstName;
-    }
-
     public String getCusConNum() {
         return this.cusConNum;
     }
-
-    public void setCusConNum(String cusConNum) {
-        this.cusConNum = cusConNum;
-    }
-
     public String getDelAddress() {
         return this.delAddress;
     }
-
-    public void setDelAddress(String delAddress) {
-        this.delAddress = delAddress;
-    }
-
     public String getItem() {
         return this.item;
     }
-
-    public void setItem(String item) {
-        this.item = item;
-    }
-
     public int getItemQuantity() {
         return this.itemQuantity;
     }
-
-    public void setItemQuantity(int itemQuantity) {
-        this.itemQuantity = itemQuantity;
-    }
-
     public BigDecimal getItemPrice() {
         return this.itemPrice;
     }
-
-    public void setItemPrice(BigDecimal itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
     public BigDecimal getDelFee() {
         return this.delFee;
     }
-
-    public void setDelFee(BigDecimal delFee) {
-        this.delFee = delFee;
-    }
-
     public void compTotAmount() {
         this.totAmount = this.itemPrice.multiply(new BigDecimal(String.valueOf(this.itemQuantity))).add(this.delFee);
     }
-
-    public BigDecimal getTotAmount() {
+     public BigDecimal getTotAmount() {
         return this.totAmount;
     }
-
-    public void setTotAmount(BigDecimal totAmount) {
-        this.totAmount = totAmount;
-    }
-
-    public String getpayMethod() {
+    public String getPayMethod() {
         return this.payMethod;
     }
-
-    public void setpayMethod(String payMethod) {
-        this.payMethod = payMethod;
-    }
-
     public String getTranStatus() {
         return this.tranStatus;
     }
-
-    public void setTranStatus(String tranStatus) {
-        this.tranStatus = tranStatus;
-    }
-    private String tranStatus;
-
 }
