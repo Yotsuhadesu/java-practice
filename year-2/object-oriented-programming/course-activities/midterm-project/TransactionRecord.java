@@ -24,9 +24,33 @@ public class TransactionRecord implements RecordManager {
         transaction.setDelAddress(InputHandler.acceptString("Delivery Address"));
         System.out.println("--- ITEM INFORMATION ---");
         transaction.setItem(InputHandler.acceptString("Name"));
-        transaction.setItemQuantity(InputHandler.acceptInt("Quantity"));
-        transaction.setItemPrice(InputHandler.acceptBigDecimal("Price"));
-        transaction.setDelFee(InputHandler.acceptBigDecimal("Delivery Fee"));
+        boolean isValid = false;
+        while (!isValid) {
+            try {
+                transaction.setItemQuantity(InputHandler.acceptInt("Quantity"));
+                isValid = true;
+            } catch (InvalidTransactionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        isValid = false;
+        while (!isValid) {
+            try {
+                transaction.setItemPrice(InputHandler.acceptBigDecimal("Price"));
+                isValid = true;
+            } catch (InvalidTransactionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        isValid = false;
+        while (!isValid) {
+            try {
+                transaction.setDelFee(InputHandler.acceptBigDecimal("Delivery Fee"));
+                isValid = true;
+            } catch (InvalidTransactionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
         transaction.compTotAmount();
         transaction.setPayMethod(InputHandler.acceptString("Payment Method"));
         transaction.setTranStatus(InputHandler.acceptString("Transaction Status"));
@@ -58,7 +82,7 @@ public class TransactionRecord implements RecordManager {
                 case 2:
                     String updFirstName = InputHandler.acceptString("First Name");
                     if (InputHandler.acceptBoolean("Update " + transaction.getCusFirstName() + " to " + updFirstName + "? (true/false)")) {
-                        transaction.setCusLastName(updFirstName);
+                        transaction.setCusFirstName(updFirstName);
                     } else {
                         System.out.println(">> First Name update cancelled.");
                     }
@@ -66,7 +90,7 @@ public class TransactionRecord implements RecordManager {
                 case 3:
                     String updConNum = InputHandler.acceptString("Contact Number");
                     if (InputHandler.acceptBoolean("Update " + transaction.getCusConNum() + " to " + updConNum + "? (true/false)")) {
-                        transaction.setCusLastName(updConNum);
+                        transaction.setCusConNum(updConNum);
                     } else {
                         System.out.println(">> Contact number update cancelled.");
                     }
@@ -74,7 +98,7 @@ public class TransactionRecord implements RecordManager {
                 case 4:
                     String updStatus = InputHandler.acceptString("Status");
                     if (InputHandler.acceptBoolean("Update " + transaction.getTranStatus() + " to " + updStatus + "? (true/false)")) {
-                        transaction.setCusLastName(updStatus);
+                        transaction.setTranStatus(updStatus);
                     } else {
                         System.out.println(">> Transaction status update cancelled.");
                     }
@@ -111,7 +135,7 @@ public class TransactionRecord implements RecordManager {
             InputHandler.showHeadTable();
             showForTran(transaction);
         } else {
-            System.out.println(">> Transaction record not found.");
+            return;
         }
     }
     @Override 

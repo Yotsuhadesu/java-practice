@@ -30,7 +30,7 @@ public class InputHandler {
             System.out.print(prompt + ": ");
             str = scanner.nextLine();
 
-            if (str != null && !str.isBlank()) {
+            if (str != null && !str.isBlank() && !str.contains("\t")) {
                 break;
             } else {
                 System.out.println(">> Please enter a valid input.");
@@ -68,6 +68,9 @@ public class InputHandler {
 
     public static int acceptId() {
         int lastTranId = FileHandler.getLastTranId();
+        if (lastTranId == 0) {
+            return -1;
+        }
         int num = 0;
         do {
             System.out.print("Enter ID: ");

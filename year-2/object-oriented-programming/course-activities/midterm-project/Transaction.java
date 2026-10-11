@@ -80,14 +80,26 @@ public class Transaction implements Record {
     public void setItem(String item) {
         this.item = item;
     }
-    public void setItemQuantity(int itemQuantity) {
-        this.itemQuantity = itemQuantity;
+    public void setItemQuantity(int itemQuantity) throws InvalidTransactionException {
+        if (itemQuantity <= 0) {
+            throw new InvalidTransactionException(">> Invalid item quantity.");
+        } else {
+            this.itemQuantity = itemQuantity;
+        }
     }
-    public void setItemPrice(BigDecimal itemPrice) {
-        this.itemPrice = itemPrice;
+    public void setItemPrice(BigDecimal itemPrice) throws InvalidTransactionException {
+        if (itemPrice.compareTo(BigDecimal.ZERO) < 0 || itemPrice.compareTo(BigDecimal.ZERO) == 0) {
+            throw new InvalidTransactionException(">> Invalid item price.");
+        } else {
+            this.itemPrice = itemPrice;
+        }
     }
-    public void setDelFee(BigDecimal delFee) {
-        this.delFee = delFee;
+    public void setDelFee(BigDecimal delFee) throws InvalidTransactionException {
+        if (delFee.compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidTransactionException(">> Invalid delivery fee.");
+        } else {
+            this.delFee = delFee;
+        }
     }
     public void setTotAmount(BigDecimal totAmount) {
         this.totAmount = totAmount;

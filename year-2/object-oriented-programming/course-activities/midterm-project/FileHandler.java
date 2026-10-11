@@ -10,8 +10,20 @@ import java.util.ArrayList;
 public class FileHandler {
     private static File file = new File("Transactions.tsv");
 
+	private static void exCheck() {
+		if (!file.exists()) {
+			try {
+				System.out.println(">> Transaction file doesn't exist.");
+				file.createNewFile();
+				System.out.println(">> Transaction file created successfully.");
+			} catch (Exception e) {
+				System.out.println(">> An error occurred while trying to create the transaction file.");
+			}
+		}
+	}
+
     // Transaction_ID	Date	Last_Name	First_Name	Contact_Number	Delivery_Address	Item    Quantity    Item_Price  Delivery_Fee    Total_Amount	Payment_Method	Status
-    public static String toLine(Record record) {
+    private static String toLine(Record record) {
         ArrayList<Object> recordData = record.getRecordData();
         ArrayList<String> stringRecordData = new ArrayList<>();
 		
@@ -23,7 +35,12 @@ public class FileHandler {
     } 
 
     public static int getLastTranId() {
+		exCheck();
         int maxId = 0;
+		if (file.length() == 0) {
+			System.out.println(">> There are no transaction records.");
+			return maxId;
+		}
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -61,6 +78,10 @@ public class FileHandler {
 	}
 
 	public static ArrayList<Transaction> loadTransactions() {
+		if (file.length() == 0) {
+			System.out.println(">> There are no transaction records.");
+			return new ArrayList<>();
+		}
 		ArrayList<Transaction> transactions = new ArrayList<>();
 		String line;
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
