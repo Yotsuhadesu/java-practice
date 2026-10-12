@@ -2,6 +2,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents the 
+ * 
+ */
 public class Transaction implements Record {
     private int tranID;
     private LocalDate tranDate;
