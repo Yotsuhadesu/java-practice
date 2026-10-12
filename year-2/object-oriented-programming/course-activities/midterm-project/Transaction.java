@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * The data stored are encapsulated, and quantity, price, and delivery fee 
  * are checked before they are accepted.
  */
-public class Transaction implements Record {
+public class Transaction implements Record, IPersistable {
     private int tranID;
     private LocalDate tranDate;
     private String cusLastName;
@@ -62,6 +62,34 @@ public class Transaction implements Record {
         transactionData.add(this.payMethod);
         transactionData.add(this.tranStatus);
         return transactionData;
+    }
+    @Override 
+    public String toFileLine() {
+        ArrayList<Object> recordData = getRecordData();
+        ArrayList<String> stringRecordData = new ArrayList<>();
+		
+        for (Object data : recordData) {
+			stringRecordData.add(String.valueOf(data));
+        }
+
+        return String.join("\t", stringRecordData);
+    }
+    @Override 
+    public void fromFileLine(String line) {
+        String[] lineParts = line.split("\t");
+		this.tranID = Integer.parseInt(lineParts[0]); 
+		this.tranDate = LocalDate.parse(lineParts[1]); 
+		this.cusLastName = lineParts[2]; 
+		this.cusFirstName = lineParts[3]; 
+		this.cusConNum = lineParts[4]; 
+		this.delAddress = lineParts[5]; 
+		this.item = lineParts[6]; 
+		this.itemQuantity = Integer.parseInt(lineParts[7]); 
+		this.itemPrice = new BigDecimal(lineParts[8]); 
+		this.delFee = new BigDecimal(lineParts[9]); 
+		this.totAmount = new BigDecimal(lineParts[10]); 
+		this.payMethod = lineParts[11]; 
+		this.tranStatus = lineParts[12];
     }
     
     public void setTranID(int tranID) {
