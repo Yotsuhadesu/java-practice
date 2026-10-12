@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class TransactionRecord implements RecordManager {
     }
     @Override 
     public void updateRecord() {
-        int tranIndex = getRecordIndex();
+        int tranIndex = findRecord();
         if (tranIndex != -1) {
             Transaction transaction = transactions.get(tranIndex);
             System.out.println(">> Transaction record found.");
@@ -113,7 +114,7 @@ public class TransactionRecord implements RecordManager {
     }
     @Override 
     public void deleteRecord() {
-        int tranIndex = getRecordIndex();
+        int tranIndex = findRecord();
         if (tranIndex != -1) {
             Transaction transaction = transactions.get(tranIndex);
             System.out.println(">> Transaction record found.");
@@ -128,14 +129,27 @@ public class TransactionRecord implements RecordManager {
     }
     @Override 
     public void viewRecord() {
-        int tranIndex = getRecordIndex();
-        if (tranIndex != -1) {
-            Transaction transaction = transactions.get(tranIndex);
-            System.out.println(">> Transaction record found.");
-            InputHandler.showHeadTable();
-            showForTran(transaction);
-        } else {
-            return;
+        switch (InputHandler.acceptInt("""
+            [1] ID
+            [2] Last Name
+            Choice""")) {
+            case 1:
+                int tranIndex = findRecord();
+                if (tranIndex != -1) {
+                    Transaction transaction = transactions.get(tranIndex);
+                    System.out.println(">> Transaction record found.");
+                    InputHandler.showHeadTable();
+                    showForTran(transaction);
+                } else {
+                    System.out.println(">> Transaction ID does not exist.");
+                }
+                break;
+            case 2:
+                findRecord(InputHandler.acceptString("Last Name"));
+                break;
+            default:
+                System.out.println(">> Invalid choice.");
+                break;
         }
     }
     @Override 
@@ -146,7 +160,7 @@ public class TransactionRecord implements RecordManager {
         }
     }
     @Override 
-    public int getRecordIndex() {
+    public int findRecord() {
         int id = InputHandler.acceptId();
         int i = 0;
         for (Transaction transaction : transactions) {
@@ -156,6 +170,47 @@ public class TransactionRecord implements RecordManager {
             i++;
         }
         return -1;
+    }
+    @Override 
+    public void findRecord(String searchKey) {
+        boolean isFound = false;
+
+        InputHandler.showHeadTable();
+        for (Transaction transaction : transactions) {
+            if (transaction.getCusLastName().compareToIgnoreCase(searchKey) == 0) {
+                showForTran(transaction);
+                isFound = true;
+            }
+        }
+
+        if (!isFound) {
+            System.out.println(">> No matched last name.");
+        }
+    }
+
+    public void showTotalSales() {
+        BigDecimal total = BigDecimal.ZERO;
+        if (!transactions.isEmpty()) {
+            System.out.println(">> Calculating total sales.");
+            for (Transaction transaction : transactions) {
+                total = total.add(transaction.getTotAmount());
+            }
+        } else {
+            System.out.println(">> There are no transactions.");
+        }
+        System.out.println("Total Overall Sales: P" + total);
+    }
+    public void showPenTransactions() {
+        if (!transactions.isEmpty()) {
+            InputHandler.showHeadTable();
+            for (Transaction transaction : transactions) {
+                if (transaction.getTranStatus().equalsIgnoreCase("Pending")) {
+                    showForTran(transaction);
+                }
+            }
+        } else {
+            System.out.println(">> There are no transactions.");
+        }
     }
 
     public void showForTran(Transaction transaction) {

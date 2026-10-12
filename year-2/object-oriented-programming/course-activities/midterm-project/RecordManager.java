@@ -4,5 +4,6 @@ public interface RecordManager {
     void deleteRecord();
     void viewRecord();
     void viewList();
-    int getRecordIndex();
+    int findRecord();
+    void findRecord(String searchKey);
 }

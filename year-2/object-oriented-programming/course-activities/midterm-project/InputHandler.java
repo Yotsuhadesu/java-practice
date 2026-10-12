@@ -12,7 +12,9 @@ public class InputHandler {
                 [3] DELETE TRANSACTION RECORD
                 [4] VIEW TRANSACTION RECORD
                 [5] VIEW TRANSACTION LIST
-                [6] EXIT APPLICATION""");
+                [6] VIEW TOTAL SALES
+                [7] VIEW PENDING TRANSACTIONS
+                [0] EXIT APPLICATION""");
     }
 
     public static void showHeadTable() {

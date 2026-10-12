@@ -24,6 +24,12 @@ public class Main {
                     transactionRecord.viewList();
                     break;
                 case 6:
+                    transactionRecord.showTotalSales();
+                    break;
+                case 7:
+                    transactionRecord.showPenTransactions();
+                    break;
+                case 0:
                     System.out.println(">> Exiting the aquadel transaction recording app.");
                     return;
                 default:

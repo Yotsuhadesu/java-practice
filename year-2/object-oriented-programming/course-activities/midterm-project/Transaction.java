@@ -111,10 +111,6 @@ public class Transaction implements Record {
         this.tranStatus = tranStatus;
     }
    
-
-    public int getTranID() {
-        return this.tranID;
-    }
     public LocalDate getTranDate() {
         return this.tranDate;
     }
