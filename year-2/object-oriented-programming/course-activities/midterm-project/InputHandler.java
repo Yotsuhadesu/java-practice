@@ -1,6 +1,10 @@
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+/**
+ * A class that can be called directly to validate user inputs.
+ * Holds one private static Scanner object to accept inputs within the class.
+*/
 public class InputHandler {
     private static Scanner scanner = new Scanner(System.in);
 

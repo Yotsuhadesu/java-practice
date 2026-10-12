@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * A class that can be called directly to perform file operations.
+ * Contains one private static File object that represents Transactions.tsv.
+ */
 public class FileHandler {
     private static File file = new File("Transactions.tsv");
 

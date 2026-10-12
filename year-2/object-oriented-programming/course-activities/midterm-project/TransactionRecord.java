@@ -2,6 +2,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents the transactions inside Transactions.tsv
+ * Holds an ArrayList of Transaction objects,
+ * and add, update, delete, view, and search transaction methods.
+ */
 public class TransactionRecord implements RecordManager {
     private ArrayList<Transaction> transactions;
 
@@ -171,6 +176,13 @@ public class TransactionRecord implements RecordManager {
         }
         return -1;
     }
+    /**   
+     * Prints transaction in a table format if the recorded last name matches the search key.
+     * If no matches, the method prints ">> No matched last name."
+     * 
+     * @param searchKey the string that will be compared against every customer's last name
+     * @see RecordManager#findRecord(java.lang.String)
+     */
     @Override 
     public void findRecord(String searchKey) {
         boolean isFound = false;

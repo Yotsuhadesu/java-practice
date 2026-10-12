@@ -1,3 +1,7 @@
+/**
+ * The user interface program that holds a TransactionRecord object.
+ * Prompts the user to pick an operation and executes it.
+ */
 public class Main {
     public static void main(String[] args) {
         TransactionRecord transactionRecord = new TransactionRecord();

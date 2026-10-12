@@ -3,8 +3,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Represents the 
- * 
+ * Represents one transaction in the Transactions.tsv file.
+ * The data stored are encapsulated, and quantity, price, and delivery fee 
+ * are checked before they are accepted.
  */
 public class Transaction implements Record {
     private int tranID;
@@ -84,20 +85,38 @@ public class Transaction implements Record {
     public void setItem(String item) {
         this.item = item;
     }
-    public void setItemQuantity(int itemQuantity) throws InvalidTransactionException {
+    /**
+     * Set the item's quantity.
+     * 
+     * @param itemQuantity the item quantity
+     * @throws InvalidQuantityException if the quantity is less than or equal to zero
+     */
+    public void setItemQuantity(int itemQuantity) throws InvalidQuantityException {
         if (itemQuantity <= 0) {
-            throw new InvalidTransactionException(">> Invalid item quantity.");
+            throw new InvalidQuantityException(">> Invalid item quantity.");
         } else {
             this.itemQuantity = itemQuantity;
         }
     }
-    public void setItemPrice(BigDecimal itemPrice) throws InvalidTransactionException {
+    /**
+     * Sets the item's price.
+     * 
+     * @param itemPrice the price of the item
+     * @throws InvalidPriceException if the item price is less than or equal to zero
+     */
+    public void setItemPrice(BigDecimal itemPrice) throws InvalidPriceException {
         if (itemPrice.compareTo(BigDecimal.ZERO) < 0 || itemPrice.compareTo(BigDecimal.ZERO) == 0) {
-            throw new InvalidTransactionException(">> Invalid item price.");
+            throw new InvalidPriceException(">> Invalid item price.");
         } else {
             this.itemPrice = itemPrice;
         }
     }
+    /**
+     * Sets the delivery fee.
+     * 
+     * @param delFee the delivery fee
+     * @throws InvalidTransactionException if the delivery fee is less than zero
+     */
     public void setDelFee(BigDecimal delFee) throws InvalidTransactionException {
         if (delFee.compareTo(BigDecimal.ZERO) < 0) {
             throw new InvalidTransactionException(">> Invalid delivery fee.");
@@ -142,6 +161,11 @@ public class Transaction implements Record {
     public BigDecimal getDelFee() {
         return this.delFee;
     }
+    /**
+     * This computes the total amount by multiplying the item price and quantity, 
+     * and then adding the delivery fee.
+     * Call this only after the price, quantity, and delivery fee are set.
+     */
     public void compTotAmount() {
         this.totAmount = this.itemPrice.multiply(new BigDecimal(String.valueOf(this.itemQuantity))).add(this.delFee);
     }
